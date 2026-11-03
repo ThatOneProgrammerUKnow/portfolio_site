@@ -69,3 +69,25 @@ Decisions (and why):
 Files created / changed: package.json, package-lock.json, src/index.css, src/components/ButtonLink/ButtonLink.jsx, src/components/OrbNav/OrbNav.jsx + test, 7 section files (icon imports), src/components/Icon/ (deleted), docs/*
 Waiting for approval: unchanged; also consider updating design.md to say "burger icon" + "Lucide icons".
 Next: as before.
+
+## 2026-11-03: M-8 (Sanity schemas)
+Done:
+- Sanity Studio schemas in `studio/` (JS, `defineType`/`defineField`/`defineArrayMember`, per sanity.io/docs): singletons `siteSettings`, `homePage`, `aboutPage`, `projectsPage`, `contactPage`; document `project`; objects `accentTitle`, `link`, `imageWithAlt`.
+- `studio/sanity.config.js` uses the built-in `document.singletons` API (Studio v6.17+) and `structure.js` with `.singletons()`.
+- Installed the Studio in `studio/` (own package.json: sanity 6.22, react, react-dom, styled-components; approved by user). Project ID `otbb6ulw` / dataset `production` in `studio/.env` (git-ignored). Added `sanity.cli.js`.
+- `npx sanity schema validate`: 0 errors, 0 warnings. `npm run dev` serves the Studio at http://localhost:3333.
+- Imported all JSON content into the `production` dataset with `studio/scripts/importContent.js` (10 published documents + CV PDF asset; on user instruction, copied verbatim). `npx sanity documents validate`: 10 valid, 0 errors, 0 warnings; references resolve.
+- Front end unchanged (still reads JSON). 31 tests pass, `npm run build` passes.
+Decisions (and why):
+- Studio in its own `studio/` folder so Sanity's dependencies never enter the front-end bundle.
+- Schemas mirror the JSON shapes so content migration is a straight copy. Exceptions are listed in docs/sanity.md (projects as documents, references for "next project" and home "selected work", CV as a file upload).
+- Alt text is required as soon as an image is uploaded (WCAG). The image type has no built-in alt, so it's a field on the image, as the docs show.
+- This replaces the earlier "No CMS" decision, at the user's request.
+- Import uses `sanity exec --with-user-token` (the CLI login) so no API token is created or stored. Fixed IDs make it re-runnable, but a re-run overwrites Studio edits.
+Files created / changed: studio/** (new), docs/sanity.md (new), docs/README.md, docs/progress.md, .gitignore (.sanity)
+Waiting for approval:
+- **Libraries**: front end will need `@sanity/client` + `@sanity/image-url` when it switches to Sanity.
+- **Security**: `npm audit` in studio/ shows 3 high / 16 moderate, all in Sanity CLI tooling (js-yaml, smol-toml, undici; dev machine only). Only fix offered is downgrading to sanity 6.1.0 (loses singletons), so not applied. Re-check after updating sanity.
+- **Project setup**: `PROJECT.md` still doesn't exist; it should say "CMS: Sanity".
+Next: upload photos in the Studio, then switch the front end to fetch from Sanity (`src/services/`).
+

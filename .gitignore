@@ -8,3 +8,6 @@ coverage
 .vscode/*
 !.vscode/extensions.json
 .DS_Store
+
+# Sanity Studio
+.sanity
