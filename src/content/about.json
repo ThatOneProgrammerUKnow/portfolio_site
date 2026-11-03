@@ -1,0 +1,101 @@
+{
+  "hero": {
+    "eyebrow": "About",
+    "title": { "before": "I found software by ", "highlight": "fixing things." },
+    "paragraphs": [
+      "I matriculated from High School Stellenberg in 2024 with IT, Engineering Graphics & Design, Maths and Physical Sciences. In 2025 I took a gap year: I improved my Maths and Physical Sciences results and worked three hands-on roles, repairing variable speed drives, roasting coffee and running facilities at my church.",
+      "Somewhere between a returns registry and a coffee roaster, I found software engineering. Now I build websites full-time, study part-time, and build my own products after hours."
+    ],
+    "cta": { "label": "Download CV", "linkKey": "cv" },
+    "image": { "src": null, "alt": "", "placeholder": "[Your photo: casual, e.g. behind the espresso machine]" }
+  },
+  "experience": {
+    "eyebrow": "Experience",
+    "title": "Where I've worked.",
+    "roles": [
+      {
+        "period": "Mar 2026 – now",
+        "current": true,
+        "role": "Junior Web Developer",
+        "company": "Teclogix",
+        "bullets": [
+          "Build and customise client websites in WordPress with the team, writing custom code where themes fall short.",
+          "Introduced Microsoft Planner and Figma to the team; both are now part of the daily workflow.",
+          "Set up and manage client DNS records, and design assets in Illustrator, Figma and Canva.",
+          "Work directly with clients, from first brief through to launch."
+        ]
+      },
+      {
+        "period": "Apr 2026 – now",
+        "current": true,
+        "role": "Founder",
+        "company": "OrbTech",
+        "text": "My product studio, where I design and build SaaS apps. First up: Budget Tracker, a mobile budgeting app on React Native and Spring Boot."
+      },
+      {
+        "period": "Aug – Oct 2025",
+        "current": false,
+        "role": "Coffee Roastery Intern",
+        "company": "Terroir Coffee Roasters",
+        "text": "Handled sales, roasting, packaging and deliveries, and learnt first-hand how a small business runs."
+      },
+      {
+        "period": "Apr – Jul 2025",
+        "current": false,
+        "role": "Technical & Warehouse Intern",
+        "company": "WEG Cape Town",
+        "text": "Tested and repaired variable speed drives, wrote client reports, and pitched and built a new returns system for the branch."
+      },
+      {
+        "period": "Jan – Mar 2025",
+        "current": false,
+        "role": "Facilities Assistant Intern",
+        "company": "Tygerberg Gesinskerk",
+        "text": "Managed the youth database, ran inventory and event logistics, and did general maintenance."
+      }
+    ]
+  },
+  "leadership": {
+    "eyebrow": "Leadership",
+    "title": "Leading at my church.",
+    "intro": "Tygerberg Gesinskerk, since 2019. This is where I learnt to recruit, train and lead people.",
+    "link": { "before": "(Visit us at ", "label": "gesingkerk.co.za", "href": "https://gesingkerk.co.za", "after": ")" },
+    "roles": [
+      { "period": "2021", "title": "Youth band co-founder", "text": "Recruited and led the band, led on vocals and rhythm guitar, and ran the sound system." },
+      { "period": "2022 – now", "title": "Barista team leader", "text": "Recruit, train and manage baristas, and built the system we use to serve coffee at services and events." },
+      { "period": "2019 – 2025", "title": "Sunday school leader", "text": "Managed a team running weekly sessions for children." }
+    ]
+  },
+  "learning": {
+    "eyebrow": "Certifications & education",
+    "title": "Always learning.",
+    "items": [
+      { "title": "AWS Certified Cloud Practitioner", "detail": "Amazon Web Services · 2026" },
+      { "title": "Microsoft Azure Fundamentals (AZ-900)", "detail": "In progress · prelim passed · exam 11 November" },
+      { "title": "Diploma in Software Engineering (NQF 6)", "detail": "CTU Training Solutions · 2026 – 2027 · part-time" },
+      { "title": "National Senior Certificate", "detail": "Hoërskool Stellenberg · 2024" }
+    ]
+  },
+  "techStack": {
+    "eyebrow": "Tech stack",
+    "title": "What I build with.",
+    "groups": [
+      { "label": "Languages", "items": ["Java", "Python", "JavaScript", "HTML/CSS", "Delphi"] },
+      { "label": "Frameworks", "items": ["Spring Boot", "Django", "React", "React Native", "Tailwind", "WordPress"] },
+      { "label": "Data & cloud", "items": ["PostgreSQL", "Docker", "AWS", "Azure", "DNS"] },
+      { "label": "Ways of working", "items": ["Spec-driven development", "REST APIs", "Git", "Figma", "Planner / Trello"] }
+    ]
+  },
+  "beyondCode": {
+    "eyebrow": "Beyond code",
+    "title": "Life outside the editor.",
+    "items": [
+      { "caption": "Adventures with my girlfriend", "image": { "src": null, "alt": "", "placeholder": "[photo with your girlfriend]" } },
+      { "caption": "Guitar, piano and vocals", "image": { "src": null, "alt": "", "placeholder": "[singing photo]" } },
+      { "caption": "Specialty coffee", "image": { "src": null, "alt": "", "placeholder": "[barista photo]" } },
+      { "caption": "Hiking and camping", "image": { "src": null, "alt": "", "placeholder": "[hiking photo]" } },
+      { "caption": "3D printing fixes and prototypes", "image": { "src": null, "alt": "", "placeholder": "[3D design photo]" } },
+      { "caption": "Reading", "image": { "src": null, "alt": "", "placeholder": "[books photo]" } }
+    ]
+  }
+}

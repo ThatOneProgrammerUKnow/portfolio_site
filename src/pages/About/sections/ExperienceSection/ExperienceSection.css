@@ -1,0 +1,85 @@
+.experience__inner {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 48px;
+}
+
+.experience__header {
+  align-self: start;
+  position: sticky;
+  top: 112px;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 48px;
+}
+
+/* Vertical line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 0;
+  left: 7px;
+  width: 2px;
+  background: var(--border);
+}
+
+.timeline__item {
+  position: relative;
+  padding-left: 40px;
+}
+
+/* Outlined dot = past role */
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+/* Filled dot with soft ring = current role */
+.timeline__item.is-current::before {
+  border: 0;
+  background: var(--primary);
+  box-shadow: 0 0 0 5px var(--primary-soft);
+}
+
+.timeline__title {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2vw, 26px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.timeline__text {
+  margin-top: 14px;
+}
+
+.timeline__bullets {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding-left: 20px;
+  color: var(--text-muted);
+  list-style: circle;
+}
+
+@media (max-width: 1024px) {
+  .experience__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .experience__header {
+    position: static;
+  }
+}
