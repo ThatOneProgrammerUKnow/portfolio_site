@@ -45,3 +45,13 @@ Waiting for approval:
 
 Next:
 - Add photos, CV and LinkedIn once supplied; review mobile once designs exist; choose hosting (needs SPA fallback to `index.html`).
+
+## 2026-11-03: M-6 (developer docs)
+Done:
+- Developer docs in `docs/`: `README.md` (start here: run commands, folder map, how a page renders, "I want to…" table, recipes), `navigation.md` (Layout + OrbNav walkthrough), `pages.md` (every page/section → file, JSON key, classes), `components.md` (shared components + props), `content-and-images.md` (editing content, links, CV, every image slot with sizes), `styling.md` (tokens, global classes, naming, breakpoints).
+Decisions (and why):
+- Docs live in the repo as Markdown next to the code, so they're versioned with it and readable in VS Code / GitHub.
+- No line numbers in docs (they go stale); docs link to files and name classes/functions instead.
+Files created / changed: docs/README.md, docs/navigation.md, docs/pages.md, docs/components.md, docs/content-and-images.md, docs/styling.md, docs/progress.md
+Waiting for approval: unchanged (see previous entry).
+Next: keep docs updated when sections/components change.
