@@ -1,0 +1,137 @@
+.selected-work__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.selected-work__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.selected-work__list {
+  display: grid;
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.project-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 220px 44px;
+  align-items: center;
+  gap: 32px;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.project-row:has(.project-row__link:focus-visible) {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.project-row__image {
+  height: 112px;
+}
+
+.project-row__meta {
+  color: var(--primary);
+}
+
+.project-row__title {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.project-row__link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.project-row__link:focus-visible {
+  outline: none;
+}
+
+/* Stretch the title link over the whole card */
+.project-row__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.project-row:hover .project-row__link {
+  color: var(--primary-hover);
+}
+
+.project-row__text {
+  margin-top: 6px;
+}
+
+.project-row__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+}
+
+@media (max-width: 1024px) {
+  .project-row {
+    grid-template-columns: 150px minmax(0, 1fr) 44px;
+  }
+
+  .project-row__stack {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: -20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .selected-work__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-row {
+    grid-template-columns: 1fr 44px;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .project-row__image {
+    grid-column: 1 / -1;
+    height: 180px;
+  }
+
+  .project-row__main {
+    grid-column: 1;
+  }
+
+  .project-row__stack {
+    grid-column: 1;
+    grid-row: auto;
+    margin-top: 0;
+  }
+
+  .project-row__arrow {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+  }
+}
