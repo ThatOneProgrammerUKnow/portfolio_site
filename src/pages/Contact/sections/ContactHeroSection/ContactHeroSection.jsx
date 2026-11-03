@@ -1,11 +1,13 @@
 import { ArrowRight } from 'lucide-react';
-import site from '../../../../content/site.json';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import Headline from '../../../../components/Headline/Headline';
 import { getSiteLink } from '../../../../utils/links';
+import useSite from '../../../../hooks/useSite';
 import './ContactHeroSection.css';
 
 export default function ContactHeroSection({ content }) {
+  const site = useSite();
+
   return (
     <section className="contact-hero">
       <div className="container contact-hero__inner">
@@ -15,7 +17,7 @@ export default function ContactHeroSection({ content }) {
             <Headline title={content.title} />
           </h1>
           <p className="lead contact-hero__lead">{content.lead}</p>
-          <ButtonLink href={getSiteLink('email').href} size="lg" icon={ArrowRight} className="contact-hero__email">
+          <ButtonLink href={getSiteLink(site.links, 'email').href} size="lg" icon={ArrowRight} className="contact-hero__email">
             {site.email}
           </ButtonLink>
         </div>

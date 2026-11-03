@@ -91,3 +91,28 @@ Waiting for approval:
 - **Project setup**: `PROJECT.md` still doesn't exist; it should say "CMS: Sanity".
 Next: upload photos in the Studio, then switch the front end to fetch from Sanity (`src/services/`).
 
+## 2026-11-03: M-9 (front end reads Sanity; src/content removed)
+Done:
+- Front end now fetches all content from Sanity: `src/services/` (`sanity.js` fetch client, `queries.js` GROQ, `content.js` one function per page). React Router loaders in `routes.jsx`; root route loads Site settings (`useSite()` hook), pages use `useLoaderData()`.
+- GROQ projections return the exact old JSON shapes, so sections are unchanged. Verified against the live dataset: identical to the JSON except the CV URL (now the Sanity file).
+- `src/content/` deleted (with `content.test.js`); `utils/projects.js` deleted (the detail loader redirects instead). Import script removed (one-off, done; in git history).
+- `Logo`, `OrbNav`, `Footer` take site data as props from `Layout`. Link helpers take `links` as an argument.
+- Images: `ImageSlot` requests Sanity images at 2× slot width with `auto=format` (WebP/AVIF). CV downloads in place via Sanity's `?dl=`; `SmartLink` checks downloads before external links.
+- New root `ErrorPage` (error boundary) when Sanity can't be reached or a page document is missing.
+- CORS origins added: localhost:5173 (dev), localhost:4173 (preview).
+- Tests: 37 pass (content service mocked with `src/test/fixtures.js`; new `services.test.js` for URL building, no credentials, errors; error page + CV download route tests). `npm run build` passes; main bundle 120 → 108 KB gzipped. No token-like strings in the bundle.
+Decisions (and why):
+- **Plain `fetch`, no `@sanity/client` / `@sanity/image-url`**: read-only public queries and CDN image params are a few lines each; avoids two dependencies.
+- **Loaders in `routes.jsx`** (React Router docs pattern, not `useEffect`): content request runs in parallel with the lazy page chunk; React Router keeps the old page visible while the next one loads.
+- **Shapes kept identical to the old JSON** (projection in GROQ) so no section had to change and Studio fields map 1:1 to `content.*`.
+- **Links to projects derived from references**: `/projects/<slug>` with a case study, else `/projects#<slug>`.
+- Content correctness (links, required fields) is now enforced by the Studio's validation (`npx sanity documents validate`) instead of `content.test.js`.
+Files created / changed: src/services/* (new), src/hooks/useSite.js, src/utils/images.js, src/constants/fallbackText.js, src/components/ErrorPage/*, src/test/fixtures.js, src/services/services.test.js (new); src/routes.jsx, src/routes.test.jsx, src/utils/links.js, src/utils/utils.test.js, Layout, Logo, OrbNav (+ test), Footer, PageMeta, SmartLink, ImageSlot, 5 pages, 5 sections; .env.example (new); src/content/ and src/utils/projects.js (deleted); studio/scripts (deleted); docs/*
+Waiting for approval:
+- **Design**: the error page has no approved design (reuses global eyebrow/lead/button styles). No loading indicator on first visit (blank until content arrives, ~100–300 ms) because there's no design for one.
+- **Content**: error-page wording in `src/constants/fallbackText.js` (only copy not in Sanity).
+- **Deploy**: add the live domain to Sanity CORS origins; set `VITE_SANITY_PROJECT_ID` / `VITE_SANITY_DATASET` on the host.
+- `public/cv/Kobus-van-Schalkwyk-CV.pdf` is no longer used (CV served from Sanity). Delete it?
+- `PROJECT.md` still doesn't exist; it should say "CMS: Sanity".
+Next: check the site in a browser (`npm run dev`), upload photos in the Studio, choose hosting.
+

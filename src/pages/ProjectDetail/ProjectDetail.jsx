@@ -1,6 +1,4 @@
-import { Navigate, useParams } from 'react-router';
-import content from '../../content/projects.json';
-import { findProjectWithDetail } from '../../utils/projects';
+import { useLoaderData } from 'react-router';
 import PageMeta from '../../components/PageMeta/PageMeta';
 import ProjectHeaderSection from './sections/ProjectHeaderSection/ProjectHeaderSection';
 import ProjectScreensSection from './sections/ProjectScreensSection/ProjectScreensSection';
@@ -8,21 +6,17 @@ import ProjectStorySection from './sections/ProjectStorySection/ProjectStorySect
 import NextProjectSection from './sections/NextProjectSection/NextProjectSection';
 
 export default function ProjectDetail() {
-  const { slug } = useParams();
-  const project = findProjectWithDetail(slug);
-
-  // Only projects with a case study in content have a detail page.
-  if (!project) return <Navigate to="/projects" replace />;
-
+  // The route loader redirects to /projects when there's no case study, so `project` is always set.
+  const { project, backLink, nextLabel } = useLoaderData();
   const { detail } = project;
 
   return (
     <>
       <PageMeta title={project.title} description={project.summary} />
-      <ProjectHeaderSection project={project} backLabel={content.backLink} />
+      <ProjectHeaderSection project={project} backLabel={backLink} />
       <ProjectScreensSection screens={detail.screens} />
       <ProjectStorySection detail={detail} />
-      <NextProjectSection next={detail.next} label={content.nextLabel} />
+      <NextProjectSection next={detail.next} label={nextLabel} />
     </>
   );
 }

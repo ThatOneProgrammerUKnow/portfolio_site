@@ -1,10 +1,10 @@
 # Pages & sections
 
-Every page, top to bottom: which file renders each part, which JSON key feeds it, and its CSS classes.
+Every page, top to bottom: which file renders each part, which Sanity field feeds it, and its CSS classes.
 
 How to read the tables:
 - **Section**: the component, in `src/pages/<Page>/sections/<Name>/<Name>.jsx` with its `.css` next to it.
-- **JSON**: the key in that page's content file that the section receives as `content`.
+- **Field**: the field group in that page's Sanity document that the section receives as `content` (same name in the Studio, e.g. `hero` = Hero).
 - **Classes**: the main classes, so you can find them in the CSS or in the browser dev tools. Every section's classes start with its own prefix (e.g. `home-hero__…`), so a search for the prefix finds everything.
 
 Images are marked 🖼; see [content-and-images.md](content-and-images.md#images) for sizes and how to add them.
@@ -13,30 +13,30 @@ Images are marked 🖼; see [content-and-images.md](content-and-images.md#images
 
 ## Home: `/`
 
-Page: [src/pages/Home/Home.jsx](../src/pages/Home/Home.jsx) · Content: [src/content/home.json](../src/content/home.json) · Design: `design/home-desktop.png`
+Page: [src/pages/Home/Home.jsx](../src/pages/Home/Home.jsx) · Content: Studio → **Home page** · Design: `design/home-desktop.png`
 
-| # | Section | JSON | Classes | What it is |
+| # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
 | 1 | `HeroSection` | `hero` | `.home-hero`, `__badge`, `__title`, `__lead`, `__actions`, `__visual`, `__ring`, `__photo`, `__tag--1/2/3`, `__tag--light/dark` | Badge pill, big H1 with blue highlight, intro, "See my work" + "Download CV" buttons, round portrait in a blue ring with 3 floating tags |
 | 2 | `HowIWorkSection` | `howIWork` | `.how-i-work`, `__steps`, `__step`, `__number`, `__line`, `__title`, `__body`, `__images`, `__image` | White band, "Three things I do on purpose": 3 numbered steps; step 03 has 3 round photos |
 | 3 | `SelectedWorkSection` | `selectedWork` | `.selected-work`, `__header`, `__all`, `__list`; rows: `.project-row`, `__image`, `__meta`, `__title`, `__link`, `__text`, `__stack`, `__arrow` | "Things I've built": 3 clickable project rows + "All projects →" |
 | 4 | `RightNowSection` | `rightNow` | `.right-now`, `__panel`, `__intro`, `__title`, `__items`, `__item`, `__label`, `__text` | Blue rounded panel, "What I'm busy with", 2×2 list |
-| 5 | `ContactCtaSection` | `contactCta` | `.contact-cta`, `__orb`, `__title`, `__button` | Small orb, "Got a problem worth solving?", dark email button (email from `site.json`) |
+| 5 | `ContactCtaSection` | `contactCta` | `.contact-cta`, `__orb`, `__title`, `__button` | Small orb, "Got a problem worth solving?", dark email button (email from Site settings) |
 
 Notes:
 - 🖼 **Hero portrait**: `hero.image`. It's the most important image on the site and loads first (`eager`, `fetchpriority="high"`).
 - 🖼 **Step 03 circles**: `howIWork.steps[2].images` (coffee, music, hiking).
-- 🖼 **Project row thumbnails**: `selectedWork.projects[n].image`. These are separate from the ones in `projects.json`.
+- 🖼 **Project row thumbnails**: `selectedWork.projects[n].image`. These are separate from the Project documents' images.
 - Each project row is one big link: the title `<a>` stretches over the whole card with `.project-row__link::after`. The arrow circle is decoration.
-- Tag colours: `"tone": "light"` = white pill, `"tone": "dark"` = navy pill. Positions come from `.home-hero__tag--1`, `--2`, `--3` (by order in the JSON).
+- Tag colours: `"tone": "light"` = white pill, `"tone": "dark"` = navy pill. Positions come from `.home-hero__tag--1`, `--2`, `--3` (by order in the Studio).
 
 ---
 
 ## About: `/about`
 
-Page: [src/pages/About/About.jsx](../src/pages/About/About.jsx) · Content: [src/content/about.json](../src/content/about.json) · Design: `design/about-desktop.png`
+Page: [src/pages/About/About.jsx](../src/pages/About/About.jsx) · Content: Studio → **About page** · Design: `design/about-desktop.png`
 
-| # | Section | JSON | Classes | What it is |
+| # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
 | 1 | `AboutHeroSection` | `hero` | `.about-hero`, `__title`, `__body`, `__cta`, `__visual`, `__circle`, `__photo` | H1 "I found software by fixing things.", 2 paragraphs, Download CV, arch-shaped photo with a blue circle behind it |
 | 2 | `ExperienceSection` | `experience` | `.experience`, `__header` (sticky on desktop); `.timeline`, `__item`, `.is-current`, `__title`, `__bullets`, `__text` | White band, "Where I've worked": vertical timeline |
@@ -54,9 +54,9 @@ Notes:
 
 ## Projects: `/projects`
 
-Page: [src/pages/Projects/Projects.jsx](../src/pages/Projects/Projects.jsx) · Content: [src/content/projects.json](../src/content/projects.json) · Design: `design/projects-desktop.png`
+Page: [src/pages/Projects/Projects.jsx](../src/pages/Projects/Projects.jsx) · Content: Studio → **Projects page** + **Project** documents · Design: `design/projects-desktop.png`
 
-| # | Section | JSON | Classes | What it is |
+| # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
 | 1 | `ProjectsHeroSection` | `hero` | `.projects-hero`, `__title`, `__lead` | H1 "Problems I spotted, and what I built for them." |
 | 2 | `FeaturedProjectSection` | the project with `"featured": true` + `featuredCta` | `.featured-project`, `__panel`, `__text`, `__meta`, `__title`, `__summary`, `__cta`, `__phones`, `__phone` | Big blue panel with 2 phone screens + "Read the case study" |
@@ -73,11 +73,11 @@ Notes:
 
 ## Project detail: `/projects/:slug`
 
-Page: [src/pages/ProjectDetail/ProjectDetail.jsx](../src/pages/ProjectDetail/ProjectDetail.jsx) · Content: the project's `detail` block in `projects.json` · Design: `design/project-budget-tracker-desktop.png`
+Page: [src/pages/ProjectDetail/ProjectDetail.jsx](../src/pages/ProjectDetail/ProjectDetail.jsx) · Content: the project's **Case study** tab (+ back/next labels from **Projects page**) · Design: `design/project-budget-tracker-desktop.png`
 
-This is a **template**: one page component serves any project. `:slug` in the URL is read with `useParams()`, then `findProjectWithDetail(slug)` (in `utils/projects.js`) looks it up. If the project doesn't exist **or has no `detail` block**, the visitor is redirected to `/projects`. Today only `budget-tracker` has one.
+This is a **template**: one page component serves any project. The route loader in `routes.jsx` calls `getProjectDetail(slug)` (`src/services/content.js`). If the project doesn't exist **or has "Has a case study page" switched off**, the loader redirects to `/projects`. Today only `budget-tracker` has one.
 
-| # | Section | JSON | Classes | What it is |
+| # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
 | 1 | `ProjectHeaderSection` | `title`, `meta`, `summary`, `detail.facts`, top-level `backLink` | `.project-header`, `__back`, `__meta`, `__title`, `__summary`, `__facts`, `__fact` | "← All projects", H1, summary, white facts strip (Role / Status / Platforms / Stack) |
 | 2 | `ProjectScreensSection` | `detail.screens` | `.project-screens`, `__panel`, `__phone` | Blue panel with 3 phone screens (middle one lower) |
@@ -86,22 +86,22 @@ This is a **template**: one page component serves any project. `:slug` in the UR
 
 Notes:
 - 🖼 **Three phone screens**: `detail.screens[0..2]`.
-- Step numbers (`01`, `02`…) are generated from the order, so don't type them in the JSON.
+- Step numbers (`01`, `02`…) are generated from the order, so there's no number field for them.
 
 ---
 
 ## Contact: `/contact`
 
-Page: [src/pages/Contact/Contact.jsx](../src/pages/Contact/Contact.jsx) · Content: [src/content/contact.json](../src/content/contact.json) · Design: `design/contact-desktop.png`
+Page: [src/pages/Contact/Contact.jsx](../src/pages/Contact/Contact.jsx) · Content: Studio → **Contact page** · Design: `design/contact-desktop.png`
 
-| # | Section | JSON | Classes | What it is |
+| # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
-| 1 | `ContactHeroSection` | `hero` (+ `site.json → email`) | `.contact-hero`, `__title`, `__lead`, `__email`, `__orb` | "Let's talk.", big blue email button, large decorative orb (hidden below 1024px) |
+| 1 | `ContactHeroSection` | `hero` (+ Site settings → email) | `.contact-hero`, `__title`, `__lead`, `__email`, `__orb` | "Let's talk.", big blue email button, large decorative orb (hidden below 1024px) |
 | 2 | `ContactCardsSection` | `cards` | `.contact-cards`, `__list`; `.contact-card`, `__title`, `__link`, `__text` | 4 cards: LinkedIn, GitHub, CV, Based in |
 
 Notes:
 - A card has **either** `"link": { "label", "linkKey" }` (shows a blue link) **or** `"text"` (shows grey text, like "South Africa").
-- `linkKey` points into `site.json → links`, so the URL is only stored once.
+- `linkKey` (Shared link) points into Site settings → Shared links, so the URL is only stored once.
 
 ---
 

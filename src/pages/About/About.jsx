@@ -1,4 +1,4 @@
-import content from '../../content/about.json';
+import { useLoaderData } from 'react-router';
 import PageMeta from '../../components/PageMeta/PageMeta';
 import AboutHeroSection from './sections/AboutHeroSection/AboutHeroSection';
 import ExperienceSection from './sections/ExperienceSection/ExperienceSection';
@@ -7,6 +7,8 @@ import LearningSection from './sections/LearningSection/LearningSection';
 import BeyondCodeSection from './sections/BeyondCodeSection/BeyondCodeSection';
 
 export default function About() {
+  const content = useLoaderData();
+
   return (
     <>
       <PageMeta title={content.hero.eyebrow} description={content.hero.paragraphs[1]} />

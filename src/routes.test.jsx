@@ -1,8 +1,22 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import { routes } from './routes';
-import home from './content/home.json';
+import * as content from './services/content';
+import * as fixtures from './test/fixtures';
+
+vi.mock('./services/content');
+
+beforeEach(() => {
+  vi.mocked(content.getSite).mockResolvedValue(fixtures.site);
+  vi.mocked(content.getHomePage).mockResolvedValue(fixtures.home);
+  vi.mocked(content.getAboutPage).mockResolvedValue(fixtures.about);
+  vi.mocked(content.getProjectsPage).mockResolvedValue(fixtures.projectsPage);
+  vi.mocked(content.getContactPage).mockResolvedValue(fixtures.contact);
+  vi.mocked(content.getProjectDetail).mockImplementation(async (slug) =>
+    slug === fixtures.projectDetail.project.slug ? fixtures.projectDetail : null,
+  );
+});
 
 function renderAt(path) {
   const router = createMemoryRouter(routes, { initialEntries: [path] });
@@ -16,11 +30,11 @@ async function findH1() {
 
 describe('routes', () => {
   it.each([
-    ['/', /I spot the problem, pitch the fix, and get it done\./],
-    ['/about', /I found software by fixing things\./],
-    ['/projects', /Problems I spotted, and what I built for them\./],
-    ['/projects/budget-tracker', /^Budget Tracker$/],
-    ['/contact', /Let's talk\./],
+    ['/', /^Home title\.$/],
+    ['/about', /^About title\.$/],
+    ['/projects', /^Projects title\.$/],
+    ['/projects/alpha', /^Alpha$/],
+    ['/contact', /^Contact title\.$/],
   ])('%s renders its page with exactly one h1', async (path, heading) => {
     renderAt(path);
     expect(await findH1()).toHaveTextContent(heading);
@@ -36,7 +50,7 @@ describe('routes', () => {
   });
 
   it('redirects projects without a case study to the projects page', async () => {
-    const router = renderAt('/projects/brighthire');
+    const router = renderAt('/projects/beta');
     await findH1();
     expect(router.state.location.pathname).toBe('/projects');
   });
@@ -44,15 +58,17 @@ describe('routes', () => {
   it('home lists the selected projects as links', async () => {
     renderAt('/');
     await findH1();
-    home.selectedWork.projects.forEach((project) => {
+    fixtures.home.selectedWork.projects.forEach((project) => {
       expect(screen.getByRole('link', { name: project.title })).toHaveAttribute('href', project.to);
     });
   });
 
-  it('opens every external link safely in a new tab', async () => {
+  it('opens every external (non-download) link safely in a new tab', async () => {
     renderAt('/about');
     await findH1();
-    const external = screen.getAllByRole('link').filter((link) => /^https?:/.test(link.getAttribute('href')));
+    const external = screen
+      .getAllByRole('link')
+      .filter((link) => /^https?:/.test(link.getAttribute('href')) && !link.hasAttribute('download'));
     expect(external.length).toBeGreaterThan(0);
     external.forEach((link) => {
       expect(link).toHaveAttribute('target', '_blank');
@@ -60,17 +76,26 @@ describe('routes', () => {
     });
   });
 
+  it('CV links download in place', async () => {
+    renderAt('/about');
+    await findH1();
+    const cv = within(screen.getByRole('main')).getByRole('link', { name: /download cv/i });
+    expect(cv).toHaveAttribute('href', fixtures.site.links.cv.href);
+    expect(cv).toHaveAttribute('download');
+    expect(cv).not.toHaveAttribute('target');
+  });
+
   it('contact page has an email button and social cards', async () => {
     renderAt('/contact');
     await findH1();
     const main = screen.getByRole('main');
-    expect(within(main).getByRole('link', { name: /kobus\.vs\.2006@gmail\.com/ })).toHaveAttribute(
+    expect(within(main).getByRole('link', { name: fixtures.site.email })).toHaveAttribute(
       'href',
-      'mailto:kobus.vs.2006@gmail.com',
+      fixtures.site.links.email.href,
     );
     expect(within(main).getByRole('link', { name: 'See my code' })).toHaveAttribute(
       'href',
-      'https://github.com/ThatOneProgrammerUKnow',
+      fixtures.site.links.github.href,
     );
   });
 
@@ -78,5 +103,13 @@ describe('routes', () => {
     renderAt('/');
     await findH1();
     expect(screen.getByRole('link', { name: /skip to content/i })).toHaveAttribute('href', '#main');
+  });
+
+  it('shows the error page when content cannot be loaded', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    vi.mocked(content.getHomePage).mockRejectedValue(new Error('Sanity query failed (500)'));
+    renderAt('/');
+    expect(await findH1()).toHaveTextContent(/couldn't load/i);
+    expect(screen.getByRole('link', { name: /try again/i })).toHaveAttribute('href', '/');
   });
 });

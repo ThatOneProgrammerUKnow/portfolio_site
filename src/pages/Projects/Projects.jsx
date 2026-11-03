@@ -1,10 +1,11 @@
-import content from '../../content/projects.json';
+import { useLoaderData } from 'react-router';
 import PageMeta from '../../components/PageMeta/PageMeta';
 import ProjectsHeroSection from './sections/ProjectsHeroSection/ProjectsHeroSection';
 import FeaturedProjectSection from './sections/FeaturedProjectSection/FeaturedProjectSection';
 import ProjectGridSection from './sections/ProjectGridSection/ProjectGridSection';
 
 export default function Projects() {
+  const content = useLoaderData();
   const featured = content.projects.find((project) => project.featured);
   const others = content.projects.filter((project) => !project.featured);
 

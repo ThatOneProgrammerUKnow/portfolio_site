@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { getSiteLink, isDownload, isExternal, joinMeta, resolveLink } from './links';
+import { imageUrl } from './images';
 import { orbCurveOffset } from './orbCurve';
-import { findProjectWithDetail } from './projects';
+import { site } from '../test/fixtures';
 
 describe('links', () => {
   it('detects external, download and mailto links', () => {
@@ -9,20 +10,33 @@ describe('links', () => {
     expect(isExternal('/about')).toBe(false);
     expect(isExternal('mailto:a@b.co')).toBe(false);
     expect(isDownload('/cv/file.pdf')).toBe(true);
+    expect(isDownload('https://cdn.sanity.io/files/p/d/abc.pdf?dl=cv.pdf')).toBe(true);
     expect(isDownload('/projects')).toBe(false);
   });
 
   it('resolves content links to SmartLink props', () => {
-    expect(resolveLink({ to: '/projects' })).toEqual({ to: '/projects' });
-    expect(resolveLink({ linkKey: 'cv' })).toEqual({ href: getSiteLink('cv').href });
+    expect(resolveLink({ to: '/projects' }, site.links)).toEqual({ to: '/projects' });
+    expect(resolveLink({ to: null, linkKey: 'cv' }, site.links)).toEqual({ href: site.links.cv.href });
   });
 
   it('throws on an unknown site link key', () => {
-    expect(() => getSiteLink('nope')).toThrow(/Unknown site link/);
+    expect(() => getSiteLink(site.links, 'nope')).toThrow(/Unknown site link/);
   });
 
   it('joins meta items with a middle dot', () => {
     expect(joinMeta(['OrbTech', 'In progress'])).toBe('OrbTech · In progress');
+  });
+});
+
+describe('imageUrl', () => {
+  it('asks Sanity for a 2× sized, modern-format image', () => {
+    expect(imageUrl('https://cdn.sanity.io/images/p/d/abc-800x600.jpg', 300)).toBe(
+      'https://cdn.sanity.io/images/p/d/abc-800x600.jpg?auto=format&fit=max&w=600',
+    );
+  });
+
+  it('leaves other URLs alone', () => {
+    expect(imageUrl('/local.webp', 300)).toBe('/local.webp');
   });
 });
 
@@ -37,13 +51,5 @@ describe('orbCurveOffset', () => {
 
   it('returns 0 for a single item', () => {
     expect(orbCurveOffset(0, 1)).toBe(0);
-  });
-});
-
-describe('findProjectWithDetail', () => {
-  it('finds projects that have a case study only', () => {
-    expect(findProjectWithDetail('budget-tracker')?.title).toBe('Budget Tracker');
-    expect(findProjectWithDetail('brighthire')).toBeUndefined();
-    expect(findProjectWithDetail('missing')).toBeUndefined();
   });
 });

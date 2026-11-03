@@ -130,7 +130,7 @@ import { ArrowRight } from 'lucide-react';
 
 ## ImageSlot
 
-[src/components/ImageSlot/ImageSlot.jsx](../src/components/ImageSlot/ImageSlot.jsx). **Every image on the site goes through this.** It reads an image object from content:
+[src/components/ImageSlot/ImageSlot.jsx](../src/components/ImageSlot/ImageSlot.jsx). **Every image on the site goes through this.** It reads an image object from Sanity (shaped by the queries in `src/services/queries.js`):
 
 ```json
 { "src": null, "alt": "", "placeholder": "[Your photo: professional portrait]" }
@@ -138,15 +138,15 @@ import { ArrowRight } from 'lucide-react';
 
 | `src` is… | It renders |
 |---|---|
-| `null` | a grey dashed box with the `placeholder` text (hidden from screen readers) |
-| a path like `"/images/home/portrait.webp"` | a real `<img>` with your `alt` text, lazy-loaded unless `eager` |
+| `null` (no image uploaded) | a grey dashed box with the `placeholder` text (hidden from screen readers) |
+| a Sanity CDN URL | a real `<img>` with its `alt` text, requested at 2× `width` as WebP/AVIF (`imageUrl`), lazy-loaded unless `eager` |
 
 | Prop | Meaning |
 |---|---|
 | `image` | the image object from content |
 | `className` | sizing/shape class from the section (e.g. `home-hero__photo` makes it round) |
 | `eager` | load immediately with high priority (only for the top-of-page image) |
-| `width`, `height` | intrinsic size hints to prevent layout shift |
+| `width`, `height` | intrinsic size hints to prevent layout shift; `width` also sets the requested image size |
 
 The image fills its slot with `object-fit: cover`, so it's cropped to fit, never stretched. Full guide: [content-and-images.md → Images](content-and-images.md#images).
 
@@ -193,12 +193,16 @@ React 19 moves `<title>` and `<meta>` into `<head>` automatically.
 
 | Function | File | Does |
 |---|---|---|
-| `getSiteLink(key)` | `links.js` | returns `{ label, href }` from `site.json → links` (throws if the key doesn't exist) |
-| `resolveLink({ to, linkKey, href })` | `links.js` | turns a content link into props for `SmartLink` / `ButtonLink` |
+| `getSiteLink(links, key)` | `links.js` | returns `{ label, href }` from Site settings' `links` (throws if the key doesn't exist) |
+| `resolveLink({ to, linkKey, href }, links)` | `links.js` | turns a content link into props for `SmartLink` / `ButtonLink` (`links` from `useSite()`) |
 | `isExternal(href)` / `isDownload(href)` | `links.js` | used by `SmartLink` |
 | `joinMeta(["a", "b"])` | `links.js` | → `"a · b"` (all the mono meta lines) |
 | `orbCurveOffset(i, n)` | `orbCurve.js` | x-offset for each open menu pill |
-| `findProjectWithDetail(slug)` | `projects.js` | the project with that slug, only if it has a case study |
+| `imageUrl(src, width)` | `images.js` | Sanity CDN URL at 2× `width`, WebP/AVIF (`auto=format`); other URLs unchanged |
+
+## Hook: `useSite`
+
+[src/hooks/useSite.js](../src/hooks/useSite.js). `const site = useSite()` returns Site settings (name, role, email, `links`, `nav`, `footer`), loaded once by the root route. Use it in pages and sections. `Logo`, `OrbNav` and `Footer` get the same data as props from `Layout` instead, so they can be tested outside a router.
 
 ## Hook: `useDismissableMenu`
 

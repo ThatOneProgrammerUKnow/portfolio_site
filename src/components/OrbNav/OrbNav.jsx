@@ -2,14 +2,12 @@ import { useCallback, useId, useRef, useState } from 'react';
 import { NavLink } from 'react-router';
 import { AnimatePresence, m, useReducedMotion } from 'motion/react';
 import { Menu, X } from 'lucide-react';
-import site from '../../content/site.json';
 import { getSiteLink } from '../../utils/links';
 import { orbCurveOffset } from '../../utils/orbCurve';
 import useDismissableMenu from '../../hooks/useDismissableMenu';
 import SmartLink from '../SmartLink/SmartLink';
 import './OrbNav.css';
 
-const { nav } = site;
 const STAGGER = 0.04;
 
 const pillVariants = {
@@ -37,7 +35,7 @@ function PillContent({ item }) {
   );
 }
 
-export default function OrbNav() {
+export default function OrbNav({ nav, links }) {
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
   const buttonRef = useRef(null);
@@ -84,7 +82,7 @@ export default function OrbNav() {
                       <PillContent item={item} />
                     </NavLink>
                   ) : (
-                    <SmartLink href={getSiteLink(item.linkKey).href} className="orb-nav__pill" onClick={() => close()}>
+                    <SmartLink href={getSiteLink(links, item.linkKey).href} className="orb-nav__pill" onClick={() => close()}>
                       <PillContent item={item} />
                     </SmartLink>
                   )}

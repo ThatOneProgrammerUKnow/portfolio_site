@@ -4,7 +4,7 @@ Everything that appears on **every** page: skip link, logo, the orb menu, and th
 
 ## The shell: `Layout`
 
-File: [src/components/Layout/Layout.jsx](../src/components/Layout/Layout.jsx)
+File: [src/components/Layout/Layout.jsx](../src/components/Layout/Layout.jsx). `Layout` reads Site settings with `useSite()` (loaded by the root route from Sanity) and passes them down as props.
 
 `routes.jsx` makes `Layout` the parent of every page, so it wraps them all:
 
@@ -12,23 +12,23 @@ File: [src/components/Layout/Layout.jsx](../src/components/Layout/Layout.jsx)
 <LazyMotion features={loadMotionFeatures} strict>   // loads Motion's animation code on demand
   <a href="#main" className="skip-link">…</a>        // hidden until you press Tab
   <header className="site-header container">
-    <Logo />                                          // top-left: blue dot + name
+    <Logo name={site.name} />                                          // top-left: blue dot + name
   </header>
-  <OrbNav />                                          // top-right: the blue orb menu
+  <OrbNav nav={site.nav} links={site.links} />                                          // top-right: the blue orb menu
   <main id="main" tabIndex={-1}>
     <Outlet />                                        // ← the current page renders here
   </main>
-  <Footer />
+  <Footer site={site} />
   <ScrollRestoration />                               // scroll to top / #anchor on navigation
 </LazyMotion>
 ```
 
 | Piece | Files | Content from |
 |---|---|---|
-| Skip link | `Layout.jsx`, `Layout.css` (`.skip-link`) | `site.json → skipLink` |
-| Logo | `components/Logo/Logo.jsx`, `Logo.css` (`.logo`, `.logo__dot`) | `site.json → name` |
-| Orb menu | `components/OrbNav/OrbNav.jsx`, `OrbNav.css` | `site.json → nav` |
-| Footer | `components/Footer/Footer.jsx`, `Footer.css` | `site.json → footer`, `links` |
+| Skip link | `Layout.jsx`, `Layout.css` (`.skip-link`) | Site settings → `skipLink` |
+| Logo | `components/Logo/Logo.jsx`, `Logo.css` (`.logo`, `.logo__dot`) | Site settings → `name` |
+| Orb menu | `components/OrbNav/OrbNav.jsx`, `OrbNav.css` | Site settings → `nav` |
+| Footer | `components/Footer/Footer.jsx`, `Footer.css` | Site settings → `footer`, `links` |
 
 ---
 
@@ -52,7 +52,7 @@ Files:
     <li> <a class="orb-nav__pill [is-active]">
            <span class="orb-nav__number">01</span> <span>Home</span>
          </a> </li>
-    … one <li> per item in site.json → nav.items
+    … one <li> per item in Site settings → nav.items
   </ul>
 </nav>
 ```
@@ -67,12 +67,12 @@ Files:
    `Menu` (the burger ☰) and `X` come from the **lucide-react** icon library (imported at the top of `OrbNav.jsx`). They're white because Lucide draws with `currentColor` and `.orb-nav__button` sets `color: #fff`. Lucide marks them `aria-hidden`, so screen readers only hear the button's `aria-label`.
 3. **Accessibility on the button.**
    - `aria-expanded={isOpen}` tells screen readers whether the menu is open.
-   - `aria-label` switches between `site.json → nav.openLabel` and `nav.closeLabel`, because the button has no visible text.
+   - `aria-label` switches between Site settings → `nav.openLabel` and `nav.closeLabel`, because the button has no visible text.
    - `aria-controls` points at the list's id while open.
 4. **The list.** `{isOpen && <m.ul>…}` sits inside `<AnimatePresence>`. Motion keeps the list mounted long enough to play its exit animation after `isOpen` becomes false.
 5. **Each pill.** Items are mapped from `nav.items`:
    - an item with `to` (e.g. `"/about"`) renders a React Router `<NavLink>`. NavLink knows if it's the current page, so it gets the `is-active` class (blue pill) and `aria-current="page"`. `end` is only set for Home (`/`), so **Projects stays active on `/projects/budget-tracker`**.
-   - an item with `linkKey` (e.g. `"cv"`) renders a `SmartLink` to `site.json → links.cv.href`. Because that's a `.pdf`, it gets the `download` attribute.
+   - an item with `linkKey` (e.g. `"cv"`) renders a `SmartLink` to Site settings → `links.cv.href`. Because that's a PDF (Sanity file URL with `?dl=`), it gets the `download` attribute and downloads in place.
    - clicking any pill calls `close()`.
 6. **The curve.** The open pills curve away from the orb (first and last line up with it, the middle sticks out furthest). `orbCurveOffset(index, count)` returns an x-offset in px: `-48 × sin(π × index / (count − 1))`. With 5 items that's `0, −34, −48, −34, 0`. Change `depth` (48) in `orbCurve.js` for a stronger or flatter curve. It adapts automatically if you add or remove items.
 7. **The animation** (`pillVariants` at the top of `OrbNav.jsx`):
@@ -101,8 +101,8 @@ Files:
 
 | Change | Where |
 |---|---|
-| Add / remove / reorder menu items | `src/content/site.json → nav.items`. Each item is `{ "number": "06", "label": "Blog", "to": "/blog" }`. The route must exist in `routes.jsx`. |
-| Rename an item | `label` in `site.json` |
+| Add / remove / reorder menu items | Site settings → nav.items`. Each item has a Number (`06`), Label (`Blog`) and either a Page path (`/blog`) or a Shared link. The route must exist in `routes.jsx`. |
+| Rename an item | `label` in Site settings |
 | Change the burger or ✕ icon | swap `Menu` / `X` in `OrbNav.jsx` for another Lucide icon (browse [lucide.dev/icons](https://lucide.dev/icons)); change `size` / `strokeWidth` there too |
 | Change orb colour / size | `.orb-nav__button` in `OrbNav.css`; the gradient is `--orb-gradient` in `index.css` |
 | Change stagger speed | `STAGGER` in `OrbNav.jsx` |
@@ -119,9 +119,9 @@ Three columns (they stack and centre below 1024px):
 
 | Column | Class | Content |
 |---|---|---|
-| © year + name | `.footer__copy` | year is automatic (`new Date().getFullYear()`), name from `site.json → name` |
-| Bible verse | `.footer__quote` | `site.json → footer.quote` + `footer.reference` |
-| Links | `.footer__links` | `site.json → footer.linkKeys` (`["github", "linkedin", "email"]`); each key is looked up in `site.json → links` |
+| © year + name | `.footer__copy` | year is automatic (`new Date().getFullYear()`), name from Site settings → `name` |
+| Bible verse | `.footer__quote` | Site settings → `footer.quote` + `footer.reference` |
+| Links | `.footer__links` | Site settings → `footer.linkKeys` (`["github", "linkedin", "email"]`); each key is looked up in Site settings → `links` |
 
 ---
 

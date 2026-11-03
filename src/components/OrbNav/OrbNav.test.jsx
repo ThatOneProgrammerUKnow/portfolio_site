@@ -3,13 +3,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import OrbNav from './OrbNav';
-import site from '../../content/site.json';
+import { site } from '../../test/fixtures';
 
 function renderNav(path = '/') {
   const user = userEvent.setup();
   render(
     <MemoryRouter initialEntries={[path]}>
-      <OrbNav />
+      <OrbNav nav={site.nav} links={site.links} />
       <button type="button">Outside</button>
     </MemoryRouter>,
   );

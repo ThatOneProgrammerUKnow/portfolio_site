@@ -8,6 +8,7 @@ How this portfolio is put together, where everything lives, and how to change it
 | [pages.md](pages.md) | find a page or section: its file, its content, its CSS classes |
 | [components.md](components.md) | reuse a shared building block (buttons, links, images, headings, animation) |
 | [content-and-images.md](content-and-images.md) | change text, links, the CV, or **add your photos** |
+| [sanity.md](sanity.md) | understand the Sanity schemas (`studio/`), the queries and the setup |
 | [styling.md](styling.md) | find colours, fonts, global classes, breakpoints and the class-naming pattern |
 | [progress.md](progress.md) | see what's done and what's still waiting |
 
@@ -17,11 +18,14 @@ How this portfolio is put together, where everything lives, and how to change it
 
 ```bash
 npm install        # once
+cp .env.example .env   # once: fill in VITE_SANITY_PROJECT_ID (otbb6ulw) + VITE_SANITY_DATASET (production)
 npm run dev        # dev server → http://localhost:5173
 npm test           # run all tests once
 npm run build      # production build into dist/
 npm run preview    # serve the production build locally
 ```
+
+**Hosting:** Cloudflare, configured in [`wrangler.jsonc`](../wrangler.jsonc): it serves `dist/` and falls back to `index.html` for any URL, so deep links like `/projects/budget-tracker` work. Build variables and CORS: see [sanity.md → Security](sanity.md#security).
 
 ---
 
@@ -30,53 +34,62 @@ npm run preview    # serve the production build locally
 ```
 index.html
   └─ src/main.jsx            creates the router, loads global CSS (index.css)
-       └─ src/routes.jsx     URL → page (each page is lazy-loaded)
-            └─ Layout        skip link, logo, OrbNav, <main>, footer   (same on every page)
-                 └─ Page     e.g. pages/Home/Home.jsx: imports its JSON and stacks its sections
-                      └─ Sections   e.g. HeroSection: receives its slice of JSON as `content` and renders it
+       └─ src/routes.jsx     URL → page (lazy-loaded) + its loader (fetches content from Sanity)
+            └─ Layout        skip link, logo, OrbNav, <main>, footer   (same on every page; Site settings)
+                 └─ Page     e.g. pages/Home/Home.jsx: useLoaderData() → stacks its sections
+                      └─ Sections   e.g. HeroSection: receives its slice of content as `content` and renders it
 ```
 
-**The rule that ties it together:** components never contain copy. Every word on the site lives in `src/content/*.json`. A page imports its JSON file and hands each section its part:
+**The rule that ties it together:** components never contain copy. Every word on the site lives in **Sanity** (edited in the Studio, see [content-and-images.md](content-and-images.md)). Each route's loader fetches its page document before the page renders; the page hands each section its part:
 
 ```jsx
+// src/routes.jsx
+{ index: true, loader: withSignal(getHomePage), lazy: page(() => import('./pages/Home/Home')) }
+
 // src/pages/Home/Home.jsx
-import content from '../../content/home.json';
-<HeroSection content={content.hero} />          // → home.json  "hero": { ... }
-<HowIWorkSection content={content.howIWork} />  // → home.json  "howIWork": { ... }
+const content = useLoaderData();
+<HeroSection content={content.hero} />          // → Studio: Home page → Hero
+<HowIWorkSection content={content.howIWork} />  // → Studio: Home page → How I work
 ```
 
-So to find where something comes from, look at the section's `content.something` and open the matching key in the JSON.
+Site settings (name, email, links, menu) are loaded once by the root route; read them with `useSite()`.
+
+All Sanity access is in `src/services/`: `sanity.js` (fetch from the public CDN, no token), `queries.js` (GROQ that returns exactly the shape each section expects), `content.js` (one function per page). If Sanity can't be reached, the root `ErrorPage` shows with a Try again button.
+
+So to find where something comes from, look at the section's `content.something`, then the matching field group in the Studio (and the projection in `queries.js`).
 
 ---
 
 ## Folder map
 
 ```
-public/                         files served as-is (favicon, and later /images and /cv)
+public/                         files served as-is (favicon)
 src/
   main.jsx                      app entry: router + global CSS
   routes.jsx                    every URL and which page it loads
   index.css                     design tokens (colours, fonts, spacing) + global classes
-  content/                      ALL site text, links and image slots (JSON)
-    site.json                   shared: name, email, links, nav items, footer
-    home.json  about.json  projects.json  contact.json
+  services/                     ALL content fetching (Sanity): sanity.js, queries.js, content.js
+  constants/fallbackText.js     error-page text (the only copy not in Sanity)
   components/                   shared building blocks, one folder each (Name.jsx + Name.css)
-    Layout/  Logo/  OrbNav/  Footer/
+    Layout/  Logo/  OrbNav/  Footer/  ErrorPage/
     ButtonLink/  SmartLink/  SectionHeader/  Headline/  ImageSlot/  Reveal/  PageMeta/
                                 (icons come from the lucide-react library, see components.md → Icons)
   pages/                        one folder per page
     Home/  About/  Projects/  ProjectDetail/  Contact/
-      Page.jsx                  imports its JSON, stacks its sections
+      Page.jsx                  reads its content with useLoaderData(), stacks its sections
       sections/
         SomethingSection/       SomethingSection.jsx + SomethingSection.css
   hooks/
     useDismissableMenu.js       Escape / click-outside / focus trap for the orb menu
+    useSite.js                  Site settings from the root route
   utils/
     links.js                    resolve link keys, detect external/download links, join "a · b"
     orbCurve.js                 the curve of the open orb menu
-    projects.js                 find a project that has a case-study page
+    images.js                   sized WebP/AVIF URLs for Sanity images
     motionFeatures.js           Motion animation code, loaded on demand
   test/setup.js                 test environment setup
+  test/fixtures.js              fake Sanity data for tests
+studio/                         Sanity Studio (own package.json); see sanity.md
 design/                         approved design PNGs + design.md (the visual source of truth)
 docs/                           these docs + progress.md
 ```
@@ -87,11 +100,11 @@ docs/                           these docs + progress.md
 
 | I want to… | Go to |
 |---|---|
-| change any text | the page's JSON in `src/content/`; see [content-and-images.md](content-and-images.md) |
+| change any text | the Studio (`cd studio && npm run dev`); see [content-and-images.md](content-and-images.md) |
 | add my photos | [content-and-images.md → Images](content-and-images.md#images) |
-| add the CV | put the PDF at `public/cv/Kobus-van-Schalkwyk-CV.pdf` |
-| change the LinkedIn / GitHub / email link | `src/content/site.json` → `links` |
-| change the menu items | `src/content/site.json` → `nav.items`; see [navigation.md](navigation.md) |
+| replace the CV | Studio → Site settings → Shared links → CV |
+| change the LinkedIn / GitHub / email link | Studio → Site settings → Shared links / Email |
+| change the menu items | Studio → Site settings → Menu → Items; see [navigation.md](navigation.md) |
 | change how the orb menu looks or animates | `src/components/OrbNav/`; see [navigation.md](navigation.md) |
 | add or swap an icon | import it from `lucide-react`; see [components.md → Icons](components.md#icons-lucide) |
 | change a colour or font everywhere | `src/index.css` → `:root`; see [styling.md](styling.md) |
@@ -107,10 +120,7 @@ docs/                           these docs + progress.md
 
 Example: a "Testimonials" section on Home.
 
-1. **Content**: add a key to `src/content/home.json`:
-   ```json
-   "testimonials": { "eyebrow": "Kind words", "title": "What people say.", "items": [] }
-   ```
+1. **Content**: add a `section('testimonials', 'Testimonials', [...])` field to `studio/schemaTypes/documents/homePage.js`, add `testimonials { eyebrow, title, items[]{...} }` to `HOME_QUERY` in `src/services/queries.js`, and fill it in the Studio.
 2. **Folder**: create `src/pages/Home/sections/TestimonialsSection/` with `TestimonialsSection.jsx` and `TestimonialsSection.css`. The name must end in `Section`.
 3. **Component**: start from this skeleton:
    ```jsx
@@ -138,14 +148,14 @@ Per `AGENTS.md`, a new section needs an approved design in `design/` first.
 
 ## Recipe: add a new page
 
-1. Create `src/content/blog.json` and `src/pages/Blog/Blog.jsx` (+ `sections/`).
+1. Create a `blogPage` schema in `studio/schemaTypes/documents/` (add it to `schemaTypes` and `SINGLETON_TYPES`), a `BLOG_QUERY` + `getBlogPage` in `src/services/`, and `src/pages/Blog/Blog.jsx` (+ `sections/`).
 2. Register the URL in `src/routes.jsx`:
    ```js
-   { path: 'blog', lazy: page(() => import('./pages/Blog/Blog')) },
+   { path: 'blog', loader: withSignal(getBlogPage), lazy: page(() => import('./pages/Blog/Blog')) },
    ```
 3. Add `<PageMeta title="…" description="…" />` at the top of the page (sets the browser tab title).
-4. Add a menu item in `site.json → nav.items` if it should be in the orb menu.
-5. Add the path to the routes test in `src/routes.test.jsx`.
+4. Add a menu item in Studio → Site settings → Menu if it should be in the orb menu.
+5. Add the path to the routes test in `src/routes.test.jsx` (and fake data in `src/test/fixtures.js`).
 
 ---
 
@@ -153,9 +163,9 @@ Per `AGENTS.md`, a new section needs an approved design in `design/` first.
 
 | File | What it checks |
 |---|---|
-| `src/utils/utils.test.js` | link helpers, orb curve maths, project lookup |
-| `src/content/content.test.js` | every internal link points to a real page/anchor, every `linkKey` exists, external links are HTTPS |
+| `src/utils/utils.test.js` | link helpers, Sanity image URLs, orb curve maths |
+| `src/services/services.test.js` | Sanity query URLs (CDN, published only, no credentials), error handling, missing documents |
 | `src/components/OrbNav/OrbNav.test.jsx` | burger ↔ ✕ icon, menu opens/closes, Escape, click outside, focus trap, current page highlight, CV download |
-| `src/routes.test.jsx` | every page renders with one `<h1>`, redirects, external links open safely |
+| `src/routes.test.jsx` | every page renders with one `<h1>` (content service mocked with `src/test/fixtures.js`), redirects, external links open safely, CV downloads, error page |
 
-If you change content and a test fails, it's usually a broken link (for example a renamed project `slug`).
+Tests never call Sanity. Content correctness (required fields, HTTPS URLs, link targets, alt text) is checked by the Studio's validation instead: `cd studio && npx sanity documents validate`.

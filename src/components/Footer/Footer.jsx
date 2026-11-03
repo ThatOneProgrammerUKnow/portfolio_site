@@ -1,9 +1,8 @@
-import site from '../../content/site.json';
 import { getSiteLink } from '../../utils/links';
 import SmartLink from '../SmartLink/SmartLink';
 import './Footer.css';
 
-export default function Footer() {
+export default function Footer({ site }) {
   const { footer } = site;
   const year = new Date().getFullYear();
 
@@ -18,7 +17,7 @@ export default function Footer() {
         </p>
         <ul className="footer__links" role="list">
           {footer.linkKeys.map((key) => {
-            const link = getSiteLink(key);
+            const link = getSiteLink(site.links, key);
             return (
               <li key={key}>
                 <SmartLink href={link.href}>{link.label}</SmartLink>

@@ -3,9 +3,11 @@ import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import Headline from '../../../../components/Headline/Headline';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
 import { resolveLink } from '../../../../utils/links';
+import useSite from '../../../../hooks/useSite';
 import './AboutHeroSection.css';
 
 export default function AboutHeroSection({ content }) {
+  const { links } = useSite();
   const { eyebrow, title, paragraphs, cta, image } = content;
 
   return (
@@ -23,7 +25,7 @@ export default function AboutHeroSection({ content }) {
               </p>
             ))}
           </div>
-          <ButtonLink {...resolveLink(cta)} icon={Download} className="about-hero__cta">
+          <ButtonLink {...resolveLink(cta, links)} icon={Download} className="about-hero__cta">
             {cta.label}
           </ButtonLink>
         </div>

@@ -3,9 +3,11 @@ import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import Headline from '../../../../components/Headline/Headline';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
 import { resolveLink } from '../../../../utils/links';
+import useSite from '../../../../hooks/useSite';
 import './HeroSection.css';
 
 export default function HeroSection({ content }) {
+  const { links } = useSite();
   const { badge, title, lead, primaryCta, secondaryCta, image, tags } = content;
 
   return (
@@ -21,10 +23,10 @@ export default function HeroSection({ content }) {
           </h1>
           <p className="lead home-hero__lead">{lead}</p>
           <div className="home-hero__actions">
-            <ButtonLink {...resolveLink(primaryCta)} icon={ArrowRight}>
+            <ButtonLink {...resolveLink(primaryCta, links)} icon={ArrowRight}>
               {primaryCta.label}
             </ButtonLink>
-            <ButtonLink variant="secondary" {...resolveLink(secondaryCta)} icon={Download}>
+            <ButtonLink variant="secondary" {...resolveLink(secondaryCta, links)} icon={Download}>
               {secondaryCta.label}
             </ButtonLink>
           </div>

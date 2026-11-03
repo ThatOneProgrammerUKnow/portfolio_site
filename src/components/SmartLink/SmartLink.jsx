@@ -15,6 +15,16 @@ export default function SmartLink({ to, href, children, ...rest }) {
     );
   }
 
+  // Downloads first: the CV lives on Sanity's CDN, whose ?dl= parameter makes the
+  // browser download it in place (the download attribute is ignored cross-origin).
+  if (isDownload(href)) {
+    return (
+      <a href={href} download {...rest}>
+        {children}
+      </a>
+    );
+  }
+
   if (isExternal(href)) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
@@ -24,7 +34,7 @@ export default function SmartLink({ to, href, children, ...rest }) {
   }
 
   return (
-    <a href={href} download={isDownload(href) || undefined} {...rest}>
+    <a href={href} {...rest}>
       {children}
     </a>
   );

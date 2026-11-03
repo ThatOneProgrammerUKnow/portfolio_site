@@ -1,12 +1,11 @@
 import { Link } from 'react-router';
-import site from '../../content/site.json';
 import './Logo.css';
 
-export default function Logo() {
+export default function Logo({ name }) {
   return (
     <Link to="/" className="logo">
       <span className="logo__dot" aria-hidden="true" />
-      {site.name}
+      {name}
     </Link>
   );
 }

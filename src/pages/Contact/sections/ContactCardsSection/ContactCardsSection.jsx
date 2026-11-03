@@ -1,9 +1,12 @@
 import SmartLink from '../../../../components/SmartLink/SmartLink';
 import Reveal from '../../../../components/Reveal/Reveal';
 import { resolveLink } from '../../../../utils/links';
+import useSite from '../../../../hooks/useSite';
 import './ContactCardsSection.css';
 
 export default function ContactCardsSection({ cards }) {
+  const { links } = useSite();
+
   return (
     <section className="contact-cards">
       <div className="container">
@@ -13,7 +16,7 @@ export default function ContactCardsSection({ cards }) {
               <p className="mono muted">{card.label}</p>
               <h2 className="contact-card__title">{card.title}</h2>
               {card.link ? (
-                <SmartLink {...resolveLink(card.link)} className="contact-card__link">
+                <SmartLink {...resolveLink(card.link, links)} className="contact-card__link">
                   {card.link.label}
                 </SmartLink>
               ) : (

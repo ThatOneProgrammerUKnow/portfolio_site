@@ -1,0 +1,15 @@
+.error-page {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  min-height: 100vh;
+  align-content: center;
+}
+
+.error-page__title {
+  margin: 0;
+}
+
+.error-page__retry {
+  margin-top: 1rem;
+}
