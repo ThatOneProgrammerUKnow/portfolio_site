@@ -1,0 +1,34 @@
+.site-header {
+  display: flex;
+  align-items: center;
+  min-height: 112px; /* lines the logo up with the 64px orb at top: 24px */
+}
+
+main:focus {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--text);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .site-header {
+    min-height: 88px;
+  }
+}

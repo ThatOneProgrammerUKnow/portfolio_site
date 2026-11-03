@@ -1,0 +1,19 @@
+.image-slot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-image);
+}
+
+.image-slot--placeholder {
+  display: grid;
+  place-items: center;
+  padding: 12px;
+  background: var(--surface-muted);
+  border: 1.5px dashed #9aa3b2;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
