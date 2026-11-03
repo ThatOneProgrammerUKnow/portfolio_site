@@ -1,3 +1,4 @@
+import { Download } from 'lucide-react';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import Headline from '../../../../components/Headline/Headline';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
@@ -22,7 +23,7 @@ export default function AboutHeroSection({ content }) {
               </p>
             ))}
           </div>
-          <ButtonLink {...resolveLink(cta)} icon="download" className="about-hero__cta">
+          <ButtonLink {...resolveLink(cta)} icon={Download} className="about-hero__cta">
             {cta.label}
           </ButtonLink>
         </div>

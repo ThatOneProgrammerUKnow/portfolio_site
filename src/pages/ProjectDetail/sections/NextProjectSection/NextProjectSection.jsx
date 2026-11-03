@@ -1,5 +1,5 @@
 import SmartLink from '../../../../components/SmartLink/SmartLink';
-import Icon from '../../../../components/Icon/Icon';
+import { ArrowRight } from 'lucide-react';
 import './NextProjectSection.css';
 
 export default function NextProjectSection({ next, label }) {
@@ -12,7 +12,7 @@ export default function NextProjectSection({ next, label }) {
             <span className="next-project__title">{next.title}</span>
           </span>
           <span className="next-project__arrow" aria-hidden="true">
-            <Icon name="arrow-right" />
+            <ArrowRight />
           </span>
         </SmartLink>
       </div>

@@ -1,7 +1,7 @@
 import SectionHeader from '../../../../components/SectionHeader/SectionHeader';
 import SmartLink from '../../../../components/SmartLink/SmartLink';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
-import Icon from '../../../../components/Icon/Icon';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import Reveal from '../../../../components/Reveal/Reveal';
 import { joinMeta } from '../../../../utils/links';
 import './SelectedWorkSection.css';
@@ -21,7 +21,7 @@ function ProjectRow({ project }) {
       </div>
       <p className="mono muted project-row__stack">{joinMeta(project.stack)}</p>
       <span className="project-row__arrow" aria-hidden="true">
-        <Icon name="arrow-up-right" size={18} />
+        <ArrowUpRight size={18} />
       </span>
     </article>
   );
@@ -35,7 +35,7 @@ export default function SelectedWorkSection({ content }) {
           <SectionHeader eyebrow={content.eyebrow} title={content.title} />
           <SmartLink to={content.allLink.to} className="selected-work__all">
             {content.allLink.label}
-            <Icon name="arrow-right" size={18} />
+            <ArrowRight size={18} />
           </SmartLink>
         </Reveal>
 

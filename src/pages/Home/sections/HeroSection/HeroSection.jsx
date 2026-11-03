@@ -1,3 +1,4 @@
+import { ArrowRight, Download } from 'lucide-react';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import Headline from '../../../../components/Headline/Headline';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
@@ -20,10 +21,10 @@ export default function HeroSection({ content }) {
           </h1>
           <p className="lead home-hero__lead">{lead}</p>
           <div className="home-hero__actions">
-            <ButtonLink {...resolveLink(primaryCta)} icon="arrow-right">
+            <ButtonLink {...resolveLink(primaryCta)} icon={ArrowRight}>
               {primaryCta.label}
             </ButtonLink>
-            <ButtonLink variant="secondary" {...resolveLink(secondaryCta)} icon="download">
+            <ButtonLink variant="secondary" {...resolveLink(secondaryCta)} icon={Download}>
               {secondaryCta.label}
             </ButtonLink>
           </div>

@@ -46,7 +46,7 @@ Files:
 ```
 <nav class="orb-nav" aria-label="Main">          fixed, top-right
   <button class="orb-nav__button" aria-expanded>  the 64px blue orb
-    <svg>  three dots (closed)  or  ✕ (open)       ← the icon, drawn inline
+    <Menu />  burger ☰ (closed)  or  <X /> (open)  ← Lucide icons
   </button>
   <ul class="orb-nav__list">                      only exists while open
     <li> <a class="orb-nav__pill [is-active]">
@@ -60,7 +60,11 @@ Files:
 ### Step by step through the code
 
 1. **State.** `const [isOpen, setIsOpen] = useState(false)` is the only state. The button's `onClick` toggles it.
-2. **The icon.** Inside the `<button>` there's an inline `<svg>`. When `isOpen` is true it draws a `<path>` (✕). Otherwise it draws three `<circle>`s (the dots). To change the icon, edit those SVG elements. Its colour comes from `color: #fff` on `.orb-nav__button` via `currentColor`.
+2. **The icon.** Inside the `<button>` is one line:
+   ```jsx
+   {isOpen ? <X size={26} strokeWidth={2.4} /> : <Menu size={26} strokeWidth={2.4} />}
+   ```
+   `Menu` (the burger ☰) and `X` come from the **lucide-react** icon library (imported at the top of `OrbNav.jsx`). They're white because Lucide draws with `currentColor` and `.orb-nav__button` sets `color: #fff`. Lucide marks them `aria-hidden`, so screen readers only hear the button's `aria-label`.
 3. **Accessibility on the button.**
    - `aria-expanded={isOpen}` tells screen readers whether the menu is open.
    - `aria-label` switches between `site.json → nav.openLabel` and `nav.closeLabel`, because the button has no visible text.
@@ -99,7 +103,7 @@ Files:
 |---|---|
 | Add / remove / reorder menu items | `src/content/site.json → nav.items`. Each item is `{ "number": "06", "label": "Blog", "to": "/blog" }`. The route must exist in `routes.jsx`. |
 | Rename an item | `label` in `site.json` |
-| Change the dots or ✕ icon | the `<svg>` inside the `<button>` in `OrbNav.jsx` |
+| Change the burger or ✕ icon | swap `Menu` / `X` in `OrbNav.jsx` for another Lucide icon (browse [lucide.dev/icons](https://lucide.dev/icons)); change `size` / `strokeWidth` there too |
 | Change orb colour / size | `.orb-nav__button` in `OrbNav.css`; the gradient is `--orb-gradient` in `index.css` |
 | Change stagger speed | `STAGGER` in `OrbNav.jsx` |
 | Change the spring feel | `stiffness` / `damping` in `pillVariants.visible` |

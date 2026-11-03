@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
 import Reveal from '../../../../components/Reveal/Reveal';
@@ -15,7 +16,7 @@ export default function FeaturedProjectSection({ project, ctaLabel }) {
             <p className="featured-project__summary">{project.summary}</p>
             <p className="featured-project__meta">{joinMeta(project.stack)}</p>
             {project.detail && (
-              <ButtonLink variant="secondary" to={`/projects/${project.slug}`} icon="arrow-right" className="featured-project__cta">
+              <ButtonLink variant="secondary" to={`/projects/${project.slug}`} icon={ArrowRight} className="featured-project__cta">
                 {ctaLabel}
               </ButtonLink>
             )}

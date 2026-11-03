@@ -62,7 +62,8 @@ src/
     home.json  about.json  projects.json  contact.json
   components/                   shared building blocks, one folder each (Name.jsx + Name.css)
     Layout/  Logo/  OrbNav/  Footer/
-    ButtonLink/  SmartLink/  Icon/  SectionHeader/  Headline/  ImageSlot/  Reveal/  PageMeta/
+    ButtonLink/  SmartLink/  SectionHeader/  Headline/  ImageSlot/  Reveal/  PageMeta/
+                                (icons come from the lucide-react library, see components.md → Icons)
   pages/                        one folder per page
     Home/  About/  Projects/  ProjectDetail/  Contact/
       Page.jsx                  imports its JSON, stacks its sections
@@ -92,6 +93,7 @@ docs/                           these docs + progress.md
 | change the LinkedIn / GitHub / email link | `src/content/site.json` → `links` |
 | change the menu items | `src/content/site.json` → `nav.items`; see [navigation.md](navigation.md) |
 | change how the orb menu looks or animates | `src/components/OrbNav/`; see [navigation.md](navigation.md) |
+| add or swap an icon | import it from `lucide-react`; see [components.md → Icons](components.md#icons-lucide) |
 | change a colour or font everywhere | `src/index.css` → `:root`; see [styling.md](styling.md) |
 | restyle one section | that section's `.css` file; class names are listed in [pages.md](pages.md) |
 | add a project | [content-and-images.md → Add a project](content-and-images.md#add-a-project) |
@@ -153,7 +155,7 @@ Per `AGENTS.md`, a new section needs an approved design in `design/` first.
 |---|---|
 | `src/utils/utils.test.js` | link helpers, orb curve maths, project lookup |
 | `src/content/content.test.js` | every internal link points to a real page/anchor, every `linkKey` exists, external links are HTTPS |
-| `src/components/OrbNav/OrbNav.test.jsx` | menu opens/closes, Escape, click outside, focus trap, current page highlight, CV download |
+| `src/components/OrbNav/OrbNav.test.jsx` | burger ↔ ✕ icon, menu opens/closes, Escape, click outside, focus trap, current page highlight, CV download |
 | `src/routes.test.jsx` | every page renders with one `<h1>`, redirects, external links open safely |
 
 If you change content and a test fails, it's usually a broken link (for example a renamed project `slug`).

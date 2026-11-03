@@ -1,6 +1,7 @@
 import { useCallback, useId, useRef, useState } from 'react';
 import { NavLink } from 'react-router';
 import { AnimatePresence, m, useReducedMotion } from 'motion/react';
+import { Menu, X } from 'lucide-react';
 import site from '../../content/site.json';
 import { getSiteLink } from '../../utils/links';
 import { orbCurveOffset } from '../../utils/orbCurve';
@@ -63,17 +64,7 @@ export default function OrbNav() {
         aria-label={isOpen ? nav.closeLabel : nav.openLabel}
         onClick={() => setIsOpen((open) => !open)}
       >
-        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
-          {isOpen ? (
-            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" fill="none" />
-          ) : (
-            <g fill="currentColor">
-              <circle cx="6" cy="12" r="2" />
-              <circle cx="12" cy="12" r="2" />
-              <circle cx="18" cy="12" r="2" />
-            </g>
-          )}
-        </svg>
+        {isOpen ? <X size={26} strokeWidth={2.4} /> : <Menu size={26} strokeWidth={2.4} />}
       </button>
 
       <AnimatePresence>

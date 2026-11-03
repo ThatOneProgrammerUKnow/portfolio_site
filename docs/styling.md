@@ -70,6 +70,7 @@ Use these in any component.
 | `.highlight` | blue text |
 | `.lift` | card lifts 3px with a shadow on hover (off for reduced motion) |
 | `.visually-hidden` | hidden on screen, still read by screen readers |
+| `.lucide` | added automatically to every Lucide icon; set to `flex-shrink: 0` so icons keep their size |
 
 A typical section:
 

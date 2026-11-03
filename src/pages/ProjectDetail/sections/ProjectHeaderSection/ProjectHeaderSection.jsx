@@ -1,5 +1,5 @@
 import SmartLink from '../../../../components/SmartLink/SmartLink';
-import Icon from '../../../../components/Icon/Icon';
+import { ArrowLeft } from 'lucide-react';
 import { joinMeta } from '../../../../utils/links';
 import './ProjectHeaderSection.css';
 
@@ -8,7 +8,7 @@ export default function ProjectHeaderSection({ project, backLabel }) {
     <section className="project-header">
       <div className="container">
         <SmartLink to="/projects" className="project-header__back">
-          <Icon name="arrow-left" size={18} />
+          <ArrowLeft size={18} />
           {backLabel}
         </SmartLink>
         <p className="eyebrow project-header__meta">{joinMeta(project.meta)}</p>

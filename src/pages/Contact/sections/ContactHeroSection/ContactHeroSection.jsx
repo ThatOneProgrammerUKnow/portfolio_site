@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import site from '../../../../content/site.json';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import Headline from '../../../../components/Headline/Headline';
@@ -14,7 +15,7 @@ export default function ContactHeroSection({ content }) {
             <Headline title={content.title} />
           </h1>
           <p className="lead contact-hero__lead">{content.lead}</p>
-          <ButtonLink href={getSiteLink('email').href} size="lg" icon="arrow-right" className="contact-hero__email">
+          <ButtonLink href={getSiteLink('email').href} size="lg" icon={ArrowRight} className="contact-hero__email">
             {site.email}
           </ButtonLink>
         </div>

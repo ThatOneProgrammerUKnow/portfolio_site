@@ -74,6 +74,11 @@ ol[role='list'] {
   padding: 0;
 }
 
+/* Lucide icons: never squash inside flex rows */
+.lucide {
+  flex-shrink: 0;
+}
+
 img {
   display: block;
   max-width: 100%;

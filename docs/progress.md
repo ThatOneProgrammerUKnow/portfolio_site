@@ -55,3 +55,17 @@ Decisions (and why):
 Files created / changed: docs/README.md, docs/navigation.md, docs/pages.md, docs/components.md, docs/content-and-images.md, docs/styling.md, docs/progress.md
 Waiting for approval: unchanged (see previous entry).
 Next: keep docs updated when sections/components change.
+
+## 2026-11-03: M-7 (Lucide icons + burger menu icon)
+Done:
+- Installed `lucide-react` (approved by user) and replaced the hand-made `Icon` component everywhere (ArrowRight, ArrowUpRight, ArrowLeft, Download). `src/components/Icon/` deleted.
+- `ButtonLink`'s `icon` prop now takes a Lucide component (`icon={ArrowRight}`) instead of a name string.
+- Orb menu button now shows a burger icon (`Menu`) when closed and `X` when open. The orb, curved pills and animation are unchanged (user chose "burger icon in the orb").
+- New test: burger/✕ swap and icons hidden from screen readers. 31 tests pass, build passes, `npm audit`: 0 vulnerabilities.
+- Docs updated: README (folder map, "I want to…", tests), navigation.md (icon), components.md (Icons section, ButtonLink), styling.md (`.lucide`).
+Decisions (and why):
+- Lucide: its default 24px / 2px stroke / round caps matches the design.md icon spec exactly; tree-shakable (main bundle +~1 KB gzipped).
+- Deviation from the approved design: `orb-nav-open.png` / design.md specify a three-dot icon; it's now a burger at the user's request. `design.md` itself was not edited (design handoff file).
+Files created / changed: package.json, package-lock.json, src/index.css, src/components/ButtonLink/ButtonLink.jsx, src/components/OrbNav/OrbNav.jsx + test, 7 section files (icon imports), src/components/Icon/ (deleted), docs/*
+Waiting for approval: unchanged; also consider updating design.md to say "burger icon" + "Lucide icons".
+Next: as before.

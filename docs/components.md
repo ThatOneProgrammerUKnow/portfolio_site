@@ -8,7 +8,7 @@ The page shell components (`Layout`, `Logo`, `OrbNav`, `Footer`) are covered in 
 |---|---|
 | [ButtonLink](#buttonlink) | anything that looks like a button (all buttons on this site are links) |
 | [SmartLink](#smartlink) | any link: picks internal / external / download / email automatically |
-| [Icon](#icon) | the arrow and download icons |
+| [Icons (Lucide)](#icons-lucide) | every icon: arrows, download, burger menu, ✕ |
 | [SectionHeader](#sectionheader) | blue eyebrow + H2 at the top of a section |
 | [Headline](#headline) | a title with a blue highlighted part |
 | [ImageSlot](#imageslot) | every image: shows a placeholder until a photo is added |
@@ -27,19 +27,21 @@ Import paths are relative. From a section file that's 4 levels up, e.g. `import 
 |---|---|---|
 | `variant` | `"primary"` (blue), `"secondary"` (white + border), `"dark"` (navy) | `"primary"` |
 | `size` | `"lg"` (the big contact email button) | normal |
-| `icon` | any [Icon](#icon) name, shown after the text | none |
+| `icon` | a Lucide icon **component** (not a string), shown after the text at 18px (28px for `lg`) | none |
 | `to` / `href` | where it goes (passed to [SmartLink](#smartlink)) | |
 | `className` | extra classes, e.g. for spacing | |
 
 ```jsx
-<ButtonLink to="/projects" icon="arrow-right">See my work</ButtonLink>
-<ButtonLink variant="secondary" href="/cv/Kobus-van-Schalkwyk-CV.pdf" icon="download">Download CV</ButtonLink>
+import { ArrowRight, Download } from 'lucide-react';
+
+<ButtonLink to="/projects" icon={ArrowRight}>See my work</ButtonLink>
+<ButtonLink variant="secondary" href="/cv/Kobus-van-Schalkwyk-CV.pdf" icon={Download}>Download CV</ButtonLink>
 ```
 
 With content that uses `{ to }` or `{ linkKey }`, spread `resolveLink()` from `utils/links.js`:
 
 ```jsx
-<ButtonLink {...resolveLink(content.cta)} icon="download">{content.cta.label}</ButtonLink>
+<ButtonLink {...resolveLink(content.cta)} icon={Download}>{content.cta.label}</ButtonLink>
 ```
 
 Classes: `.button`, `.button--primary`, `.button--secondary`, `.button--dark`, `.button--lg`.
@@ -61,19 +63,31 @@ Any other props (`className`, `onClick`, …) are passed through.
 
 ---
 
-## Icon
+## Icons (Lucide)
 
-[src/components/Icon/Icon.jsx](../src/components/Icon/Icon.jsx). 24px stroke icons, drawn as inline SVG (no icon library).
+All icons come from the **[lucide-react](https://lucide.dev/icons)** library. Its default style (24px, 2px stroke, round caps) is exactly the icon spec in `design.md`. Import each icon by name where you use it; only the icons you import end up in the bundle.
 
-| Prop | Values |
+```jsx
+import { ArrowRight } from 'lucide-react';
+
+<ArrowRight />                        // 24px, 2px stroke, text colour
+<ArrowRight size={18} />              // smaller
+<ArrowRight strokeWidth={2.4} />      // bolder
+<ArrowRight className="my-class" />   // extra class (it always has .lucide and .lucide-arrow-right too)
+```
+
+| Icon | Used in |
 |---|---|
-| `name` | `"arrow-right"`, `"arrow-up-right"`, `"arrow-left"`, `"download"` |
-| `size` | number in px, default 24 |
-| `className` | extra classes |
+| `ArrowRight` | "See my work", "Read the case study", email buttons, "All projects →", next-project card |
+| `ArrowUpRight` | the blue circle on Home's project rows |
+| `ArrowLeft` | "← All projects" on the case-study page |
+| `Download` | "Download CV" buttons |
+| `Menu` / `X` | the orb menu button: burger when closed, ✕ when open ([navigation.md](navigation.md#step-by-step-through-the-code)) |
 
-Icons are decorative (`aria-hidden`) and take the text colour (`currentColor`). **To add an icon**, add an SVG path to the `PATHS` object at the top of `Icon.jsx` (24×24 viewBox, stroke-based).
-
-The orb menu's dots/✕ are **not** here; they're drawn inside `OrbNav.jsx` (see [navigation.md](navigation.md#step-by-step-through-the-code)).
+- Icons take the **text colour** (`currentColor`), so colour them with CSS `color` on the parent.
+- Lucide adds **`aria-hidden="true"`** automatically, because our icons always sit next to text or inside a labelled button. If an icon is ever the *only* content of a link or button, give that element an `aria-label`.
+- `.lucide { flex-shrink: 0; }` in `index.css` stops icons squashing in flex rows.
+- **To add an icon:** find it on [lucide.dev/icons](https://lucide.dev/icons), then import it by its PascalCase name (e.g. "external-link" → `ExternalLink`).
 
 ---
 

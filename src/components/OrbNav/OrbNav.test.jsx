@@ -28,6 +28,17 @@ describe('OrbNav', () => {
     expect(screen.getAllByRole('listitem')).toHaveLength(site.nav.items.length);
   });
 
+  it('shows a burger icon when closed and an X when open, hidden from screen readers', async () => {
+    const { user, toggle } = renderNav();
+    const burger = toggle.querySelector('svg.lucide-menu');
+    expect(burger).toBeInTheDocument();
+    expect(burger).toHaveAttribute('aria-hidden', 'true');
+
+    await user.click(toggle);
+    expect(toggle.querySelector('svg.lucide-x')).toBeInTheDocument();
+    expect(toggle.querySelector('svg.lucide-menu')).not.toBeInTheDocument();
+  });
+
   it('marks the current page', async () => {
     const { user, toggle } = renderNav('/about');
     await user.click(toggle);
