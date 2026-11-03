@@ -1,0 +1,224 @@
+/* Design tokens: values from design/design.md */
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-muted: #e9edf5;
+  --text: #0e1726;
+  --text-muted: #5a6474;
+  --primary: #2450ff;
+  --primary-hover: #1433b8;
+  --primary-light: #8fa8ff;
+  --primary-soft: #dce4ff;
+  --on-primary-muted: #e8edff;
+  --border: #e3e7ee;
+  --border-strong: #dde2ea;
+  --border-stronger: #c9d0db;
+
+  --orb-gradient: radial-gradient(circle at 35% 30%, #8fa8ff 0%, #2450ff 50%, #1433b8 100%);
+  --orb-shadow: 0 0 0 6px rgba(36, 80, 255, 0.14), 0 12px 28px rgba(36, 80, 255, 0.35);
+  --shadow-primary: 0 10px 24px rgba(36, 80, 255, 0.25);
+  --shadow-float: 0 10px 24px rgba(14, 23, 38, 0.1);
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --content-max: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --section-pad: 112px;
+
+  --radius-pill: 999px;
+  --radius-card: 28px;
+  --radius-card-lg: 32px;
+  --radius-panel: 40px;
+  --radius-image: 18px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 24px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+dl,
+dd {
+  margin: 0;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--primary);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* Layout helpers */
+.container {
+  width: 100%;
+  max-width: calc(var(--content-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-pad);
+}
+
+/* For consecutive sections on the same background */
+.section--flush-top {
+  padding-top: 0;
+}
+
+.section--surface {
+  background: var(--surface);
+  border-block: 1px solid var(--border);
+}
+
+/* Typography */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(48px, 6.8vw, 92px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(36px, 4.4vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(24px, 2.2vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  font-size: 19px;
+  color: var(--text-muted);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.highlight {
+  color: var(--primary);
+}
+
+/* Mono label in --primary above headings */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--primary);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hover lift for cards (design: 2–4px) */
+.lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-float);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .lift,
+  .lift:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-pad: 80px;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  .lead {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-pad: 64px;
+  }
+}
