@@ -1,0 +1,60 @@
+.project-screens__panel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 44px 40px 40px;
+  overflow: hidden;
+  border-radius: var(--radius-panel);
+  background: var(--primary);
+}
+
+/* Decorative ring behind the phones */
+.project-screens__panel::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  width: 460px;
+  height: 460px;
+  translate: -50% 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.project-screens__phone {
+  position: relative;
+  width: 210px;
+  height: 410px;
+  border-radius: 28px;
+}
+
+.project-screens__phone:nth-child(2) {
+  margin-top: 28px;
+}
+
+.project-screens__phone.image-slot--placeholder {
+  background: var(--surface);
+  border-color: rgba(36, 80, 255, 0.35);
+}
+
+@media (max-width: 768px) {
+  .project-screens__panel {
+    gap: 12px;
+    padding: 28px 16px;
+    border-radius: var(--radius-card-lg);
+  }
+
+  .project-screens__phone {
+    width: 32%;
+    height: 280px;
+    border-radius: 18px;
+    font-size: 10px;
+  }
+
+  .project-screens__phone:nth-child(2) {
+    margin-top: 18px;
+  }
+}

@@ -1,0 +1,12 @@
+.projects-hero {
+  padding-bottom: 64px;
+}
+
+.projects-hero__title {
+  max-width: 13ch;
+  margin-top: 20px;
+}
+
+.projects-hero__lead {
+  margin-top: 28px;
+}
