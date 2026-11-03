@@ -125,3 +125,14 @@ Files created / changed: wrangler.jsonc (new), docs/progress.md, docs/sanity.md,
 Waiting for approval:
 - **Deploy setup** (in the Cloudflare dashboard): build command `npm run build`; build-time env vars `VITE_SANITY_PROJECT_ID=otbb6ulw`, `VITE_SANITY_DATASET=production`; then add the live URL (e.g. the `*.workers.dev` address and any custom domain) to Sanity CORS origins.
 Next: as before.
+
+## 2026-11-04: M-11 (home hero ring)
+Done:
+- Home hero ring (`.home-hero__ring`): darker blue (`--primary-hover`, #1433B8) and 20px thick on all screen sizes (was `--primary`, 34px desktop / 24px small screens). Shadow tint matched to the new blue.
+Decisions (and why):
+- Reused the existing palette token instead of adding a new colour.
+- Removed the small-screen 24px override so the ring is never thicker on mobile than on desktop.
+Files created / changed: src/pages/Home/sections/HeroSection/HeroSection.css, docs/progress.md
+Waiting for approval: deviation from the approved design (home-desktop.png shows a 34px `--primary` ring), at the user's request; design.md not edited.
+Next: as before.
+
