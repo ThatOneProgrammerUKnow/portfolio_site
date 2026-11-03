@@ -1,0 +1,60 @@
+.contact-hero {
+  padding-bottom: 64px;
+}
+
+.contact-hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: center;
+  gap: 48px;
+}
+
+.contact-hero__title {
+  margin-top: 28px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(64px, 9vw, 128px);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+
+.contact-hero__lead {
+  margin-top: 32px;
+}
+
+.contact-hero__email {
+  margin-top: 28px;
+  max-width: 100%;
+  font-family: var(--font-display);
+}
+
+/* Large decorative orb with two soft halos */
+.contact-hero__orb {
+  justify-self: end;
+  width: 280px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--orb-gradient);
+  box-shadow:
+    0 0 0 18px rgba(36, 80, 255, 0.14),
+    0 0 0 40px rgba(36, 80, 255, 0.06),
+    0 40px 80px rgba(36, 80, 255, 0.25);
+}
+
+@media (max-width: 1024px) {
+  .contact-hero__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-hero__orb {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-hero__email {
+    width: 100%;
+    padding: 0 20px;
+    font-size: 17px;
+  }
+}
