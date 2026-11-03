@@ -23,7 +23,7 @@ Shared links are defined **once**, in `site.json → links`:
 ```json
 "links": {
   "github":   { "label": "GitHub",      "href": "https://github.com/ThatOneProgrammerUKnow" },
-  "linkedin": { "label": "LinkedIn",    "href": "https://www.linkedin.com/" },
+  "linkedin": { "label": "LinkedIn",    "href": "https://linkedin.com/in/kobus-van-schalkwyk-190794382" },
   "email":    { "label": "Email",       "href": "mailto:kobus.vs.2006@gmail.com" },
   "cv":       { "label": "Download CV", "href": "/cv/Kobus-van-Schalkwyk-CV.pdf" }
 }
@@ -33,7 +33,7 @@ Everywhere else, content refers to them by **`linkKey`** (e.g. `"linkKey": "link
 
 Internal links use **`to`**: `"/about"`, `"/projects/budget-tracker"`, or `"/projects#brighthire"` (scrolls to that card).
 
-- **LinkedIn**: replace `https://www.linkedin.com/` with your profile URL.
+- **LinkedIn**: change `links.linkedin.href`.
 - **Email**: change both `site.json → email` (the visible text) and `links.email.href`.
 
 ## The CV

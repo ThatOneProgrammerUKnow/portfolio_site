@@ -34,8 +34,8 @@ Files created / changed:
 
 Waiting for approval:
 - **Content**:
-  - CV PDF → place at `public/cv/Kobus-van-Schalkwyk-CV.pdf` (all "Download CV" links currently 404).
-  - LinkedIn profile URL (currently `https://www.linkedin.com/` in `site.json`).
+  - ~~CV PDF~~: added by user (`public/cv/Kobus-van-Schalkwyk-CV.pdf`).
+  - ~~LinkedIn profile URL~~: added by user.
   - GitHub URL guessed from the username in the design: `https://github.com/ThatOneProgrammerUKnow`. Please confirm.
   - Possible typos copied from the design: "High School Stellenberg" (About intro) vs "Hoërskool Stellenberg" (education card); link text `gesingkerk.co.za` vs church name "Gesinskerk".
   - UI strings I added for accessibility (not in the designs): "Open menu", "Close menu", "Main" (nav label), "Skip to content" in `site.json`.
