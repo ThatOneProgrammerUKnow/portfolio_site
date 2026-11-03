@@ -42,7 +42,7 @@ Page: [src/pages/About/About.jsx](../src/pages/About/About.jsx) · Content: Stud
 | 2 | `ExperienceSection` | `experience` | `.experience`, `__header` (sticky on desktop); `.timeline`, `__item`, `.is-current`, `__title`, `__bullets`, `__text` | White band, "Where I've worked": vertical timeline |
 | 3 | `LeadershipSection` | `leadership` | `.leadership`, `__intro`, `__cards`, `__card`, `__title` | "Leading at my church": intro + church link + 3 cards |
 | 4 | `LearningSection` | `learning` **and** `techStack` | `.learning`, `__list`, `__item`, `__item-title`, `__item-detail`; `.tech-stack`, `__group`, `__label`, `__chips`, `__chip` | Two columns: certifications list (left), tech chips (right) |
-| 5 | `BeyondCodeSection` | `beyondCode` | `.beyond-code`, `__grid`, `__image`, `__caption` | "Life outside the editor": 6 photos with captions |
+| 5 | `BeyondCodeSection` | `beyondCode` | `.beyond-code`, `__grid`, `__image`, `__caption` | "Life outside the editor": 6 photos with captions. **Hidden for now** (not rendered in `About.jsx`; content kept in Sanity) |
 
 Notes:
 - 🖼 **Arch photo**: `hero.image`.

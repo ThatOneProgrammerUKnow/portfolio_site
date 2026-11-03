@@ -63,7 +63,7 @@ Images are cropped to fill their slot (`object-fit: cover`), never stretched. If
 | Home | "Live" step: coffee / music / hiking | Home page → How I work → Steps → Live → Images (1–3) | circle, 112 × 112 | 240 × 240 | `.how-i-work__image` |
 | Home | project rows | Home page → Selected work → Projects → (row) → Image | 150 × 112 (full width on phones) | 600 × 450 (4:3) | `.project-row__image` |
 | About | arch photo (hero) | About page → Hero → Photo | arch, 340 × 420 | **680 × 840** (portrait) | `.about-hero__photo` |
-| About | Beyond code tiles (6) | About page → Beyond code → Items → (item) → Image | 380 × 300 | 760 × 600 | `.beyond-code__image` |
+| About | Beyond code tiles (6), *section hidden for now* | About page → Beyond code → Items → (item) → Image | 380 × 300 | 760 × 600 | `.beyond-code__image` |
 | Projects | featured phones (2) | Project "Budget Tracker" → Card → Images (1–2) | phone, 160 × 340 | 320 × 680 (app screenshot) | `.featured-project__phone` |
 | Projects | grid cards | Project → Card → Images (first one) | 546 × 230 | 1100 × 460 | `.project-card__image` |
 | Budget Tracker | case-study screens (3) | Project "Budget Tracker" → Case study → Screens | phone, 210 × 410 | 420 × 820 | `.project-screens__phone` |

@@ -136,3 +136,11 @@ Files created / changed: src/pages/Home/sections/HeroSection/HeroSection.css, do
 Waiting for approval: deviation from the approved design (home-desktop.png shows a 34px `--primary` ring), at the user's request; design.md not edited.
 Next: as before.
 
+## 2026-11-04: M-12 (hide Beyond code)
+Done:
+- About page no longer renders the "Beyond code" photo gallery (user request, temporary). `BeyondCodeSection` component, CSS, the Sanity schema and its content are kept.
+Decisions (and why):
+- Hidden in `About.jsx` rather than deleted, so restoring it is two lines (see the comment there).
+Files created / changed: src/pages/About/About.jsx, docs/pages.md, docs/content-and-images.md, docs/progress.md
+Waiting for approval: nothing new.
+Next: show it again once the photos are ready.
