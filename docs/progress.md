@@ -116,3 +116,12 @@ Waiting for approval:
 - `PROJECT.md` still doesn't exist; it should say "CMS: Sanity".
 Next: check the site in a browser (`npm run dev`), upload photos in the Studio, choose hosting.
 
+## 2026-11-03: M-10 (Cloudflare config)
+Done:
+- Added `wrangler.jsonc` (supplied by user): Cloudflare Workers static assets from `./dist`, `not_found_handling: "single-page-application"` (serves `index.html` for deep links like `/projects/budget-tracker`, the SPA fallback noted earlier).
+Decisions (and why):
+- Hosting: Cloudflare (user's choice). Wrangler not added as a dependency; Cloudflare's build runs it.
+Files created / changed: wrangler.jsonc (new), docs/progress.md, docs/sanity.md, docs/README.md
+Waiting for approval:
+- **Deploy setup** (in the Cloudflare dashboard): build command `npm run build`; build-time env vars `VITE_SANITY_PROJECT_ID=otbb6ulw`, `VITE_SANITY_DATASET=production`; then add the live URL (e.g. the `*.workers.dev` address and any custom domain) to Sanity CORS origins.
+Next: as before.
