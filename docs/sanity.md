@@ -61,7 +61,13 @@ Arrays that sections `.map()` over are wrapped in `coalesce(..., [])`, so an emp
 
 **Changing a schema?** Update the matching projection in `queries.js` and the fake data in `src/test/fixtures.js`.
 
-## Run the Studio
+## Online Studio
+
+The Studio is hosted by Sanity at **https://kobus-portfolio.sanity.studio** (log in with Email / Password). The website forwards **yoursite/studio** there: `public/_redirects` (Cloudflare's redirect file, copied into `dist/` by Vite) sends `/studio` and `/studio/*` to it with a 302. That only works on Cloudflare, not in `npm run dev` / `preview` (there `/studio` hits the site's catch-all route and lands on Home).
+
+After changing a schema, redeploy the Studio: `cd studio && npm run deploy` (host and app ID are set in `sanity.cli.js`, so it doesn't prompt). Only members of the Sanity project can log in, so the public URL is safe.
+
+## Run the Studio locally
 
 ```bash
 cd studio

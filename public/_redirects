@@ -1,0 +1,2 @@
+/studio https://kobus-portfolio.sanity.studio/ 302
+/studio/* https://kobus-portfolio.sanity.studio/:splat 302

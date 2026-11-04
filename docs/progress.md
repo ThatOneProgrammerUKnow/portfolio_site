@@ -166,3 +166,34 @@ Waiting for approval:
 - **Content**: real download URL (Project "Funds View" → Download link). Platforms fact still says "Google Play & App Store"; change if the App Store isn't planned.
 - **Design**: no phone design for the Apps page (adapted as described in design.md).
 Next: merge `main-dev` → `main`, add the menu item, replace the placeholder download link, add app screenshots.
+
+## 2026-11-05: M-14 (Studio online at /studio)
+Done:
+- Sanity Studio deployed to https://kobus-portfolio.sanity.studio (`studioHost` + `deployment.appId` in `studio/sanity.cli.js`). This also deployed the M-13 schemas (Apps page, Download link) to the hosted Studio.
+- `public/_redirects`: `/studio` and `/studio/*` → hosted Studio (302, Cloudflare static-assets redirect file). Build copies it to `dist/`.
+- Docs: sanity.md (Online Studio), README.md.
+Decisions (and why):
+- Redirect to Sanity's hosting instead of embedding the Studio in the site (user chose the recommended option): no new website dependencies, no effect on site speed, Sanity's tooling audit issues stay out of the website.
+- 302 (temporary), so the target can change later without browsers caching the redirect.
+Files created / changed: public/_redirects (new), studio/sanity.cli.js, docs/sanity.md, docs/README.md, docs/progress.md
+Waiting for approval: push `main` to deploy M-13 + M-14, then add the Apps menu item (see M-13). The /studio redirect can only be tested after deploying.
+Next: deploy, test yoursite/studio, add the menu item.
+
+## 2026-11-05: M-15 (My products in the menu)
+Done:
+- Sanity → Site settings → Menu: added **04 · My products · /apps** after Projects; Download CV → 05, Contact → 06 (live now; M-13's /apps is already deployed).
+- Found why yoursite/studio didn't work: M-14 (`public/_redirects`) was on `main-dev` but not merged into `main`, so Cloudflare never deployed it. Pushed `main-dev`; the user opens/merges the PR main-dev → main.
+Decisions (and why):
+- Menu label "My products" (user's wording); the page itself still says "Apps" in its eyebrow / tab title. Can be changed in Studio → Apps page → Hero → Eyebrow.
+Files created / changed: docs/progress.md (content change only in Sanity)
+Waiting for approval: merge the PR, then test yoursite/studio.
+Next: replace the placeholder download link.
+
+## 2026-11-05: M-16 (fix Cloudflare preview builds)
+Done:
+- Preview builds of `main-dev` (commits 9dff351, d00990e) failed: Cloudflare's preview deploy command is `npx wrangler preview` (open beta), which errors without a `previews` block in the Wrangler config. Added `"previews": {}` to `wrangler.jsonc`. Not caused by `_redirects` (production `wrangler deploy --dry-run` passes with it).
+Decisions (and why):
+- Fixed in config (as the Wrangler error asks) rather than changing the dashboard deploy command, so it's versioned with the code.
+Files created / changed: wrangler.jsonc, docs/progress.md
+Waiting for approval: check the new preview build on the PR, then merge main-dev → main and test yoursite/studio.
+Next: as before.
