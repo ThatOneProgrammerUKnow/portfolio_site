@@ -197,3 +197,9 @@ Decisions (and why):
 Files created / changed: wrangler.jsonc, docs/progress.md
 Waiting for approval: check the new preview build on the PR, then merge main-dev → main and test yoursite/studio.
 Next: as before.
+
+## 2026-11-05: content (Funds View download link)
+Done:
+- Sanity → Project "Funds View" → Download link set to https://github.com/Orbtech-Solutions/FundsViewer-releases/releases/latest (replaces the placeholder; live now). Link checked (200).
+Files created / changed: docs/progress.md (content change only in Sanity)
+Waiting for approval: nothing new.
