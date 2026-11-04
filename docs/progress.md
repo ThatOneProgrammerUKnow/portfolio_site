@@ -178,3 +178,13 @@ Decisions (and why):
 Files created / changed: public/_redirects (new), studio/sanity.cli.js, docs/sanity.md, docs/README.md, docs/progress.md
 Waiting for approval: push `main` to deploy M-13 + M-14, then add the Apps menu item (see M-13). The /studio redirect can only be tested after deploying.
 Next: deploy, test yoursite/studio, add the menu item.
+
+## 2026-11-05: M-15 (My products in the menu)
+Done:
+- Sanity → Site settings → Menu: added **04 · My products · /apps** after Projects; Download CV → 05, Contact → 06 (live now; M-13's /apps is already deployed).
+- Found why yoursite/studio didn't work: M-14 (`public/_redirects`) was on `main-dev` but not merged into `main`, so Cloudflare never deployed it. Opened a PR main-dev → main.
+Decisions (and why):
+- Menu label "My products" (user's wording); the page itself still says "Apps" in its eyebrow / tab title. Can be changed in Studio → Apps page → Hero → Eyebrow.
+Files created / changed: docs/progress.md (content change only in Sanity)
+Waiting for approval: merge the PR, then test yoursite/studio.
+Next: replace the placeholder download link.
