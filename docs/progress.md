@@ -188,3 +188,12 @@ Decisions (and why):
 Files created / changed: docs/progress.md (content change only in Sanity)
 Waiting for approval: merge the PR, then test yoursite/studio.
 Next: replace the placeholder download link.
+
+## 2026-11-05: M-16 (fix Cloudflare preview builds)
+Done:
+- Preview builds of `main-dev` (commits 9dff351, d00990e) failed: Cloudflare's preview deploy command is `npx wrangler preview` (open beta), which errors without a `previews` block in the Wrangler config. Added `"previews": {}` to `wrangler.jsonc`. Not caused by `_redirects` (production `wrangler deploy --dry-run` passes with it).
+Decisions (and why):
+- Fixed in config (as the Wrangler error asks) rather than changing the dashboard deploy command, so it's versioned with the code.
+Files created / changed: wrangler.jsonc, docs/progress.md
+Waiting for approval: check the new preview build on the PR, then merge main-dev → main and test yoursite/studio.
+Next: as before.
