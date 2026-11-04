@@ -59,23 +59,45 @@ Page: [src/pages/Projects/Projects.jsx](../src/pages/Projects/Projects.jsx) · C
 | # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
 | 1 | `ProjectsHeroSection` | `hero` | `.projects-hero`, `__title`, `__lead` | H1 "Problems I spotted, and what I built for them." |
-| 2 | `FeaturedProjectSection` | the project with `"featured": true` + `featuredCta` | `.featured-project`, `__panel`, `__text`, `__meta`, `__title`, `__summary`, `__cta`, `__phones`, `__phone` | Big blue panel with 2 phone screens + "Read the case study" |
-| 3 | `ProjectGridSection` | every other project | `.project-grid`, `__list`; cards: `.project-card`, `__image`, `__meta`, `__title`, `__stack` | 2-column grid of cards |
+| 2 | `FeaturedProjectSection` | the project with `"featured": true` + `featuredCta` + `downloadCta` | `.featured-project`, `__panel`, `__text`, `__meta`, `__title`, `__summary`, `__actions`, `__cta`, `__download`, `__phones`, `__phone` | Big blue panel with 2 phone screens + "Read the case study" + small "Download app" |
+| 3 | `ProjectGridSection` | every other project + `downloadCta` | `.project-grid`, `__list`; cards: `.project-card`, `__image`, `__meta`, `__title`, `__stack`, `__download` | 2-column grid of cards |
 
 Notes:
 - `Projects.jsx` splits the `projects` array: the one with `"featured": true` goes to the panel, the rest to the grid.
 - Every card has `id="<slug>"`, so `/projects#brighthire` scrolls straight to the Brighthire card. Home's project rows use these anchors.
 - The "Read the case study" button only appears if the featured project has a `detail` block.
+- The small **"Download app"** button (featured panel and cards) only appears if the project has a **Download link**. It goes to `/apps#<slug>`, not straight to the file, so visitors see the app's card first.
 - 🖼 **Featured phones**: `images[0]` and `images[1]` of the featured project.
 - 🖼 **Card image**: `images[0]` of each other project.
 
 ---
 
+## Apps: `/apps`
+
+Page: [src/pages/Apps/Apps.jsx](../src/pages/Apps/Apps.jsx) · Content: Studio → **Apps page** + every **Project** with a **Download link** · Design: `design/apps-desktop.png`
+
+"This is the work you can actually use." Lists live apps with a download link and a link back to the project.
+
+| # | Section | Field | Classes | What it is |
+|---|---|---|---|---|
+| 1 | `AppsHeroSection` | `hero` | `.apps-hero`, `__title`, `__lead` | H1 "Things I built that you can use." |
+| 2 | `AppListSection` | `apps` + `downloadLabel`, `viewProjectLabel` | `.app-list`, `__list`; cards: `.app-card`, `__image`, `__body`, `__title`, `__summary`, `__stack`, `__actions` | One wide white card per app: image, meta, title, summary, stack, **Download** (primary) + **View project** (secondary) |
+
+Notes:
+- An app = a Project with **Download link** set (`APPS_QUERY`), in the same order as the Projects page. No separate list to maintain.
+- **Download** opens the download URL in a new tab (`rel="noopener noreferrer"`). **View project** goes to the case study (`/projects/<slug>`) or, without one, to the project's card (`/projects#<slug>`).
+- Each card has `id="<slug>"`, so the Projects page's "Download app" button (`/apps#funds-view`) scrolls straight to it.
+- Both buttons add the app name for screen readers ("Download Funds View"), so they make sense out of context.
+- 🖼 **Card image**: `images[0]` of the project (same image as its Projects card).
+- Layout: image | text | stacked buttons on desktop; buttons move under the text below 1024px; everything stacks below 768px; buttons stack below 480px.
+
+---
+
 ## Project detail: `/projects/:slug`
 
-Page: [src/pages/ProjectDetail/ProjectDetail.jsx](../src/pages/ProjectDetail/ProjectDetail.jsx) · Content: the project's **Case study** tab (+ back/next labels from **Projects page**) · Design: `design/project-budget-tracker-desktop.png`
+Page: [src/pages/ProjectDetail/ProjectDetail.jsx](../src/pages/ProjectDetail/ProjectDetail.jsx) · Content: the project's **Case study** tab (+ back/next labels from **Projects page**) · Design: `design/project-budget-tracker-desktop.png` (Funds View, formerly Budget Tracker)
 
-This is a **template**: one page component serves any project. The route loader in `routes.jsx` calls `getProjectDetail(slug)` (`src/services/content.js`). If the project doesn't exist **or has "Has a case study page" switched off**, the loader redirects to `/projects`. Today only `budget-tracker` has one.
+This is a **template**: one page component serves any project. The route loader in `routes.jsx` calls `getProjectDetail(slug)` (`src/services/content.js`). If the project doesn't exist **or has "Has a case study page" switched off**, the loader redirects to `/projects`. Today only `funds-view` has one (the old `/projects/budget-tracker` URL now redirects to `/projects`).
 
 | # | Section | Field | Classes | What it is |
 |---|---|---|---|---|

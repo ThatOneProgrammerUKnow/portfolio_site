@@ -17,6 +17,7 @@ const projectFields = `
   summary,
   "stack": coalesce(stack, []),
   "images": coalesce(images[]${image}, []),
+  downloadUrl,
   "detail": select(hasCaseStudy == true => detail {
     "facts": coalesce(facts[]{ label, value }, []),
     "screens": coalesce(screens[]${image}, []),
@@ -88,7 +89,25 @@ export const ABOUT_QUERY = `*[_id == "aboutPage"][0]{
 export const PROJECTS_QUERY = `*[_id == "projectsPage"][0]{
   hero { eyebrow, title, lead },
   featuredCta,
+  downloadCta,
   "projects": *[_type == "project" && defined(slug.current)] | order(order asc) { ${projectFields} }
+}`;
+
+/** Apps page copy + every project with a download link (same order as the Projects page). */
+export const APPS_QUERY = `*[_id == "appsPage"][0]{
+  hero { eyebrow, title, lead },
+  downloadLabel,
+  viewProjectLabel,
+  "apps": *[_type == "project" && defined(slug.current) && defined(downloadUrl)] | order(order asc) {
+    "slug": slug.current,
+    title,
+    "meta": coalesce(meta, []),
+    summary,
+    "stack": coalesce(stack, []),
+    "image": images[0]${image},
+    downloadUrl,
+    "to": ${projectHref}
+  }
 }`;
 
 /** Labels from the Projects page + the one project, only if it has a case study. */

@@ -13,8 +13,8 @@ export default function Projects() {
     <>
       <PageMeta title={content.hero.eyebrow} description={content.hero.lead} />
       <ProjectsHeroSection content={content.hero} />
-      {featured && <FeaturedProjectSection project={featured} ctaLabel={content.featuredCta} />}
-      <ProjectGridSection projects={others} />
+      {featured && <FeaturedProjectSection project={featured} ctaLabel={content.featuredCta} downloadLabel={content.downloadCta} />}
+      <ProjectGridSection projects={others} downloadLabel={content.downloadCta} />
     </>
   );
 }

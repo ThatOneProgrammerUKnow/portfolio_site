@@ -26,8 +26,8 @@ Import paths are relative. From a section file that's 4 levels up, e.g. `import 
 | Prop | Values | Default |
 |---|---|---|
 | `variant` | `"primary"` (blue), `"secondary"` (white + border), `"dark"` (navy) | `"primary"` |
-| `size` | `"lg"` (the big contact email button) | normal |
-| `icon` | a Lucide icon **component** (not a string), shown after the text at 18px (28px for `lg`) | none |
+| `size` | `"sm"` (44px tall, e.g. "Download app" on Projects), `"lg"` (the big contact email button) | normal |
+| `icon` | a Lucide icon **component** (not a string), shown after the text at 18px (16px for `sm`, 28px for `lg`) | none |
 | `to` / `href` | where it goes (passed to [SmartLink](#smartlink)) | |
 | `className` | extra classes, e.g. for spacing | |
 

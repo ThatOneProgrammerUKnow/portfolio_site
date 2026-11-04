@@ -51,6 +51,14 @@ export const project = defineType({
       group: 'card',
       of: [defineArrayMember({ type: 'imageWithAlt' })],
     }),
+    defineField({
+      name: 'downloadUrl',
+      title: 'Download link',
+      type: 'url',
+      group: 'card',
+      description: 'Set this when people can download and use the app. The project then appears on the Apps page.',
+      validation: (rule) => rule.uri({ scheme: ['https'] }),
+    }),
 
     defineField({
       name: 'hasCaseStudy',

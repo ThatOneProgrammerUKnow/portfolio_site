@@ -9,7 +9,8 @@ Text placeholders like `[Your photo: ...]` mean an image is still to come.
 | Home | `home-desktop.png` | `/` |
 | About | `about-desktop.png` | `/about` |
 | Projects | `projects-desktop.png` | `/projects` |
-| Project detail (template) | `project-budget-tracker-desktop.png` | `/projects/budget-tracker` |
+| Project detail (template) | `project-budget-tracker-desktop.png` | `/projects/funds-view` (app renamed from Budget Tracker) |
+| Apps | `apps-desktop.png` | `/apps` |
 | Contact | `contact-desktop.png` | `/contact` |
 | Orb navigation (open) | `orb-nav-open.png` | all pages |
 
@@ -66,6 +67,8 @@ Orb shadow: `0 0 0 6px rgba(36,80,255,.14), 0 12px 28px rgba(36,80,255,.35)`
 - **Project row** (home) / **project card** (projects): image, mono meta line, title, one-liner, tech stack in mono.
 - **Blue panel**: "Right now" (home), featured project (projects), phone screens (project detail).
 - **Timeline** (about): vertical line, filled dots for current roles, outlined dots for past.
+- **App card** (apps): one wide white card per app (`--surface`, 1px `--border`, radius 32px, padding 22px, 40px right). Columns: 180×240 image (radius 22px) | mono meta in `--primary`, title 32–44px (like the featured project title), muted summary, mono stack | buttons stacked: primary **Download** (download icon) over secondary **View project** (arrow-right). Below 1024px the buttons sit in a row under the text; below 768px the card stacks (image full width, 220px tall); below 480px the buttons stack.
+- **Small button** (`sm`): 44px tall, 20px side padding, 15px text, 16px icon. Used for **Download app** on the Projects page: an outline button on the blue featured panel (transparent, white text, 70% white border; hover: white fill, `--primary-hover` text) next to "Read the case study", and a secondary small button at the bottom of a project card. Links to `/apps#<slug>`.
 - **Footer**: © line, Colossians 3:23 in italics, GitHub / LinkedIn / Email links.
 
 ## Icons
@@ -81,4 +84,4 @@ Simple 24px stroke icons (2px stroke, round caps): arrow-right, arrow-up-right, 
 
 ## Images still needed
 
-Professional portrait (hero), casual photo (about), photo with girlfriend, music, coffee, hiking/camping, 3D printing, books, plus project screenshots (Budget Tracker ×3, Brighthire, WEG, VSI Sales, Smart Assistant).
+Professional portrait (hero), casual photo (about), photo with girlfriend, music, coffee, hiking/camping, 3D printing, books, plus project screenshots (Funds View ×3, Brighthire, WEG, VSI Sales, Smart Assistant).

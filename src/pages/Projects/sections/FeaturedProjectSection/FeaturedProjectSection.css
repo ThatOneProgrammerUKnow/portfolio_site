@@ -54,10 +54,30 @@
   margin-bottom: 14px;
 }
 
-.featured-project__cta {
+.featured-project__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
   margin-top: 28px;
+}
+
+.featured-project__cta {
   min-height: 50px;
   border-color: transparent;
+}
+
+/* Outline button on the blue panel: white text and border (5.7:1 on --primary) */
+.featured-project__download {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.featured-project__download:hover {
+  background: #fff;
+  color: var(--primary-hover);
+  border-color: #fff;
 }
 
 .featured-project__phones {

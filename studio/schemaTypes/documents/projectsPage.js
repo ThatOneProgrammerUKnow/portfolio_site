@@ -14,6 +14,9 @@ export const projectsPage = defineType({
       requiredText('lead', 'Lead'),
     ]),
     requiredString('featuredCta', 'Featured project button'),
+    requiredString('downloadCta', 'Download app button', {
+      description: 'Shown on projects that have a download link; links to the Apps page.',
+    }),
     requiredString('backLink', 'Case study: back link'),
     requiredString('nextLabel', 'Case study: next project label'),
   ],

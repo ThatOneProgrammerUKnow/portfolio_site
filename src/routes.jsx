@@ -3,6 +3,7 @@ import Layout from './components/Layout/Layout';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import {
   getAboutPage,
+  getAppsPage,
   getContactPage,
   getHomePage,
   getProjectDetail,
@@ -36,6 +37,7 @@ export const routes = [
           (await getProjectDetail(params.slug, { signal: request.signal })) ?? redirect('/projects'),
         lazy: page(() => import('./pages/ProjectDetail/ProjectDetail')),
       },
+      { path: 'apps', loader: withSignal(getAppsPage), lazy: page(() => import('./pages/Apps/Apps')) },
       { path: 'contact', loader: withSignal(getContactPage), lazy: page(() => import('./pages/Contact/Contact')) },
       // No 404 design yet: send unknown URLs home (see docs/progress.md).
       { path: '*', element: <Navigate to="/" replace /> },

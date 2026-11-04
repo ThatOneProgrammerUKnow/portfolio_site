@@ -28,7 +28,7 @@ The Studio checks your edits: required fields, HTTPS URLs, link targets, and alt
 
 Shared links are defined **once**, in **Site settings → Shared links** (GitHub, LinkedIn, Email label, CV). Everywhere else, a link picks one of them under **Shared link**, so changing a URL there updates the menu, footer, buttons and contact cards at once.
 
-Internal links use **Page path** instead: `/about`, `/projects/budget-tracker`, or `/projects#brighthire` (scrolls to that card). A link has either a page path or a shared link, never both.
+Internal links use **Page path** instead: `/about`, `/projects/funds-view`, or `/projects#brighthire` (scrolls to that card). A link has either a page path or a shared link, never both.
 
 - **LinkedIn / GitHub**: Site settings → Shared links → URL.
 - **Email**: Site settings → Email. The `mailto:` link is built from it automatically.
@@ -64,9 +64,9 @@ Images are cropped to fill their slot (`object-fit: cover`), never stretched. If
 | Home | project rows | Home page → Selected work → Projects → (row) → Image | 150 × 112 (full width on phones) | 600 × 450 (4:3) | `.project-row__image` |
 | About | arch photo (hero) | About page → Hero → Photo | arch, 340 × 420 | **680 × 840** (portrait) | `.about-hero__photo` |
 | About | Beyond code tiles (6), *section hidden for now* | About page → Beyond code → Items → (item) → Image | 380 × 300 | 760 × 600 | `.beyond-code__image` |
-| Projects | featured phones (2) | Project "Budget Tracker" → Card → Images (1–2) | phone, 160 × 340 | 320 × 680 (app screenshot) | `.featured-project__phone` |
+| Projects | featured phones (2) | Project "Funds View" → Card → Images (1–2) | phone, 160 × 340 | 320 × 680 (app screenshot) | `.featured-project__phone` |
 | Projects | grid cards | Project → Card → Images (first one) | 546 × 230 | 1100 × 460 | `.project-card__image` |
-| Budget Tracker | case-study screens (3) | Project "Budget Tracker" → Case study → Screens | phone, 210 × 410 | 420 × 820 | `.project-screens__phone` |
+| Funds View | case-study screens (3) | Project "Funds View" → Case study → Screens | phone, 210 × 410 | 420 × 820 | `.project-screens__phone` |
 
 Home's project rows and the Projects page cards are **separate** image fields. Upload the same image to both if you like.
 
@@ -81,7 +81,8 @@ In the Studio: **Project → + (create)**.
 - **Title**, then **Slug → Generate**. The slug becomes the card's anchor (`/projects#my-new-app`) and, with a case study, its URL. It must be unique.
 - **Order**: lower numbers show first in the grid.
 - **Meta** (e.g. "Personal", "2026", "On GitHub"), **Summary**, **Stack**, **Images**.
-- To feature it in the big blue panel instead, switch on **Featured** and fill in **Featured label**, and switch Featured off on Budget Tracker. Only one project should be featured.
+- To feature it in the big blue panel instead, switch on **Featured** and fill in **Featured label**, and switch Featured off on Funds View. Only one project should be featured.
+- **Download link** (Card tab): set it when people can download and use the app. The project then appears on the **Apps** page (`/apps`) with a Download button (this URL) and a View project button (its case study, or its card on /projects), and its Projects-page card/panel gets a small "Download app" button that links to `/apps#<slug>`. Must be `https://`. Leave it empty to keep the project off the Apps page.
 - To show it on Home as well, add a row under **Home page → Selected work → Projects** and pick the project.
 
 ## Add a case-study page

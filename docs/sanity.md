@@ -28,11 +28,12 @@ studio/
       homePage.js           (singleton)
       aboutPage.js          (singleton)
       projectsPage.js       Projects page copy + case-study labels        (singleton)
+      appsPage.js           Apps page copy + button labels                (singleton)
       contactPage.js        (singleton)
       project.js            one document per project, ordered by `order`
 ```
 
-Singleton document IDs equal their type name (`siteSettings`, `homePage`, …); that's what `document.singletons: ['homePage', …]` uses. Projects have IDs like `project-budget-tracker`.
+Singleton document IDs equal their type name (`siteSettings`, `homePage`, …); that's what `document.singletons: ['homePage', …]` uses. Projects have IDs like `project-brighthire`. (Funds View keeps its original ID `project-budget-tracker`: IDs are internal and can't be renamed; only its title and slug changed.)
 
 ## Front-end files
 
@@ -40,7 +41,7 @@ Singleton document IDs equal their type name (`siteSettings`, `homePage`, …); 
 |---|---|
 | `src/services/sanity.js` | builds the query URL (`https://<project>.apicdn.sanity.io/v2025-02-19/data/query/<dataset>`, `perspective=published`) and fetches it. Reads `VITE_SANITY_PROJECT_ID` / `VITE_SANITY_DATASET` from the root `.env`. |
 | `src/services/queries.js` | GROQ queries. Each **projection returns exactly the shape the sections expect** (the shape of the old JSON files), so components don't know about Sanity. |
-| `src/services/content.js` | `getSite`, `getHomePage`, `getAboutPage`, `getProjectsPage`, `getProjectDetail(slug)`, `getContactPage`. A missing page document throws (→ error page). |
+| `src/services/content.js` | `getSite`, `getHomePage`, `getAboutPage`, `getProjectsPage`, `getAppsPage`, `getProjectDetail(slug)`, `getContactPage`. A missing page document throws (→ error page). |
 | `src/routes.jsx` | route **loaders** call those functions; the root route loads Site settings (`useSite()`), each page loads its document (`useLoaderData()`). Loaders sit in `routes.jsx`, not in the lazy page files, so the request runs in parallel with the page's JS. |
 | `src/components/ErrorPage/` | root error boundary when a request fails |
 
@@ -51,6 +52,7 @@ What the queries derive (so the Studio doesn't store it twice):
 | `links.email.href` | `"mailto:" + email` |
 | `links.cv.href` | the uploaded PDF's CDN URL + `?dl=<original file name>` (forces download) |
 | project `slug` | `slug.current` |
+| Apps page `apps` | every project with `downloadUrl` set, ordered by `order` |
 | project `detail` | `detail`, only if `hasCaseStudy` is on (otherwise `null`) |
 | a project link's `to` (Home rows, "Next project") | `/projects/<slug>` with a case study, else `/projects#<slug>` |
 | image `src` | `asset->url`; `ImageSlot` adds `?w=<2× width>&auto=format` via `utils/images.js` |
