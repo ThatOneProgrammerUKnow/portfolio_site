@@ -63,7 +63,7 @@ So to find where something comes from, look at the section's `content.something`
 ## Folder map
 
 ```
-public/                         files served as-is (favicon)
+public/                         files served as-is (favicon; _redirects: /studio → hosted Studio)
 src/
   main.jsx                      app entry: router + global CSS
   routes.jsx                    every URL and which page it loads
@@ -100,7 +100,7 @@ docs/                           these docs + progress.md
 
 | I want to… | Go to |
 |---|---|
-| change any text | the Studio (`cd studio && npm run dev`); see [content-and-images.md](content-and-images.md) |
+| change any text | the Studio: **yoursite/studio** (→ kobus-portfolio.sanity.studio), or locally `cd studio && npm run dev`; see [content-and-images.md](content-and-images.md) |
 | add my photos | [content-and-images.md → Images](content-and-images.md#images) |
 | replace the CV | Studio → Site settings → Shared links → CV |
 | change the LinkedIn / GitHub / email link | Studio → Site settings → Shared links / Email |

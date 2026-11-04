@@ -166,3 +166,15 @@ Waiting for approval:
 - **Content**: real download URL (Project "Funds View" → Download link). Platforms fact still says "Google Play & App Store"; change if the App Store isn't planned.
 - **Design**: no phone design for the Apps page (adapted as described in design.md).
 Next: merge `main-dev` → `main`, add the menu item, replace the placeholder download link, add app screenshots.
+
+## 2026-11-05: M-14 (Studio online at /studio)
+Done:
+- Sanity Studio deployed to https://kobus-portfolio.sanity.studio (`studioHost` + `deployment.appId` in `studio/sanity.cli.js`). This also deployed the M-13 schemas (Apps page, Download link) to the hosted Studio.
+- `public/_redirects`: `/studio` and `/studio/*` → hosted Studio (302, Cloudflare static-assets redirect file). Build copies it to `dist/`.
+- Docs: sanity.md (Online Studio), README.md.
+Decisions (and why):
+- Redirect to Sanity's hosting instead of embedding the Studio in the site (user chose the recommended option): no new website dependencies, no effect on site speed, Sanity's tooling audit issues stay out of the website.
+- 302 (temporary), so the target can change later without browsers caching the redirect.
+Files created / changed: public/_redirects (new), studio/sanity.cli.js, docs/sanity.md, docs/README.md, docs/progress.md
+Waiting for approval: push `main` to deploy M-13 + M-14, then add the Apps menu item (see M-13). The /studio redirect can only be tested after deploying.
+Next: deploy, test yoursite/studio, add the menu item.
