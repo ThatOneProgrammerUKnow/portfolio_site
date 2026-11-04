@@ -3,6 +3,7 @@
 import { sanityQuery } from './sanity';
 import {
   ABOUT_QUERY,
+  APPS_QUERY,
   CONTACT_QUERY,
   HOME_QUERY,
   PROJECT_DETAIL_QUERY,
@@ -21,6 +22,7 @@ export const getSite = (options) => getRequired(SITE_QUERY, 'Site settings', opt
 export const getHomePage = (options) => getRequired(HOME_QUERY, 'Home page', options);
 export const getAboutPage = (options) => getRequired(ABOUT_QUERY, 'About page', options);
 export const getProjectsPage = (options) => getRequired(PROJECTS_QUERY, 'Projects page', options);
+export const getAppsPage = (options) => getRequired(APPS_QUERY, 'Apps page', options);
 export const getContactPage = (options) => getRequired(CONTACT_QUERY, 'Contact page', options);
 
 /** Returns { backLink, nextLabel, project } or null when the project has no case study. */

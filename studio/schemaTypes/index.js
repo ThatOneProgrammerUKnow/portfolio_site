@@ -1,4 +1,5 @@
 import { aboutPage } from './documents/aboutPage.js';
+import { appsPage } from './documents/appsPage.js';
 import { contactPage } from './documents/contactPage.js';
 import { homePage } from './documents/homePage.js';
 import { project } from './documents/project.js';
@@ -9,7 +10,7 @@ import { imageWithAlt } from './objects/imageWithAlt.js';
 import { link } from './objects/link.js';
 
 /** Document types that exist exactly once (one per page + site settings). */
-export const SINGLETON_TYPES = ['siteSettings', 'homePage', 'aboutPage', 'projectsPage', 'contactPage'];
+export const SINGLETON_TYPES = ['siteSettings', 'homePage', 'aboutPage', 'projectsPage', 'appsPage', 'contactPage'];
 
 export const schemaTypes = [
   // documents
@@ -17,6 +18,7 @@ export const schemaTypes = [
   homePage,
   aboutPage,
   projectsPage,
+  appsPage,
   contactPage,
   project,
   // objects

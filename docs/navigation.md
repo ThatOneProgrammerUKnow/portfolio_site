@@ -71,7 +71,7 @@ Files:
    - `aria-controls` points at the list's id while open.
 4. **The list.** `{isOpen && <m.ul>…}` sits inside `<AnimatePresence>`. Motion keeps the list mounted long enough to play its exit animation after `isOpen` becomes false.
 5. **Each pill.** Items are mapped from `nav.items`:
-   - an item with `to` (e.g. `"/about"`) renders a React Router `<NavLink>`. NavLink knows if it's the current page, so it gets the `is-active` class (blue pill) and `aria-current="page"`. `end` is only set for Home (`/`), so **Projects stays active on `/projects/budget-tracker`**.
+   - an item with `to` (e.g. `"/about"`) renders a React Router `<NavLink>`. NavLink knows if it's the current page, so it gets the `is-active` class (blue pill) and `aria-current="page"`. `end` is only set for Home (`/`), so **Projects stays active on `/projects/funds-view`**.
    - an item with `linkKey` (e.g. `"cv"`) renders a `SmartLink` to Site settings → `links.cv.href`. Because that's a PDF (Sanity file URL with `?dl=`), it gets the `download` attribute and downloads in place.
    - clicking any pill calls `close()`.
 6. **The curve.** The open pills curve away from the orb (first and last line up with it, the middle sticks out furthest). `orbCurveOffset(index, count)` returns an x-offset in px: `-48 × sin(π × index / (count − 1))`. With 5 items that's `0, −34, −48, −34, 0`. Change `depth` (48) in `orbCurve.js` for a stronger or flatter curve. It adapts automatically if you add or remove items.

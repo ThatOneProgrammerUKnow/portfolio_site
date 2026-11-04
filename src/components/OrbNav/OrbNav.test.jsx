@@ -47,7 +47,7 @@ describe('OrbNav', () => {
   });
 
   it('keeps Projects active on a project detail page', async () => {
-    const { user, toggle } = renderNav('/projects/budget-tracker');
+    const { user, toggle } = renderNav('/projects/funds-view');
     await user.click(toggle);
     expect(screen.getByRole('link', { name: /projects/i })).toHaveAttribute('aria-current', 'page');
   });

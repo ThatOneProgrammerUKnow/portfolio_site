@@ -144,6 +144,8 @@ Follow `spec/`. If a spec is unclear or conflicts with the design, ask.
 
 - Work is split into milestones: `M-0`, `M-1`, `M-2`, and so on.
 - Commit format: `M-1: add hero section`. Keep commits small and focused.
+- **Branches once a site is live**: `main` is what's deployed. Do all work on `main-dev` (create it from `main` if it doesn't exist). Never commit to, merge into or push to `main`; the user reviews and merges `main-dev` → `main` themselves.
+- **Live CMS content**: the CMS has one dataset that the live site reads, so content edits go live immediately, before the code is merged. Only make content changes that the live `main` code can already display. Changes that need the new code (e.g. a menu item for a new page) wait until the user has merged, and are listed under "Waiting for approval".
 - Write tests while building. **At the end of each milestone**:
   - run the full test suite
   - run `npm run build`

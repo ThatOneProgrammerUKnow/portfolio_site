@@ -37,6 +37,7 @@ const caseStudy = {
   summary: 'Alpha summary.',
   stack: ['React'],
   images: [placeholder('[alpha]')],
+  downloadUrl: 'https://example.com/alpha.apk',
   detail: {
     facts: [{ label: 'Role', value: 'Developer' }],
     screens: [placeholder('[screen]')],
@@ -56,6 +57,7 @@ const plainProject = {
   summary: 'Beta summary.',
   stack: ['Django'],
   images: [placeholder('[beta]')],
+  downloadUrl: null,
   detail: null,
 };
 
@@ -121,7 +123,26 @@ export const about = {
 export const projectsPage = {
   hero: { eyebrow: 'Projects', title: { before: 'Projects ', highlight: 'title.' }, lead: 'Projects lead.' },
   featuredCta: 'Read the case study',
+  downloadCta: 'Download app',
   projects: [caseStudy, plainProject],
+};
+
+export const apps = {
+  hero: { eyebrow: 'Apps', title: { before: 'Apps ', highlight: 'title.' }, lead: 'Apps lead.' },
+  downloadLabel: 'Download',
+  viewProjectLabel: 'View project',
+  apps: [
+    {
+      slug: 'alpha',
+      title: 'Alpha',
+      meta: ['Studio', 'Beta'],
+      summary: 'Alpha summary.',
+      stack: ['React'],
+      image: placeholder('[alpha]'),
+      downloadUrl: 'https://example.com/alpha.apk',
+      to: '/projects/alpha',
+    },
+  ],
 };
 
 export const projectDetail = { backLink: 'All projects', nextLabel: 'Next project', project: caseStudy };

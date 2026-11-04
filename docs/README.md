@@ -25,7 +25,7 @@ npm run build      # production build into dist/
 npm run preview    # serve the production build locally
 ```
 
-**Hosting:** Cloudflare, configured in [`wrangler.jsonc`](../wrangler.jsonc): it serves `dist/` and falls back to `index.html` for any URL, so deep links like `/projects/budget-tracker` work. Build variables and CORS: see [sanity.md → Security](sanity.md#security).
+**Hosting:** Cloudflare, configured in [`wrangler.jsonc`](../wrangler.jsonc): it serves `dist/` and falls back to `index.html` for any URL, so deep links like `/projects/funds-view` work. Build variables and CORS: see [sanity.md → Security](sanity.md#security).
 
 ---
 
@@ -75,7 +75,7 @@ src/
     ButtonLink/  SmartLink/  SectionHeader/  Headline/  ImageSlot/  Reveal/  PageMeta/
                                 (icons come from the lucide-react library, see components.md → Icons)
   pages/                        one folder per page
-    Home/  About/  Projects/  ProjectDetail/  Contact/
+    Home/  About/  Projects/  ProjectDetail/  Apps/  Contact/
       Page.jsx                  reads its content with useLoaderData(), stacks its sections
       sections/
         SomethingSection/       SomethingSection.jsx + SomethingSection.css
@@ -110,6 +110,7 @@ docs/                           these docs + progress.md
 | change a colour or font everywhere | `src/index.css` → `:root`; see [styling.md](styling.md) |
 | restyle one section | that section's `.css` file; class names are listed in [pages.md](pages.md) |
 | add a project | [content-and-images.md → Add a project](content-and-images.md#add-a-project) |
+| put an app on the Apps page (download link) | [content-and-images.md → Add a project](content-and-images.md#add-a-project) → **Download link** |
 | give a project its own case-study page | [content-and-images.md → Add a case study](content-and-images.md#add-a-case-study-page) |
 | add a new section to a page | [Recipe below](#recipe-add-a-new-section) |
 | add a new page | [Recipe below](#recipe-add-a-new-page) |
@@ -166,6 +167,6 @@ Per `AGENTS.md`, a new section needs an approved design in `design/` first.
 | `src/utils/utils.test.js` | link helpers, Sanity image URLs, orb curve maths |
 | `src/services/services.test.js` | Sanity query URLs (CDN, published only, no credentials), error handling, missing documents |
 | `src/components/OrbNav/OrbNav.test.jsx` | burger ↔ ✕ icon, menu opens/closes, Escape, click outside, focus trap, current page highlight, CV download |
-| `src/routes.test.jsx` | every page renders with one `<h1>` (content service mocked with `src/test/fixtures.js`), redirects, external links open safely, CV downloads, error page |
+| `src/routes.test.jsx` | every page renders with one `<h1>` (content service mocked with `src/test/fixtures.js`), redirects, external links open safely, CV downloads, Apps page Download / View project links, Projects "Download app" button, error page |
 
 Tests never call Sanity. Content correctness (required fields, HTTPS URLs, link targets, alt text) is checked by the Studio's validation instead: `cd studio && npx sanity documents validate`.

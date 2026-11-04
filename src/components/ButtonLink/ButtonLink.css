@@ -54,6 +54,14 @@
   font-size: clamp(18px, 2vw, 28px);
 }
 
+/* Small: still a 44px touch target (WCAG 2.5.8) */
+.button--sm {
+  min-height: 44px;
+  padding: 0 20px;
+  gap: 8px;
+  font-size: 15px;
+}
+
 .button span {
   overflow-wrap: anywhere;
 }

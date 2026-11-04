@@ -12,6 +12,7 @@ beforeEach(() => {
   vi.mocked(content.getHomePage).mockResolvedValue(fixtures.home);
   vi.mocked(content.getAboutPage).mockResolvedValue(fixtures.about);
   vi.mocked(content.getProjectsPage).mockResolvedValue(fixtures.projectsPage);
+  vi.mocked(content.getAppsPage).mockResolvedValue(fixtures.apps);
   vi.mocked(content.getContactPage).mockResolvedValue(fixtures.contact);
   vi.mocked(content.getProjectDetail).mockImplementation(async (slug) =>
     slug === fixtures.projectDetail.project.slug ? fixtures.projectDetail : null,
@@ -34,6 +35,7 @@ describe('routes', () => {
     ['/about', /^About title\.$/],
     ['/projects', /^Projects title\.$/],
     ['/projects/alpha', /^Alpha$/],
+    ['/apps', /^Apps title\.$/],
     ['/contact', /^Contact title\.$/],
   ])('%s renders its page with exactly one h1', async (path, heading) => {
     renderAt(path);
@@ -83,6 +85,26 @@ describe('routes', () => {
     expect(cv).toHaveAttribute('href', fixtures.site.links.cv.href);
     expect(cv).toHaveAttribute('download');
     expect(cv).not.toHaveAttribute('target');
+  });
+
+  it('projects with a download link get a Download app button to the Apps page', async () => {
+    renderAt('/projects');
+    await findH1();
+    const buttons = screen.getAllByRole('link', { name: /download app/i });
+    expect(buttons).toHaveLength(1); // only Alpha has a download link
+    expect(buttons[0]).toHaveAttribute('href', '/apps#alpha');
+  });
+
+  it('apps page links each app to its download and its project', async () => {
+    renderAt('/apps');
+    await findH1();
+    const [app] = fixtures.apps.apps;
+    const card = document.getElementById(app.slug);
+    const download = within(card).getByRole('link', { name: `Download ${app.title}` });
+    expect(download).toHaveAttribute('href', app.downloadUrl);
+    expect(download).toHaveAttribute('target', '_blank');
+    expect(download).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(within(card).getByRole('link', { name: `View project ${app.title}` })).toHaveAttribute('href', app.to);
   });
 
   it('contact page has an email button and social cards', async () => {

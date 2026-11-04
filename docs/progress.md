@@ -144,3 +144,25 @@ Decisions (and why):
 Files created / changed: src/pages/About/About.jsx, docs/pages.md, docs/content-and-images.md, docs/progress.md
 Waiting for approval: nothing new.
 Next: show it again once the photos are ready.
+
+## 2026-11-04: M-13 (Apps page, Budget Tracker → Funds View, beta released)
+Done:
+- New **Apps** page at `/apps` ("Things I built that you can use."): one card per app with **Download** (opens the download URL) and **View project** (case study, or the project's card). New `appsPage` singleton in Sanity for the copy and button labels.
+- Projects get a **Download link** field (`downloadUrl`, https only). A project with one appears on the Apps page automatically and gets a small **Download app** button on the Projects page (featured panel + cards) that links to `/apps#<slug>`. Label: Projects page → `downloadCta`.
+- `ButtonLink` has a new `size="sm"` (44px, still a WCAG 2.5.8 touch target).
+- Content (Sanity, live now): Budget Tracker renamed to **Funds View** everywhere (project title, slug `budget-tracker` → `funds-view`, Home, About). Beta status updated: "beta is out on this site, Google Play release in the coming weeks" (Home → Right now, project Status fact, How I work step 3, meta "In progress" → "Beta"). Placeholder download link `https://example.com/funds-view-download-placeholder`. Apps page content created. Applied with a one-off `sanity exec` script (not committed); backup of all documents from before the change is in the session scratchpad. `npx sanity documents validate`: 11 valid, 0 errors.
+- Design: `design/apps-desktop.png` (exported from the build at 1440px, 2x) + App card and small button specs in `design.md` (user approved Claude designing this page).
+- `AGENTS.md`: live-site rules (work on `main-dev`, user merges to `main`; only push CMS content the live code can show).
+- Tests: 40 pass (new: `/apps` renders, Download/View project links + safe new tab, "Download app" only on projects with a link). `npm run build` passes.
+Decisions (and why):
+- **Name "Apps"**: short, fits the orb menu pills, and says "things you can use" (vs. Projects = things I built).
+- **Apps = projects with a download link**, not a separate list: one place to edit each app, nothing duplicated. Order follows the project `order`.
+- **"Download app" goes to the Apps page, not the file** (as asked): visitors see what they're downloading first.
+- **Slug renamed** to `funds-view`: the old `/projects/budget-tracker` URL now redirects to `/projects` (existing loader behaviour). Sanity document ID stays `project-budget-tracker` (IDs can't be renamed; internal only). Design file `project-budget-tracker-desktop.png` kept under its approved name.
+- Screen-reader text adds the app name to each button ("Download Funds View").
+Files created / changed: src/pages/Apps/** (new), studio/schemaTypes/documents/appsPage.js (new), design/apps-desktop.png (new); studio/schemaTypes/{index.js, documents/project.js, documents/projectsPage.js}; src/services/{queries.js, content.js}; src/routes.jsx, src/routes.test.jsx, src/test/fixtures.js; src/utils/links.js; ButtonLink (jsx/css); Projects.jsx, FeaturedProjectSection, ProjectGridSection; OrbNav.test.jsx (path); AGENTS.md; design/design.md; docs/README.md, pages.md, sanity.md, components.md, content-and-images.md, navigation.md, progress.md
+Waiting for approval:
+- **Menu item for Apps (do after merging to `main`)**: Studio → Site settings → Menu → Items: add `04 · Apps · /apps` and renumber Download CV → 05, Contact → 06. Not added yet because the live site would send `/apps` to the home page until this code is deployed. (Or ask Claude to add it.)
+- **Content**: real download URL (Project "Funds View" → Download link). Platforms fact still says "Google Play & App Store"; change if the App Store isn't planned.
+- **Design**: no phone design for the Apps page (adapted as described in design.md).
+Next: merge `main-dev` → `main`, add the menu item, replace the placeholder download link, add app screenshots.

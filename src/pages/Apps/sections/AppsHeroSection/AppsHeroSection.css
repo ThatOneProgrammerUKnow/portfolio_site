@@ -1,0 +1,13 @@
+.apps-hero {
+  padding-bottom: 64px;
+}
+
+.apps-hero__title {
+  max-width: 13ch;
+  margin-top: 20px;
+}
+
+.apps-hero__lead {
+  max-width: 640px;
+  margin-top: 28px;
+}
