@@ -203,3 +203,24 @@ Done:
 - Sanity → Project "Funds View" → Download link set to https://github.com/Orbtech-Solutions/FundsViewer-releases/releases/latest (replaces the placeholder; live now). Link checked (200).
 Files created / changed: docs/progress.md (content change only in Sanity)
 Waiting for approval: nothing new.
+
+## 2026-11-05: M-17 (My products page, new design)
+Done:
+- `/apps` rebuilt from the new design `design/2026-11-05/My Products.png` (folder renamed from `2026-05-11` to ISO date order): "Funds View is in beta." header with badge, blue app card (icon, tagline, Download fundsviewer.apk, note) next to 5 numbered install steps, "What beta means" cards, roadmap (Now / December 2026 / Later), blue "Read more about Funds View" link.
+- Everything on the page is editable in Studio → **Apps page** (new fields: Browser tab title, App (project reference), Header, App card incl. **App icon**, How to install, What beta means, Roadmap, Read more). Download URL, app name and case-study link come from the chosen project.
+- New `richText` Sanity type (bold + https/mailto links) and `RichText` component (no HTML strings, unsafe links render as text). New shared `Badge` component (Home hero now uses it too).
+- Outdated bits of the design built the current way: orb uses the burger icon (not three dots), `[icon]` placeholder → real icon.
+- Removed `AppListSection` and `design/apps-desktop.png` (replaced). design.md, pages.md, components.md, sanity.md, content-and-images.md, README.md updated.
+- Tests: 46 pass (new: RichText, isSafeHref, Apps page download/steps/rich text/read-more). `npm run build` passes. `sanity schema validate`: 0 errors.
+Decisions (and why):
+- **One app, not a list**: the design is a single-app page. The app is a reference to a Project so the download link stays in one place (the project's Download link, also used by the Projects page buttons).
+- **Rich text built in-house** (~30 lines) instead of adding `@portabletext/react`: only bold + links are needed.
+- **New content under new field names** (`header`, `card`, …): the live `main` site still reads the old `hero` / `downloadLabel` / `viewProjectLabel`, so they stay (hidden in Studio) until this is merged.
+- Download link should point straight at the APK (`…/releases/latest/download/fundsviewer.apk`, checked: 200, APK) since the button and step 1 say "Download fundsviewer.apk"; `latest` means new releases need no content change.
+Files created / changed: src/pages/Apps/** (InstallSection, BetaSection, RoadmapSection, ReadMoreSection new; AppListSection removed), src/components/{Badge,RichText}/** (new), Home HeroSection (jsx/css), src/services/queries.js, src/utils/{links.js, utils.test.js}, src/routes.test.jsx, src/test/fixtures.js, studio/schemaTypes/{objects/richText.js (new), documents/appsPage.js, documents/project.js, index.js}, design/design.md, design/2026-11-05/My Products.png, design/apps-desktop.png (deleted), docs/*
+Waiting for approval:
+- **Sanity content not written yet** (the permission check blocked writing to the live dataset). Script ready: `studio/tmp-apps-content.js` (not committed). It backs up appsPage + Funds View, uploads `public/fundsviewer-icon-coin-lens-money.svg` as the App icon, fills in all the new fields with the design's text, and sets the Funds View Download link to the direct APK URL. Old fields are left alone, so the live site is unaffected.
+- After merging `main-dev` → `main`: deploy the Studio (`cd studio && npm run deploy`) so the new fields show in the hosted Studio, then remove the hidden old fields from `appsPage.js` and unset them.
+- `public/fundsviewer-icon-coin-lens-money.svg` can be deleted once uploaded to Sanity (not committed).
+- **Design**: no phone design for this page (adapted as described in design.md).
+Next: run the content script, merge, deploy Studio, clean up old fields.

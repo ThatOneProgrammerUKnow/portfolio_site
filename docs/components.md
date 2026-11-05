@@ -11,6 +11,8 @@ The page shell components (`Layout`, `Logo`, `OrbNav`, `Footer`) are covered in 
 | [Icons (Lucide)](#icons-lucide) | every icon: arrows, download, burger menu, ✕ |
 | [SectionHeader](#sectionheader) | blue eyebrow + H2 at the top of a section |
 | [Headline](#headline) | a title with a blue highlighted part |
+| [Badge](#badge) | white pill with a blue dot above a hero H1 |
+| [RichText](#richtext) | short Sanity rich text (bold + links) as paragraphs |
 | [ImageSlot](#imageslot) | every image: shows a placeholder until a photo is added |
 | [Reveal](#reveal) | fade-up-on-scroll animation |
 | [PageMeta](#pagemeta) | browser tab title + meta description |
@@ -128,6 +130,28 @@ import { ArrowRight } from 'lucide-react';
 
 ---
 
+## Badge
+
+[src/components/Badge/Badge.jsx](../src/components/Badge/Badge.jsx). White pill with a blue dot and a mono label, above the H1 on Home and the Apps page.
+
+```jsx
+<Badge>{content.badge}</Badge>
+```
+
+---
+
+## RichText
+
+[src/components/RichText/RichText.jsx](../src/components/RichText/RichText.jsx). Renders a Sanity `richText` field (Portable Text) as `<p>`s. Only **bold** and links are supported, matching the Studio editor. Links go through `SmartLink` (external → new tab, safe `rel`) and only `https:` / `mailto:` URLs become links (`isSafeHref`); anything else renders as plain text. It builds React elements, never HTML strings.
+
+```jsx
+<RichText blocks={step.text} className="muted" />
+```
+
+The query must project the field with the `richText` fragment in `queries.js` (`_key`, `children { text, marks }`, `markDefs { href }`).
+
+---
+
 ## ImageSlot
 
 [src/components/ImageSlot/ImageSlot.jsx](../src/components/ImageSlot/ImageSlot.jsx). **Every image on the site goes through this.** It reads an image object from Sanity (shaped by the queries in `src/services/queries.js`):
@@ -196,6 +220,7 @@ React 19 moves `<title>` and `<meta>` into `<head>` automatically.
 | `getSiteLink(links, key)` | `links.js` | returns `{ label, href }` from Site settings' `links` (throws if the key doesn't exist) |
 | `resolveLink({ to, linkKey, href }, links)` | `links.js` | turns a content link into props for `SmartLink` / `ButtonLink` (`links` from `useSite()`) |
 | `isExternal(href)` / `isDownload(href)` | `links.js` | used by `SmartLink` |
+| `isSafeHref(href)` | `links.js` | `https:` or `mailto:` only; used by `RichText` |
 | `joinMeta(["a", "b"])` | `links.js` | → `"a · b"` (all the mono meta lines) |
 | `orbCurveOffset(i, n)` | `orbCurve.js` | x-offset for each open menu pill |
 | `imageUrl(src, width)` | `images.js` | Sanity CDN URL at 2× `width`, WebP/AVIF (`auto=format`); other URLs unchanged |

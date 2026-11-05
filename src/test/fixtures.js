@@ -127,22 +127,41 @@ export const projectsPage = {
   projects: [caseStudy, plainProject],
 };
 
+/** Portable Text paragraph: [text, marks?] pairs, e.g. block(['Tap '], ['Install', ['strong']]). */
+const block = (key, ...spans) => ({
+  _key: key,
+  children: spans.map(([text, marks = []], i) => ({ _key: `${key}-${i}`, text, marks })),
+  markDefs: [{ _key: 'mail', _type: 'link', href: 'mailto:test@example.com' }],
+});
+
 export const apps = {
-  hero: { eyebrow: 'Apps', title: { before: 'Apps ', highlight: 'title.' }, lead: 'Apps lead.' },
-  downloadLabel: 'Download',
-  viewProjectLabel: 'View project',
-  apps: [
-    {
-      slug: 'alpha',
-      title: 'Alpha',
-      meta: ['Studio', 'Beta'],
-      summary: 'Alpha summary.',
-      stack: ['React'],
-      image: placeholder('[alpha]'),
-      downloadUrl: 'https://example.com/alpha.apk',
-      to: '/projects/alpha',
-    },
-  ],
+  pageTitle: 'My products',
+  app: { slug: 'alpha', title: 'Alpha', downloadUrl: 'https://example.com/alpha.apk', to: '/projects/alpha' },
+  header: { badge: 'Apps · Beta', title: { before: 'Apps ', highlight: 'title.' }, lead: 'Apps lead.' },
+  card: { icon: placeholder('[icon]'), tagline: 'Alpha tagline.', downloadLabel: 'Download alpha.apk', note: 'Android only.' },
+  install: {
+    title: 'How to install it',
+    intro: 'On your phone.',
+    steps: [
+      { _key: 's1', title: 'Download the file', text: [block('b1', ['Tap '], ['Download', ['strong']], ['.'])] },
+      { _key: 's2', title: 'Install', text: [block('b2', ['Tap Install.'])] },
+    ],
+  },
+  beta: {
+    eyebrow: 'Good to know',
+    title: 'What beta means.',
+    cards: [{ _key: 'c1', title: 'Tell me', text: [block('b3', ['Email '], ['me', ['mail']], ['.'])] }],
+  },
+  roadmap: {
+    eyebrow: 'Roadmap',
+    title: 'Coming soon.',
+    text: 'Roadmap text.',
+    items: [
+      { _key: 'r1', label: 'Now', title: 'Beta', status: 'now' },
+      { _key: 'r2', label: 'Later', title: 'Store', status: 'later' },
+    ],
+  },
+  more: { eyebrow: 'Behind the app', label: 'Read more about Alpha' },
 };
 
 export const projectDetail = { backLink: 'All projects', nextLabel: 'Next project', project: caseStudy };

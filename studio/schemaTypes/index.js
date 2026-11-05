@@ -8,6 +8,7 @@ import { siteSettings } from './documents/siteSettings.js';
 import { accentTitle } from './objects/accentTitle.js';
 import { imageWithAlt } from './objects/imageWithAlt.js';
 import { link } from './objects/link.js';
+import { richText } from './objects/richText.js';
 
 /** Document types that exist exactly once (one per page + site settings). */
 export const SINGLETON_TYPES = ['siteSettings', 'homePage', 'aboutPage', 'projectsPage', 'appsPage', 'contactPage'];
@@ -25,4 +26,5 @@ export const schemaTypes = [
   accentTitle,
   imageWithAlt,
   link,
+  richText,
 ];

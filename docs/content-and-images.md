@@ -82,7 +82,7 @@ In the Studio: **Project → + (create)**.
 - **Order**: lower numbers show first in the grid.
 - **Meta** (e.g. "Personal", "2026", "On GitHub"), **Summary**, **Stack**, **Images**.
 - To feature it in the big blue panel instead, switch on **Featured** and fill in **Featured label**, and switch Featured off on Funds View. Only one project should be featured.
-- **Download link** (Card tab): set it when people can download and use the app. The project then appears on the **Apps** page (`/apps`) with a Download button (this URL) and a View project button (its case study, or its card on /projects), and its Projects-page card/panel gets a small "Download app" button that links to `/apps#<slug>`. Must be `https://`. Leave it empty to keep the project off the Apps page.
+- **Download link** (Card tab): set it when people can download and use the app. Its Projects-page card/panel then gets a small "Download app" button that links to `/apps#<slug>`, and if it is the app picked on **Apps page → App**, the big Download button there uses this URL. Must be `https://`. (The Apps page shows one app; to show a different one, change **Apps page → App** and its copy.)
 - To show it on Home as well, add a row under **Home page → Selected work → Projects** and pick the project.
 
 ## Add a case-study page

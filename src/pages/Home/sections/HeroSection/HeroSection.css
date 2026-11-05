@@ -10,26 +10,6 @@
   gap: 48px;
 }
 
-.home-hero__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 16px;
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text);
-}
-
-.home-hero__badge-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary);
-}
-
 .home-hero__title {
   margin-top: 28px;
   max-width: 12ch;

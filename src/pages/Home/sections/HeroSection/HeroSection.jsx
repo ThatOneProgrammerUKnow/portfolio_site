@@ -1,4 +1,5 @@
 import { ArrowRight, Download } from 'lucide-react';
+import Badge from '../../../../components/Badge/Badge';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import Headline from '../../../../components/Headline/Headline';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
@@ -14,10 +15,7 @@ export default function HeroSection({ content }) {
     <section className="home-hero">
       <div className="container home-hero__inner">
         <div className="home-hero__text">
-          <p className="home-hero__badge">
-            <span className="home-hero__badge-dot" aria-hidden="true" />
-            {badge}
-          </p>
+          <Badge>{badge}</Badge>
           <h1 className="display home-hero__title">
             <Headline title={title} />
           </h1>

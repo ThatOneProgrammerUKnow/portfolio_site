@@ -10,7 +10,7 @@ Text placeholders like `[Your photo: ...]` mean an image is still to come.
 | About | `about-desktop.png` | `/about` |
 | Projects | `projects-desktop.png` | `/projects` |
 | Project detail (template) | `project-budget-tracker-desktop.png` | `/projects/funds-view` (app renamed from Budget Tracker) |
-| Apps | `apps-desktop.png` | `/apps` |
+| Apps / My products | `2026-11-05/My Products.png` | `/apps` |
 | Contact | `contact-desktop.png` | `/contact` |
 | Orb navigation (open) | `orb-nav-open.png` | all pages |
 
@@ -67,7 +67,14 @@ Orb shadow: `0 0 0 6px rgba(36,80,255,.14), 0 12px 28px rgba(36,80,255,.35)`
 - **Project row** (home) / **project card** (projects): image, mono meta line, title, one-liner, tech stack in mono.
 - **Blue panel**: "Right now" (home), featured project (projects), phone screens (project detail).
 - **Timeline** (about): vertical line, filled dots for current roles, outlined dots for past.
-- **App card** (apps): one wide white card per app (`--surface`, 1px `--border`, radius 32px, padding 22px, 40px right). Columns: 180×240 image (radius 22px) | mono meta in `--primary`, title 32–44px (like the featured project title), muted summary, mono stack | buttons stacked: primary **Download** (download icon) over secondary **View project** (arrow-right). Below 1024px the buttons sit in a row under the text; below 768px the card stacks (image full width, 220px tall); below 480px the buttons stack.
+- **My products page** (`/apps`, `2026-11-05/My Products.png`). Things the PNG shows that are outdated, built the current way instead: the orb shows the burger icon (not three dots), the `[icon]` placeholder is the real app icon.
+  - Header: Badge pill (white, blue dot, mono 13px), Display H1 with blue highlight, lead (max 620px).
+  - App card: blue panel 440px wide, radius 40px, padding 40px, decorative white ring top-right; 88px icon (radius 22px), title 32–40px, white 18px tagline, full-width white pill **Download** button (download icon), 14px note in `--on-primary-muted`. Sticky (top 24px) beside the steps.
+  - Install steps: H2 30–42px + muted intro; white cards (radius 28px, padding 28px, 16px apart) with a 40px blue number circle, 17px semibold title, 16px muted text (bold in `--text`).
+  - What beta means: eyebrow + H2, two white cards (radius 28px, padding 32px), 24px titles.
+  - Roadmap: one white card (radius 40px, padding 64px), text | timeline. Dots: filled + soft ring = now, blue ring = next, grey ring = later.
+  - Read more: blue link card (radius 32px, padding 44px 48px), mono eyebrow, 28–40px white title, 72px white circle with blue arrow; hover `--primary-hover`.
+  - Below 1024px card above steps (not sticky) and roadmap stacks; below 768px beta cards stack; below 480px step number above text.
 - **Small button** (`sm`): 44px tall, 20px side padding, 15px text, 16px icon. Used for **Download app** on the Projects page: an outline button on the blue featured panel (transparent, white text, 70% white border; hover: white fill, `--primary-hover` text) next to "Read the case study", and a secondary small button at the bottom of a project card. Links to `/apps#<slug>`.
 - **Footer**: © line, Colossians 3:23 in italics, GitHub / LinkedIn / Email links.
 

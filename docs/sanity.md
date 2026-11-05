@@ -23,12 +23,13 @@ studio/
       accentTitle.js        { before, highlight, after } headline
       link.js               { label, to | linkKey }, exactly one target
       imageWithAlt.js       image + alt (required once an image is uploaded) + placeholder
+      richText.js           short rich text: paragraphs with bold + links (https / mailto)
     documents/
       siteSettings.js       name, email, shared links, CV, menu, footer   (singleton)
       homePage.js           (singleton)
       aboutPage.js          (singleton)
       projectsPage.js       Projects page copy + case-study labels        (singleton)
-      appsPage.js           Apps page copy + button labels                (singleton)
+      appsPage.js           "My products" page: chosen app + all its copy (singleton)
       contactPage.js        (singleton)
       project.js            one document per project, ordered by `order`
 ```
@@ -52,7 +53,8 @@ What the queries derive (so the Studio doesn't store it twice):
 | `links.email.href` | `"mailto:" + email` |
 | `links.cv.href` | the uploaded PDF's CDN URL + `?dl=<original file name>` (forces download) |
 | project `slug` | `slug.current` |
-| Apps page `apps` | every project with `downloadUrl` set, ordered by `order` |
+| Apps page `app` | the referenced project: `title`, `downloadUrl`, `to` (its case study or card) |
+| rich text (`text` in install steps / beta cards) | Portable Text blocks, trimmed to `_key`, `children { text, marks }`, `markDefs { href }` |
 | project `detail` | `detail`, only if `hasCaseStudy` is on (otherwise `null`) |
 | a project link's `to` (Home rows, "Next project") | `/projects/<slug>` with a case study, else `/projects#<slug>` |
 | image `src` | `asset->url`; `ImageSlot` adds `?w=<2× width>&auto=format` via `utils/images.js` |

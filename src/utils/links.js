@@ -21,6 +21,11 @@ export function isDownload(href = '') {
   return /\.pdf($|\?)/i.test(href);
 }
 
+/** Links from rich text: only https: and mailto: (never javascript: or data:). */
+export function isSafeHref(href = '') {
+  return /^(https:\/\/|mailto:)/i.test(href);
+}
+
 /** Where a project's "Download app" button points: its card on the Apps page. */
 export function appsHref(slug) {
   return `/apps#${slug}`;
