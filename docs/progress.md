@@ -211,7 +211,7 @@ Done:
 - New `richText` Sanity type (bold + https/mailto links) and `RichText` component (no HTML strings, unsafe links render as text). New shared `Badge` component (Home hero now uses it too).
 - Outdated bits of the design built the current way: orb uses the burger icon (not three dots), `[icon]` placeholder → real icon.
 - Removed `AppListSection` and `design/apps-desktop.png` (replaced). design.md, pages.md, components.md, sanity.md, content-and-images.md, README.md updated.
-- Tests: 46 pass (new: RichText, isSafeHref, Apps page download/steps/rich text/read-more). `npm run build` passes. `sanity schema validate`: 0 errors.
+- Tests: 43 pass (new: RichText, isSafeHref, Apps page download/steps/rich text/read-more). `npm run build` passes. `sanity schema validate`: 0 errors.
 Decisions (and why):
 - **One app, not a list**: the design is a single-app page. The app is a reference to a Project so the download link stays in one place (the project's Download link, also used by the Projects page buttons).
 - **Rich text built in-house** (~30 lines) instead of adding `@portabletext/react`: only bold + links are needed.
