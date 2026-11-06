@@ -1,3 +1,4 @@
+import Badge from '../../../../components/Badge/Badge';
 import Headline from '../../../../components/Headline/Headline';
 import './AppsHeroSection.css';
 
@@ -5,7 +6,7 @@ export default function AppsHeroSection({ content }) {
   return (
     <section className="apps-hero">
       <div className="container">
-        <p className="eyebrow">{content.eyebrow}</p>
+        <Badge>{content.badge}</Badge>
         <h1 className="display apps-hero__title">
           <Headline title={content.title} />
         </h1>

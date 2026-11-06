@@ -93,21 +93,23 @@ export const PROJECTS_QUERY = `*[_id == "projectsPage"][0]{
   "projects": *[_type == "project" && defined(slug.current)] | order(order asc) { ${projectFields} }
 }`;
 
-/** Apps page copy + every project with a download link (same order as the Projects page). */
+/** Rich text (Portable Text): only the parts RichText renders. */
+const richText = `[_type == "block"]{
+  _key,
+  "children": coalesce(children[]{ _key, text, "marks": coalesce(marks, []) }, []),
+  "markDefs": coalesce(markDefs[]{ _key, _type, href }, [])
+}`;
+
+/** The "My products" page: one app (a project), its install guide, beta notes and roadmap. */
 export const APPS_QUERY = `*[_id == "appsPage"][0]{
-  hero { eyebrow, title, lead },
-  downloadLabel,
-  viewProjectLabel,
-  "apps": *[_type == "project" && defined(slug.current) && defined(downloadUrl)] | order(order asc) {
-    "slug": slug.current,
-    title,
-    "meta": coalesce(meta, []),
-    summary,
-    "stack": coalesce(stack, []),
-    "image": images[0]${image},
-    downloadUrl,
-    "to": ${projectHref}
-  }
+  pageTitle,
+  "app": app->{ "slug": slug.current, title, downloadUrl, "to": ${projectHref} },
+  header { badge, title, lead },
+  card { "icon": icon${image}, tagline, downloadLabel, note },
+  install { title, intro, "steps": coalesce(steps[]{ _key, title, "text": text${richText} }, []) },
+  beta { eyebrow, title, "cards": coalesce(cards[]{ _key, title, "text": text${richText} }, []) },
+  roadmap { eyebrow, title, text, "items": coalesce(items[]{ _key, label, title, status }, []) },
+  more { eyebrow, label }
 }`;
 
 /** Labels from the Projects page + the one project, only if it has a case study. */

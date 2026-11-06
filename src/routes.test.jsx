@@ -95,16 +95,19 @@ describe('routes', () => {
     expect(buttons[0]).toHaveAttribute('href', '/apps#alpha');
   });
 
-  it('apps page links each app to its download and its project', async () => {
+  it('apps page: download button, numbered steps, rich text and link to the project', async () => {
     renderAt('/apps');
     await findH1();
-    const [app] = fixtures.apps.apps;
-    const card = document.getElementById(app.slug);
-    const download = within(card).getByRole('link', { name: `Download ${app.title}` });
+    const { app, card } = fixtures.apps;
+    const section = document.getElementById(app.slug); // target of the Projects "Download app" button
+    const download = within(section).getByRole('link', { name: card.downloadLabel });
     expect(download).toHaveAttribute('href', app.downloadUrl);
-    expect(download).toHaveAttribute('target', '_blank');
     expect(download).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(within(card).getByRole('link', { name: `View project ${app.title}` })).toHaveAttribute('href', app.to);
+    expect(within(section).getAllByRole('heading', { level: 3 })).toHaveLength(2);
+    expect(within(section).getByText('Download', { selector: 'strong' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'me' })).toHaveAttribute('href', 'mailto:test@example.com');
+    expect(screen.getByRole('link', { name: new RegExp(fixtures.apps.more.label) })).toHaveAttribute('href', app.to);
+    expect(document.title).toMatch(/^My products · /);
   });
 
   it('contact page has an email button and social cards', async () => {

@@ -17,7 +17,7 @@ Page: [src/pages/Home/Home.jsx](../src/pages/Home/Home.jsx) · Content: Studio �
 
 | # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
-| 1 | `HeroSection` | `hero` | `.home-hero`, `__badge`, `__title`, `__lead`, `__actions`, `__visual`, `__ring`, `__photo`, `__tag--1/2/3`, `__tag--light/dark` | Badge pill, big H1 with blue highlight, intro, "See my work" + "Download CV" buttons, round portrait in a blue ring with 3 floating tags |
+| 1 | `HeroSection` | `hero` | `.home-hero`, `__title`, `__lead`, `__actions`, `__visual`, `__ring`, `__photo`, `__tag--1/2/3`, `__tag--light/dark` | Badge pill, big H1 with blue highlight, intro, "See my work" + "Download CV" buttons, round portrait in a blue ring with 3 floating tags |
 | 2 | `HowIWorkSection` | `howIWork` | `.how-i-work`, `__steps`, `__step`, `__number`, `__line`, `__title`, `__body`, `__images`, `__image` | White band, "Three things I do on purpose": 3 numbered steps; step 03 has 3 round photos |
 | 3 | `SelectedWorkSection` | `selectedWork` | `.selected-work`, `__header`, `__all`, `__list`; rows: `.project-row`, `__image`, `__meta`, `__title`, `__link`, `__text`, `__stack`, `__arrow` | "Things I've built": 3 clickable project rows + "All projects →" |
 | 4 | `RightNowSection` | `rightNow` | `.right-now`, `__panel`, `__intro`, `__title`, `__items`, `__item`, `__label`, `__text` | Blue rounded panel, "What I'm busy with", 2×2 list |
@@ -66,20 +66,35 @@ Notes:
 - `Projects.jsx` splits the `projects` array: the one with `"featured": true` goes to the panel, the rest to the grid.
 - Every card has `id="<slug>"`, so `/projects#brighthire` scrolls straight to the Brighthire card. Home's project rows use these anchors.
 - The "Read the case study" button only appears if the featured project has a `detail` block.
-- The small **"Download app"** button (featured panel and cards) only appears if the project has a **Download link**. It goes to `/apps#<slug>`, not straight to the file, so visitors see the app's card first.
+- The small **"Download app"** button (featured panel and cards) only appears if the project has a **Download link**. It goes to `/apps#<slug>`, not straight to the file, so visitors see the install steps first.
 - 🖼 **Featured phones**: `images[0]` and `images[1]` of the featured project.
 - 🖼 **Card image**: `images[0]` of each other project.
 
 ---
 
-## Apps: `/apps`
+## Apps ("My products"): `/apps`
 
-Page: [src/pages/Apps/Apps.jsx](../src/pages/Apps/Apps.jsx) · Content: Studio → **Apps page** + every **Project** with a **Download link** · Design: `design/apps-desktop.png`
+Page: [src/pages/Apps/Apps.jsx](../src/pages/Apps/Apps.jsx) · Content: Studio → **Apps page** (+ the **Project** picked under **App**) · Design: `design/2026-11-05/My Products.png`
 
-"This is the work you can actually use." Lists live apps with a download link and a link back to the project.
+One app in beta (Funds View): how to download and install it, what beta means, and what comes next.
 
 | # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
+| 1 | `AppsHeroSection` | `header` | `.apps-hero`, `__title`, `__lead` | Badge pill ("Apps · Beta release"), H1 "Funds View is in beta.", lead |
+| 2 | `InstallSection` | `app`, `card`, `install` | `.install`, `__inner`, `__card`, `__icon`, `__app-title`, `__tagline`, `__download`, `__note`, `__guide`, `__title`, `__intro`, `__steps`, `__step`, `__number`, `__step-title`, `__step-text` | Blue app card (icon, name, tagline, white **Download** button, small print; sticky on desktop) next to numbered install steps in white cards |
+| 3 | `BetaSection` | `beta` | `.beta`, `__cards`, `__card`, `__card-title`, `__card-text` | Eyebrow + H2 "What “beta” means.", 2 white cards |
+| 4 | `RoadmapSection` | `roadmap` | `.roadmap`, `__panel`, `__intro`, `__list`, `__item`, `__item--now/next/later`, `__item-title` | Big white card: text left, timeline right (filled dot = now, blue ring = next, grey ring = later) |
+| 5 | `ReadMoreSection` | `more` + `app.to` | `.read-more`, `__card`, `__text`, `__eyebrow`, `__title`, `__arrow` | Blue link card "Read more about Funds View" → the case study |
+
+Notes:
+- **App** is a reference to a Project: the page uses its **title**, **Download link** and case-study link (`/projects/<slug>`, or `/projects#<slug>` without one). Change the download URL on the project, not here.
+- The download button opens the URL in a new tab (`rel="noopener noreferrer"`). It currently points at GitHub's `releases/latest/download/fundsviewer.apk`, so a new release needs no change here as long as the file keeps that name.
+- Step texts and beta cards are **rich text** (bold + links), rendered by [`RichText`](components.md#richtext).
+- The install section has `id="<slug>"`, so the Projects page's "Download app" button (`/apps#funds-view`) scrolls straight to it.
+- 🖼 **App icon**: Apps page → App card → App icon (SVG or PNG, square). Without one a dashed `[icon]` placeholder shows.
+- Layout: card | steps on desktop; below 1024px the card sits above the steps (not sticky) and the roadmap stacks; below 768px the beta cards stack; below 480px the step number sits above the text.
+
+---|---|---|---|---|
 | 1 | `AppsHeroSection` | `hero` | `.apps-hero`, `__title`, `__lead` | H1 "Things I built that you can use." |
 | 2 | `AppListSection` | `apps` + `downloadLabel`, `viewProjectLabel` | `.app-list`, `__list`; cards: `.app-card`, `__image`, `__body`, `__title`, `__summary`, `__stack`, `__actions` | One wide white card per app: image, meta, title, summary, stack, **Download** (primary) + **View project** (secondary) |
 

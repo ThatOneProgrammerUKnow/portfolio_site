@@ -1,0 +1,89 @@
+.roadmap {
+  padding-bottom: 72px;
+}
+
+/* Text | timeline, in one big white card */
+.roadmap__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  padding: 64px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+
+.roadmap__intro .h2 {
+  max-width: 11ch;
+}
+
+.roadmap__intro .muted {
+  max-width: 460px;
+}
+
+/* Vertical line with a dot per milestone */
+.roadmap__list {
+  position: relative;
+  display: grid;
+  gap: 32px;
+}
+
+.roadmap__list::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 7px;
+  width: 2px;
+  background: var(--border);
+}
+
+.roadmap__item {
+  position: relative;
+  padding-left: 36px;
+}
+
+/* Next: blue ring */
+.roadmap__item::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  background: var(--surface);
+}
+
+/* Now: filled dot with a soft ring */
+.roadmap__item--now::before {
+  border: 0;
+  background: var(--primary);
+  box-shadow: 0 0 0 5px var(--primary-soft);
+}
+
+/* Later: grey ring */
+.roadmap__item--later::before {
+  border-color: var(--text-muted);
+}
+
+.roadmap__item-title {
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .roadmap__panel {
+    grid-template-columns: 1fr;
+    padding: 56px 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .roadmap__panel {
+    padding: 40px 24px;
+    border-radius: var(--radius-card-lg);
+  }
+}

@@ -1,0 +1,160 @@
+.install {
+  scroll-margin-top: 24px;
+}
+
+/* App card | steps */
+.install__inner {
+  display: grid;
+  grid-template-columns: 440px minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+/* Blue panel; stays in view while the steps scroll past */
+.install__card {
+  position: sticky;
+  top: 24px;
+  overflow: hidden;
+  padding: 40px;
+  border-radius: var(--radius-panel);
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Decorative ring, top-right (like the other blue panels) */
+.install__card::before {
+  content: '';
+  position: absolute;
+  top: -110px;
+  right: -110px;
+  width: 280px;
+  height: 280px;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.install__card > * {
+  position: relative;
+}
+
+.install__icon {
+  width: 88px;
+  height: 88px;
+  border-radius: 22px;
+  background: #fff;
+}
+
+.install__icon.image-slot--placeholder {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.install__app-title {
+  margin-top: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.install__tagline {
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.install__download {
+  width: 100%;
+  margin-top: 32px;
+  border-color: transparent;
+}
+
+.install__note {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--on-primary-muted);
+}
+
+.install__title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 3vw, 42px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.install__intro {
+  margin-top: 8px;
+}
+
+.install__steps {
+  display: grid;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.install__step {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.install__number {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.install__step-title {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.install__step-text {
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+@media (max-width: 1024px) {
+  .install__inner {
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+
+  .install__card {
+    position: relative;
+    top: auto;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 768px) {
+  .install__card {
+    padding: 32px 28px;
+    border-radius: var(--radius-card-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .install__step {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 24px;
+  }
+}

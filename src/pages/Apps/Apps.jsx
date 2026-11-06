@@ -1,20 +1,23 @@
 import { useLoaderData } from 'react-router';
 import PageMeta from '../../components/PageMeta/PageMeta';
 import AppsHeroSection from './sections/AppsHeroSection/AppsHeroSection';
-import AppListSection from './sections/AppListSection/AppListSection';
+import InstallSection from './sections/InstallSection/InstallSection';
+import BetaSection from './sections/BetaSection/BetaSection';
+import RoadmapSection from './sections/RoadmapSection/RoadmapSection';
+import ReadMoreSection from './sections/ReadMoreSection/ReadMoreSection';
 
+/** "My products": one app in beta, how to install it, what beta means and what comes next. */
 export default function Apps() {
   const content = useLoaderData();
 
   return (
     <>
-      <PageMeta title={content.hero.eyebrow} description={content.hero.lead} />
-      <AppsHeroSection content={content.hero} />
-      <AppListSection
-        apps={content.apps}
-        downloadLabel={content.downloadLabel}
-        viewProjectLabel={content.viewProjectLabel}
-      />
+      <PageMeta title={content.pageTitle} description={content.header.lead} />
+      <AppsHeroSection content={content.header} />
+      <InstallSection app={content.app} card={content.card} install={content.install} />
+      <BetaSection content={content.beta} />
+      <RoadmapSection content={content.roadmap} />
+      <ReadMoreSection content={content.more} app={content.app} />
     </>
   );
 }

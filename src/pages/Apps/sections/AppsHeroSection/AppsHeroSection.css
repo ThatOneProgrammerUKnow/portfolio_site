@@ -3,11 +3,10 @@
 }
 
 .apps-hero__title {
-  max-width: 13ch;
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .apps-hero__lead {
-  max-width: 640px;
-  margin-top: 28px;
+  max-width: 620px;
+  margin-top: 24px;
 }

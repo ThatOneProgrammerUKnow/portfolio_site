@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getSiteLink, isDownload, isExternal, joinMeta, resolveLink } from './links';
+import { getSiteLink, isDownload, isExternal, isSafeHref, joinMeta, resolveLink } from './links';
 import { imageUrl } from './images';
 import { orbCurveOffset } from './orbCurve';
 import { site } from '../test/fixtures';
@@ -12,6 +12,14 @@ describe('links', () => {
     expect(isDownload('/cv/file.pdf')).toBe(true);
     expect(isDownload('https://cdn.sanity.io/files/p/d/abc.pdf?dl=cv.pdf')).toBe(true);
     expect(isDownload('/projects')).toBe(false);
+  });
+
+  it('only allows https and mailto links from rich text', () => {
+    expect(isSafeHref('https://example.com')).toBe(true);
+    expect(isSafeHref('mailto:a@b.co')).toBe(true);
+    expect(isSafeHref('javascript:alert(1)')).toBe(false);
+    expect(isSafeHref('http://example.com')).toBe(false);
+    expect(isSafeHref(undefined)).toBe(false);
   });
 
   it('resolves content links to SmartLink props', () => {

@@ -110,7 +110,7 @@ docs/                           these docs + progress.md
 | change a colour or font everywhere | `src/index.css` → `:root`; see [styling.md](styling.md) |
 | restyle one section | that section's `.css` file; class names are listed in [pages.md](pages.md) |
 | add a project | [content-and-images.md → Add a project](content-and-images.md#add-a-project) |
-| put an app on the Apps page (download link) | [content-and-images.md → Add a project](content-and-images.md#add-a-project) → **Download link** |
+| change the app download, install steps or roadmap ("My products") | Studio → **Apps page** (download URL: the project's **Download link**); see [pages.md → Apps](pages.md#apps-my-products-apps) |
 | give a project its own case-study page | [content-and-images.md → Add a case study](content-and-images.md#add-a-case-study-page) |
 | add a new section to a page | [Recipe below](#recipe-add-a-new-section) |
 | add a new page | [Recipe below](#recipe-add-a-new-page) |
@@ -164,9 +164,10 @@ Per `AGENTS.md`, a new section needs an approved design in `design/` first.
 
 | File | What it checks |
 |---|---|
-| `src/utils/utils.test.js` | link helpers, Sanity image URLs, orb curve maths |
+| `src/utils/utils.test.js` | link helpers (incl. safe rich-text links), Sanity image URLs, orb curve maths |
+| `src/components/RichText/RichText.test.jsx` | bold text, safe links open in a new tab, unsafe/unknown links render as plain text |
 | `src/services/services.test.js` | Sanity query URLs (CDN, published only, no credentials), error handling, missing documents |
 | `src/components/OrbNav/OrbNav.test.jsx` | burger ↔ ✕ icon, menu opens/closes, Escape, click outside, focus trap, current page highlight, CV download |
-| `src/routes.test.jsx` | every page renders with one `<h1>` (content service mocked with `src/test/fixtures.js`), redirects, external links open safely, CV downloads, Apps page Download / View project links, Projects "Download app" button, error page |
+| `src/routes.test.jsx` | every page renders with one `<h1>` (content service mocked with `src/test/fixtures.js`), redirects, external links open safely, CV downloads, Apps page download button, install steps, rich text and "Read more" link, Projects "Download app" button, error page |
 
 Tests never call Sanity. Content correctness (required fields, HTTPS URLs, link targets, alt text) is checked by the Studio's validation instead: `cd studio && npx sanity documents validate`.

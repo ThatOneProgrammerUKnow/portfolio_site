@@ -56,7 +56,7 @@ export const project = defineType({
       title: 'Download link',
       type: 'url',
       group: 'card',
-      description: 'Set this when people can download and use the app. The project then appears on the Apps page.',
+      description: 'Set this when people can download and use the app. Used by the Apps page (when it is the chosen app) and the "Download app" buttons on the Projects page.',
       validation: (rule) => rule.uri({ scheme: ['https'] }),
     }),
 
