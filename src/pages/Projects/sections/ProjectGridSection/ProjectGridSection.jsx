@@ -2,7 +2,7 @@ import { Download } from 'lucide-react';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
 import Reveal from '../../../../components/Reveal/Reveal';
-import { appsHref, joinMeta } from '../../../../utils/links';
+import { myProductsHref, joinMeta } from '../../../../utils/links';
 import './ProjectGridSection.css';
 
 export default function ProjectGridSection({ projects, downloadLabel }) {
@@ -18,7 +18,7 @@ export default function ProjectGridSection({ projects, downloadLabel }) {
               <p className="muted">{project.summary}</p>
               <p className="mono muted project-card__stack">{joinMeta(project.stack)}</p>
               {project.downloadUrl && (
-                <ButtonLink variant="secondary" size="sm" to={appsHref(project.slug)} icon={Download} className="project-card__download">
+                <ButtonLink variant="secondary" size="sm" to={myProductsHref(project.slug)} icon={Download} className="project-card__download">
                   {downloadLabel}
                   {' '}
                   <span className="visually-hidden">{project.title}</span>

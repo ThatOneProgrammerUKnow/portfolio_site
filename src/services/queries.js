@@ -101,7 +101,7 @@ const richText = `[_type == "block"]{
 }`;
 
 /** The "My products" page: one app (a project), its install guide, beta notes and roadmap. */
-export const APPS_QUERY = `*[_id == "appsPage"][0]{
+export const MY_PRODUCTS_QUERY = `*[_id == "appsPage"][0]{
   pageTitle,
   "app": app->{ "slug": slug.current, title, downloadUrl, "to": ${projectHref} },
   header { badge, title, lead },

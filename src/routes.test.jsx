@@ -12,7 +12,7 @@ beforeEach(() => {
   vi.mocked(content.getHomePage).mockResolvedValue(fixtures.home);
   vi.mocked(content.getAboutPage).mockResolvedValue(fixtures.about);
   vi.mocked(content.getProjectsPage).mockResolvedValue(fixtures.projectsPage);
-  vi.mocked(content.getAppsPage).mockResolvedValue(fixtures.apps);
+  vi.mocked(content.getMyProductsPage).mockResolvedValue(fixtures.myProducts);
   vi.mocked(content.getContactPage).mockResolvedValue(fixtures.contact);
   vi.mocked(content.getProjectDetail).mockImplementation(async (slug) =>
     slug === fixtures.projectDetail.project.slug ? fixtures.projectDetail : null,
@@ -35,7 +35,7 @@ describe('routes', () => {
     ['/about', /^About title\.$/],
     ['/projects', /^Projects title\.$/],
     ['/projects/alpha', /^Alpha$/],
-    ['/apps', /^Apps title\.$/],
+    ['/my-products', /^My products title\.$/],
     ['/contact', /^Contact title\.$/],
   ])('%s renders its page with exactly one h1', async (path, heading) => {
     renderAt(path);
@@ -55,6 +55,13 @@ describe('routes', () => {
     const router = renderAt('/projects/beta');
     await findH1();
     expect(router.state.location.pathname).toBe('/projects');
+  });
+
+  it('redirects the old /apps URL (and its #slug) to /my-products', async () => {
+    const router = renderAt('/apps#alpha');
+    await findH1();
+    expect(router.state.location.pathname).toBe('/my-products');
+    expect(router.state.location.hash).toBe('#alpha');
   });
 
   it('home lists the selected projects as links', async () => {
@@ -87,18 +94,18 @@ describe('routes', () => {
     expect(cv).not.toHaveAttribute('target');
   });
 
-  it('projects with a download link get a Download app button to the Apps page', async () => {
+  it('projects with a download link get a Download app button to My products', async () => {
     renderAt('/projects');
     await findH1();
     const buttons = screen.getAllByRole('link', { name: /download app/i });
     expect(buttons).toHaveLength(1); // only Alpha has a download link
-    expect(buttons[0]).toHaveAttribute('href', '/apps#alpha');
+    expect(buttons[0]).toHaveAttribute('href', '/my-products#alpha');
   });
 
-  it('apps page: download button, numbered steps, rich text and link to the project', async () => {
-    renderAt('/apps');
+  it('my products page: download button, numbered steps, rich text and link to the project', async () => {
+    renderAt('/my-products');
     await findH1();
-    const { app, card } = fixtures.apps;
+    const { app, card } = fixtures.myProducts;
     const section = document.getElementById(app.slug); // target of the Projects "Download app" button
     const download = within(section).getByRole('link', { name: card.downloadLabel });
     expect(download).toHaveAttribute('href', app.downloadUrl);
@@ -106,7 +113,7 @@ describe('routes', () => {
     expect(within(section).getAllByRole('heading', { level: 3 })).toHaveLength(2);
     expect(within(section).getByText('Download', { selector: 'strong' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'me' })).toHaveAttribute('href', 'mailto:test@example.com');
-    expect(screen.getByRole('link', { name: new RegExp(fixtures.apps.more.label) })).toHaveAttribute('href', app.to);
+    expect(screen.getByRole('link', { name: new RegExp(fixtures.myProducts.more.label) })).toHaveAttribute('href', app.to);
     expect(document.title).toMatch(/^My products · /);
   });
 

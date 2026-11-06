@@ -26,9 +26,9 @@ export function isSafeHref(href = '') {
   return /^(https:\/\/|mailto:)/i.test(href);
 }
 
-/** Where a project's "Download app" button points: its card on the Apps page. */
-export function appsHref(slug) {
-  return `/apps#${slug}`;
+/** Where a project's "Download app" button points: its install section on My products. */
+export function myProductsHref(slug) {
+  return `/my-products#${slug}`;
 }
 
 export function joinMeta(items) {

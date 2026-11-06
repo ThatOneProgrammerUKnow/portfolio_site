@@ -224,3 +224,19 @@ Waiting for approval:
 - `public/fundsviewer-icon-coin-lens-money.svg` can be deleted once uploaded to Sanity (not committed).
 - **Design**: no phone design for this page (adapted as described in design.md).
 Next: run the content script, merge, deploy Studio, clean up old fields.
+
+## 2026-11-06: M-18 (fix live My products page, rename Apps → My products)
+Done:
+- Found why the live `/apps` showed "This page couldn't load": M-17 was merged and deployed, but its Sanity content was never written (the write was blocked by the permission check), so the new fields (`header`, `card`, …) were missing. Fix = run the content script (see Waiting).
+- Renamed the page: route `/apps` → **`/my-products`** (old `/apps` and `/apps#slug` redirect, keeping the `#slug`), `src/pages/Apps` → `src/pages/MyProducts`, `AppsHeroSection` → `MyProductsHeroSection` (`.my-products-hero`), `getAppsPage`/`APPS_QUERY` → `getMyProductsPage`/`MY_PRODUCTS_QUERY`, `appsHref` → `myProductsHref`. Studio shows **My products page**.
+- Removed the hidden old Apps-list fields from the schema (no deployed code reads them any more).
+- Tests: 44 pass (new: `/apps#alpha` → `/my-products#alpha`). `npm run build` passes. `sanity schema validate`: 0 errors.
+- Fixed leftover old Apps-list text in docs/pages.md.
+Decisions (and why):
+- Sanity document type/ID stay `appsPage`: they're internal and renaming means migrating the document; only the Studio title changed (same as `project-budget-tracker`).
+- Client-side redirect from `/apps` so the current menu item, old links and bookmarks keep working.
+Files created / changed: src/pages/MyProducts/** (moved from Apps), src/routes.jsx, src/routes.test.jsx, src/services/{content.js, queries.js}, src/utils/links.js, src/test/fixtures.js, Projects FeaturedProjectSection + ProjectGridSection, studio/schemaTypes/documents/{appsPage.js, project.js, projectsPage.js}, design/design.md, docs/*
+Waiting for approval:
+- **Run the content script now (fixes the live page)**: `cd studio && npx sanity exec tmp-apps-content.js --with-user-token -- ../public/fundsviewer-icon-coin-lens-money.svg backup-apps.json` (writes the page content + icon, badge "My Products · Beta release", unsets the old fields, sets the direct APK download link). Then delete `tmp-apps-content.js`, the backup file and `public/fundsviewer-icon-coin-lens-money.svg`.
+- After merging `main-dev` → `main`: Studio → Site settings → Menu → My products: path `/apps` → `/my-products` (until then `/apps` keeps working via the redirect on the new code, and is the only URL the live code knows). Deploy the Studio (`cd studio && npm run deploy`).
+Next: as above.

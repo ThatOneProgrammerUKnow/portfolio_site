@@ -1,15 +1,21 @@
-import { Navigate, redirect } from 'react-router';
+import { Navigate, redirect, useLocation } from 'react-router';
 import Layout from './components/Layout/Layout';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 import {
   getAboutPage,
-  getAppsPage,
   getContactPage,
   getHomePage,
+  getMyProductsPage,
   getProjectDetail,
   getProjectsPage,
   getSite,
 } from './services/content';
+
+/** Old /apps URL (incl. #slug from the Projects page) → /my-products. */
+function AppsRedirect() {
+  const { hash } = useLocation();
+  return <Navigate to={`/my-products${hash}`} replace />;
+}
 
 const page = (load) => async () => ({ Component: (await load()).default });
 
@@ -37,7 +43,8 @@ export const routes = [
           (await getProjectDetail(params.slug, { signal: request.signal })) ?? redirect('/projects'),
         lazy: page(() => import('./pages/ProjectDetail/ProjectDetail')),
       },
-      { path: 'apps', loader: withSignal(getAppsPage), lazy: page(() => import('./pages/Apps/Apps')) },
+      { path: 'my-products', loader: withSignal(getMyProductsPage), lazy: page(() => import('./pages/MyProducts/MyProducts')) },
+      { path: 'apps', Component: AppsRedirect },
       { path: 'contact', loader: withSignal(getContactPage), lazy: page(() => import('./pages/Contact/Contact')) },
       // No 404 design yet: send unknown URLs home (see docs/progress.md).
       { path: '*', element: <Navigate to="/" replace /> },

@@ -132,7 +132,7 @@ import { ArrowRight } from 'lucide-react';
 
 ## Badge
 
-[src/components/Badge/Badge.jsx](../src/components/Badge/Badge.jsx). White pill with a blue dot and a mono label, above the H1 on Home and the Apps page.
+[src/components/Badge/Badge.jsx](../src/components/Badge/Badge.jsx). White pill with a blue dot and a mono label, above the H1 on Home and My products.
 
 ```jsx
 <Badge>{content.badge}</Badge>

@@ -134,10 +134,10 @@ const block = (key, ...spans) => ({
   markDefs: [{ _key: 'mail', _type: 'link', href: 'mailto:test@example.com' }],
 });
 
-export const apps = {
+export const myProducts = {
   pageTitle: 'My products',
   app: { slug: 'alpha', title: 'Alpha', downloadUrl: 'https://example.com/alpha.apk', to: '/projects/alpha' },
-  header: { badge: 'Apps · Beta', title: { before: 'Apps ', highlight: 'title.' }, lead: 'Apps lead.' },
+  header: { badge: 'My Products · Beta', title: { before: 'My products ', highlight: 'title.' }, lead: 'My products lead.' },
   card: { icon: placeholder('[icon]'), tagline: 'Alpha tagline.', downloadLabel: 'Download alpha.apk', note: 'Android only.' },
   install: {
     title: 'How to install it',
