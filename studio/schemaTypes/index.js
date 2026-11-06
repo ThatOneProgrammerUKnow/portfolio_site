@@ -2,6 +2,7 @@ import { aboutPage } from './documents/aboutPage.js';
 import { appsPage } from './documents/appsPage.js';
 import { contactPage } from './documents/contactPage.js';
 import { homePage } from './documents/homePage.js';
+import { privacyPolicy } from './documents/privacyPolicy.js';
 import { project } from './documents/project.js';
 import { projectsPage } from './documents/projectsPage.js';
 import { siteSettings } from './documents/siteSettings.js';
@@ -22,6 +23,7 @@ export const schemaTypes = [
   appsPage,
   contactPage,
   project,
+  privacyPolicy,
   // objects
   accentTitle,
   imageWithAlt,

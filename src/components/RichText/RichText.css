@@ -7,3 +7,10 @@
   font-weight: 600;
   color: var(--text);
 }
+
+.rich-text ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 22px;
+}

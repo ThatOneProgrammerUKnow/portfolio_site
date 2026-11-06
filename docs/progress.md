@@ -240,3 +240,21 @@ Waiting for approval:
 - **Run the content script now (fixes the live page)**: `cd studio && npx sanity exec tmp-apps-content.js --with-user-token -- ../public/fundsviewer-icon-coin-lens-money.svg backup-apps.json` (writes the page content + icon, badge "My Products · Beta release", unsets the old fields, sets the direct APK download link). Then delete `tmp-apps-content.js`, the backup file and `public/fundsviewer-icon-coin-lens-money.svg`.
 - After merging `main-dev` → `main`: Studio → Site settings → Menu → My products: path `/apps` → `/my-products` (until then `/apps` keeps working via the redirect on the new code, and is the only URL the live code knows). Deploy the Studio (`cd studio && npm run deploy`).
 Next: as above.
+
+## 2026-11-06: M-19 (Funds Viewer privacy policy page)
+Done:
+- New page `/my-products/:app/privacy-policy`; live content at **`/my-products/fundsviewer/privacy-policy`** once merged (Funds Viewer policy v0.3, 6 November 2026).
+- New Sanity type **Privacy policy** (eyebrow, title, URL name, version, last updated + label, sections of heading + rich text). Document `privacyPolicy-fundsviewer` created in Sanity (safe before merging: the live code doesn't query it). Checked via the public API: 6 sections, 2 bullets.
+- `richText` now supports bullet lists; `RichText` groups them into `<ul>`. New `utils/dates.js` (`formatDate`).
+- Tests: 49 pass (new: policy page, unknown-app redirect, bullet lists, date formatting). `npm run build` passes. `sanity schema validate`: 0 errors.
+Decisions (and why):
+- Published only the policy itself: the intro note (requirements R3/P8, source file) and the change log are internal and left out.
+- Kept the name "Funds Viewer" as in the pasted policy (the site calls the app "Funds View").
+- Not linked from anywhere yet (not asked); it's for the app stores / the app.
+- No approved design: built from existing styles (user asked for the page directly); described in design.md.
+Files created / changed: src/pages/PrivacyPolicy/** (new), src/utils/dates.js (new), src/components/RichText/{RichText.jsx, RichText.css, RichText.test.jsx}, src/routes.jsx, src/routes.test.jsx, src/services/{content.js, queries.js}, src/test/fixtures.js, src/utils/utils.test.js, studio/schemaTypes/{documents/privacyPolicy.js (new), objects/richText.js, index.js}, design/design.md, docs/*
+Waiting for approval:
+- **Still open from M-18: the My products page content isn't in Sanity, so the live page still fails.** Run `cd studio && npx sanity exec tmp-apps-content.js --with-user-token -- ../public/fundsviewer-icon-coin-lens-money.svg backup-apps.json`.
+- Merge `main-dev` → `main`, deploy the Studio (adds the Privacy policy type), then menu path `/apps` → `/my-products`.
+- Maybe: link the policy from the My products page (e.g. under the download note) — say if wanted.
+Next: as above.

@@ -12,6 +12,7 @@ Text placeholders like `[Your photo: ...]` mean an image is still to come.
 | Project detail (template) | `project-budget-tracker-desktop.png` | `/projects/funds-view` (app renamed from Budget Tracker) |
 | My products | `2026-11-05/My Products.png` | `/my-products` |
 | Contact | `contact-desktop.png` | `/contact` |
+| Privacy policy (no PNG) | built from the site styles: eyebrow, H2-size H1, mono date line, one white card (radius 32px, padding 48px, max 760px text) with 24px section headings | `/my-products/:app/privacy-policy` |
 | Orb navigation (open) | `orb-nav-open.png` | all pages |
 
 Mobile designs are not done yet: adapt sensibly (stack columns, keep spacing scale) and list decisions in `progress.md`.

@@ -6,6 +6,7 @@ import {
   getContactPage,
   getHomePage,
   getMyProductsPage,
+  getPrivacyPolicy,
   getProjectDetail,
   getProjectsPage,
   getSite,
@@ -44,6 +45,12 @@ export const routes = [
         lazy: page(() => import('./pages/ProjectDetail/ProjectDetail')),
       },
       { path: 'my-products', loader: withSignal(getMyProductsPage), lazy: page(() => import('./pages/MyProducts/MyProducts')) },
+      {
+        path: 'my-products/:app/privacy-policy',
+        loader: async ({ params, request }) =>
+          (await getPrivacyPolicy(params.app, { signal: request.signal })) ?? redirect('/my-products'),
+        lazy: page(() => import('./pages/PrivacyPolicy/PrivacyPolicy')),
+      },
       { path: 'apps', Component: AppsRedirect },
       { path: 'contact', loader: withSignal(getContactPage), lazy: page(() => import('./pages/Contact/Contact')) },
       // No 404 design yet: send unknown URLs home (see docs/progress.md).

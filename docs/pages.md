@@ -96,6 +96,25 @@ Notes:
 
 ---
 
+## Privacy policy: `/my-products/:app/privacy-policy`
+
+Page: [src/pages/PrivacyPolicy/PrivacyPolicy.jsx](../src/pages/PrivacyPolicy/PrivacyPolicy.jsx) · Content: Studio → **Privacy policy** (one document per app; `:app` = its **URL name**) · Design: none (built by Claude from the site's styles, see design.md)
+
+Live: `/my-products/fundsviewer/privacy-policy` (Funds Viewer, v0.3). This is the URL to give Google Play.
+
+| # | Section | Field | Classes | What it is |
+|---|---|---|---|---|
+| 1 | `PolicyHeroSection` | `eyebrow`, `title`, `lastUpdatedLabel`, `lastUpdated`, `version` | `.policy-hero`, `__inner`, `__title`, `__date` | Eyebrow, H1, "Last updated: 6 November 2026 · v0.3" |
+| 2 | `PolicyContentSection` | `sections` | `.policy-content`, `__inner`, `__card`, `__section`, `__heading`, `__text` | One white card; an H2 + rich text (paragraphs, bullets, bold, links) per section |
+
+Notes:
+- The text must match the policy inside the app. When the app's policy changes, update the sections, **Version** and **Last updated** here too.
+- An unknown app in the URL redirects to `/my-products`.
+- The date is a Sanity date, shown as "6 November 2026" (`utils/dates.js`, time-zone safe).
+- Text column max 760px for readability.
+
+---
+
 ## Project detail: `/projects/:slug`
 
 Page: [src/pages/ProjectDetail/ProjectDetail.jsx](../src/pages/ProjectDetail/ProjectDetail.jsx) · Content: the project's **Case study** tab (+ back/next labels from **Projects page**) · Design: `design/project-budget-tracker-desktop.png` (Funds View, formerly Budget Tracker)

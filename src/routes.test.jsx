@@ -14,6 +14,9 @@ beforeEach(() => {
   vi.mocked(content.getProjectsPage).mockResolvedValue(fixtures.projectsPage);
   vi.mocked(content.getMyProductsPage).mockResolvedValue(fixtures.myProducts);
   vi.mocked(content.getContactPage).mockResolvedValue(fixtures.contact);
+  vi.mocked(content.getPrivacyPolicy).mockImplementation(async (slug) =>
+    slug === 'alpha' ? fixtures.privacyPolicy : null,
+  );
   vi.mocked(content.getProjectDetail).mockImplementation(async (slug) =>
     slug === fixtures.projectDetail.project.slug ? fixtures.projectDetail : null,
   );
@@ -36,6 +39,7 @@ describe('routes', () => {
     ['/projects', /^Projects title\.$/],
     ['/projects/alpha', /^Alpha$/],
     ['/my-products', /^My products title\.$/],
+    ['/my-products/alpha/privacy-policy', /^Alpha Privacy Policy$/],
     ['/contact', /^Contact title\.$/],
   ])('%s renders its page with exactly one h1', async (path, heading) => {
     renderAt(path);
@@ -62,6 +66,21 @@ describe('routes', () => {
     await findH1();
     expect(router.state.location.pathname).toBe('/my-products');
     expect(router.state.location.hash).toBe('#alpha');
+  });
+
+  it('redirects a privacy policy URL for an unknown app to My products', async () => {
+    const router = renderAt('/my-products/nope/privacy-policy');
+    await findH1();
+    expect(router.state.location.pathname).toBe('/my-products');
+  });
+
+  it('privacy policy shows the date, version and one heading per section', async () => {
+    renderAt('/my-products/alpha/privacy-policy');
+    await findH1();
+    expect(screen.getByText('6 November 2026')).toHaveAttribute('datetime', '2026-11-06');
+    expect(screen.getByText(/v1\.0/)).toBeInTheDocument();
+    expect(screen.getAllByRole('heading', { level: 2 }).map((h) => h.textContent)).toEqual(['Your data', 'Your rights']);
+    expect(document.title).toMatch(/^Alpha Privacy Policy · /);
   });
 
   it('home lists the selected projects as links', async () => {

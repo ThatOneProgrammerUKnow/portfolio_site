@@ -164,6 +164,18 @@ export const myProducts = {
   more: { eyebrow: 'Behind the app', label: 'Read more about Alpha' },
 };
 
+export const privacyPolicy = {
+  eyebrow: 'Alpha',
+  title: 'Alpha Privacy Policy',
+  version: 'v1.0',
+  lastUpdated: '2026-11-06',
+  lastUpdatedLabel: 'Last updated',
+  sections: [
+    { _key: 'p1', heading: 'Your data', text: [block('pb1', ['Stays on your phone.'])] },
+    { _key: 'p2', heading: 'Your rights', text: [block('pb2', ['Email '], ['me', ['mail']], ['.'])] },
+  ],
+};
+
 export const projectDetail = { backLink: 'All projects', nextLabel: 'Next project', project: caseStudy };
 
 export const contact = {

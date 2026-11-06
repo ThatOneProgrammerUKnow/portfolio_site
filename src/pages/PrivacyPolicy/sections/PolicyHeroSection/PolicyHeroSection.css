@@ -1,0 +1,16 @@
+.policy-hero {
+  padding-bottom: 48px;
+}
+
+/* Readable line length for long text */
+.policy-hero__inner {
+  max-width: calc(760px + 2 * var(--gutter));
+}
+
+.policy-hero__title {
+  margin-top: 20px;
+}
+
+.policy-hero__date {
+  margin-top: 20px;
+}

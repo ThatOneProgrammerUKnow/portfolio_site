@@ -142,13 +142,13 @@ import { ArrowRight } from 'lucide-react';
 
 ## RichText
 
-[src/components/RichText/RichText.jsx](../src/components/RichText/RichText.jsx). Renders a Sanity `richText` field (Portable Text) as `<p>`s. Only **bold** and links are supported, matching the Studio editor. Links go through `SmartLink` (external → new tab, safe `rel`) and only `https:` / `mailto:` URLs become links (`isSafeHref`); anything else renders as plain text. It builds React elements, never HTML strings.
+[src/components/RichText/RichText.jsx](../src/components/RichText/RichText.jsx). Renders a Sanity `richText` field (Portable Text) as `<p>`s, with consecutive bullet blocks grouped into one `<ul>`. Only paragraphs, bullet lists, **bold** and links are supported, matching the Studio editor. Links go through `SmartLink` (external → new tab, safe `rel`) and only `https:` / `mailto:` URLs become links (`isSafeHref`); anything else renders as plain text. It builds React elements, never HTML strings.
 
 ```jsx
 <RichText blocks={step.text} className="muted" />
 ```
 
-The query must project the field with the `richText` fragment in `queries.js` (`_key`, `children { text, marks }`, `markDefs { href }`).
+The query must project the field with the `richText` fragment in `queries.js` (`_key`, `listItem`, `children { text, marks }`, `markDefs { href }`).
 
 ---
 
@@ -223,6 +223,7 @@ React 19 moves `<title>` and `<meta>` into `<head>` automatically.
 | `isSafeHref(href)` | `links.js` | `https:` or `mailto:` only; used by `RichText` |
 | `joinMeta(["a", "b"])` | `links.js` | → `"a · b"` (all the mono meta lines) |
 | `orbCurveOffset(i, n)` | `orbCurve.js` | x-offset for each open menu pill |
+| `formatDate("2026-11-06")` | `dates.js` | → "6 November 2026" (no time-zone shift) |
 | `imageUrl(src, width)` | `images.js` | Sanity CDN URL at 2× `width`, WebP/AVIF (`auto=format`); other URLs unchanged |
 
 ## Hook: `useSite`

@@ -23,7 +23,7 @@ studio/
       accentTitle.js        { before, highlight, after } headline
       link.js               { label, to | linkKey }, exactly one target
       imageWithAlt.js       image + alt (required once an image is uploaded) + placeholder
-      richText.js           short rich text: paragraphs with bold + links (https / mailto)
+      richText.js           short rich text: paragraphs + bullet lists with bold + links (https / mailto)
     documents/
       siteSettings.js       name, email, shared links, CV, menu, footer   (singleton)
       homePage.js           (singleton)
@@ -32,6 +32,7 @@ studio/
       appsPage.js           My products page: chosen app + all its copy (singleton; type/ID stay `appsPage`)
       contactPage.js        (singleton)
       project.js            one document per project, ordered by `order`
+      privacyPolicy.js      one app's privacy policy (/my-products/<slug>/privacy-policy)
 ```
 
 Singleton document IDs equal their type name (`siteSettings`, `homePage`, …); that's what `document.singletons: ['homePage', …]` uses. Projects have IDs like `project-brighthire`. (Funds View keeps its original ID `project-budget-tracker`: IDs are internal and can't be renamed; only its title and slug changed.)

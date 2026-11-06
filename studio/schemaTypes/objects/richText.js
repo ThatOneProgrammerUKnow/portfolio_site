@@ -1,4 +1,4 @@
-// Short rich text: paragraphs with **bold** and links only (no headings, lists or images).
+// Short rich text: paragraphs and bullet lists with **bold** and links (no headings or images).
 // Rendered on the site by src/components/RichText (no HTML strings, no extra library).
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
@@ -10,7 +10,7 @@ export const richText = defineType({
     defineArrayMember({
       type: 'block',
       styles: [{ title: 'Normal', value: 'normal' }],
-      lists: [],
+      lists: [{ title: 'Bullet', value: 'bullet' }],
       marks: {
         decorators: [{ title: 'Bold', value: 'strong' }],
         annotations: [
