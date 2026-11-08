@@ -92,4 +92,4 @@ Simple 24px stroke icons (2px stroke, round caps): arrow-right, arrow-up-right, 
 
 ## Images still needed
 
-Professional portrait (hero), casual photo (about), photo with girlfriend, music, coffee, hiking/camping, 3D printing, books, plus project screenshots (Funds View ×3, Brighthire, WEG, VSI Sales, Smart Assistant).
+Professional portrait (hero), casual photo (about), photo with girlfriend, music, coffee, hiking/camping, 3D printing, books, plus project screenshots (Funds Viewer ×3, Brighthire, WEG, VSI Sales, Smart Assistant).

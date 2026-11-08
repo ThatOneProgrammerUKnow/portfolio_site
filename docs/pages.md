@@ -76,15 +76,15 @@ Notes:
 
 Page: [src/pages/MyProducts/MyProducts.jsx](../src/pages/MyProducts/MyProducts.jsx) · Content: Studio → **My products page** (+ the **Project** picked under **App**) · Design: `design/2026-11-05/My Products.png`
 
-One app in beta (Funds View): how to download and install it, what beta means, and what comes next.
+One app in beta (Funds Viewer): how to download and install it, what beta means, and what comes next.
 
 | # | Section | Field | Classes | What it is |
 |---|---|---|---|---|
-| 1 | `MyProductsHeroSection` | `header` | `.my-products-hero`, `__title`, `__lead` | Badge pill ("My Products · Beta release"), H1 "Funds View is in beta.", lead |
+| 1 | `MyProductsHeroSection` | `header` | `.my-products-hero`, `__title`, `__lead` | Badge pill ("My Products · Beta release"), H1 "Funds Viewer is in beta.", lead |
 | 2 | `InstallSection` | `app`, `card`, `install` | `.install`, `__inner`, `__card`, `__icon`, `__app-title`, `__tagline`, `__download`, `__note`, `__guide`, `__title`, `__intro`, `__steps`, `__step`, `__number`, `__step-title`, `__step-text` | Blue app card (icon, name, tagline, white **Download** button, small print; sticky on desktop) next to numbered install steps in white cards |
 | 3 | `BetaSection` | `beta` | `.beta`, `__cards`, `__card`, `__card-title`, `__card-text` | Eyebrow + H2 "What “beta” means.", 2 white cards |
 | 4 | `RoadmapSection` | `roadmap` | `.roadmap`, `__panel`, `__intro`, `__list`, `__item`, `__item--now/next/later`, `__item-title` | Big white card: text left, timeline right (filled dot = now, blue ring = next, grey ring = later) |
-| 5 | `ReadMoreSection` | `more` + `app.to` | `.read-more`, `__card`, `__text`, `__eyebrow`, `__title`, `__arrow` | Blue link card "Read more about Funds View" → the case study |
+| 5 | `ReadMoreSection` | `more` + `app.to` | `.read-more`, `__card`, `__text`, `__eyebrow`, `__title`, `__arrow` | Blue link card "Read more about Funds Viewer" → the case study |
 
 Notes:
 - **App** is a reference to a Project: the page uses its **title**, **Download link** and case-study link (`/projects/<slug>`, or `/projects#<slug>` without one). Change the download URL on the project, not here.
@@ -117,7 +117,7 @@ Notes:
 
 ## Project detail: `/projects/:slug`
 
-Page: [src/pages/ProjectDetail/ProjectDetail.jsx](../src/pages/ProjectDetail/ProjectDetail.jsx) · Content: the project's **Case study** tab (+ back/next labels from **Projects page**) · Design: `design/project-budget-tracker-desktop.png` (Funds View, formerly Budget Tracker)
+Page: [src/pages/ProjectDetail/ProjectDetail.jsx](../src/pages/ProjectDetail/ProjectDetail.jsx) · Content: the project's **Case study** tab (+ back/next labels from **Projects page**) · Design: `design/project-budget-tracker-desktop.png` (Funds Viewer, formerly Budget Tracker)
 
 This is a **template**: one page component serves any project. The route loader in `routes.jsx` calls `getProjectDetail(slug)` (`src/services/content.js`). If the project doesn't exist **or has "Has a case study page" switched off**, the loader redirects to `/projects`. Today only `funds-view` has one (the old `/projects/budget-tracker` URL now redirects to `/projects`).
 

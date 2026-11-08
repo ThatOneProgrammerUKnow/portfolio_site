@@ -258,3 +258,14 @@ Waiting for approval:
 - Merge `main-dev` → `main`, deploy the Studio (adds the Privacy policy type), then menu path `/apps` → `/my-products`.
 - Maybe: link the policy from the My products page (e.g. under the download note) — say if wanted.
 Next: as above.
+
+## 2026-11-08: content (Funds View → Funds Viewer)
+Done:
+- Sanity (live now): "Funds View" → "Funds Viewer" in Project title + case-study goal, Home (How I work step 2, Right now) and About (OrbTech role). Backup of the 3 documents from before the change is in the session scratchpad. Checked via the public API.
+- The pending My products content script (`studio/tmp-apps-content.js`) now says "Funds Viewer" too (H1, step 5, read-more link, icon alt).
+- Docs/design.md updated.
+Decisions (and why):
+- Slug stays `funds-view` and the Sanity ID stays `project-budget-tracker`: changing the slug would change `/projects/funds-view`. Say if the URL should change too.
+Files created / changed: design/design.md, docs/{content-and-images.md, pages.md, sanity.md, progress.md}
+Waiting for approval: run `tmp-apps-content.js` (My products page content; the live page still fails without it).
+Next: as before.

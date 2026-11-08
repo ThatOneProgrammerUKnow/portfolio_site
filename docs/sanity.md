@@ -35,7 +35,7 @@ studio/
       privacyPolicy.js      one app's privacy policy (/my-products/<slug>/privacy-policy)
 ```
 
-Singleton document IDs equal their type name (`siteSettings`, `homePage`, …); that's what `document.singletons: ['homePage', …]` uses. Projects have IDs like `project-brighthire`. (Funds View keeps its original ID `project-budget-tracker`: IDs are internal and can't be renamed; only its title and slug changed.)
+Singleton document IDs equal their type name (`siteSettings`, `homePage`, …); that's what `document.singletons: ['homePage', …]` uses. Projects have IDs like `project-brighthire`. (Funds Viewer keeps its original ID `project-budget-tracker`: IDs are internal and can't be renamed; only its title and slug changed.)
 
 ## Front-end files
 
