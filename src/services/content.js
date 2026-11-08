@@ -3,9 +3,10 @@
 import { sanityQuery } from './sanity';
 import {
   ABOUT_QUERY,
-  APPS_QUERY,
   CONTACT_QUERY,
   HOME_QUERY,
+  MY_PRODUCTS_QUERY,
+  PRIVACY_POLICY_QUERY,
   PROJECT_DETAIL_QUERY,
   PROJECTS_QUERY,
   SITE_QUERY,
@@ -22,8 +23,11 @@ export const getSite = (options) => getRequired(SITE_QUERY, 'Site settings', opt
 export const getHomePage = (options) => getRequired(HOME_QUERY, 'Home page', options);
 export const getAboutPage = (options) => getRequired(ABOUT_QUERY, 'About page', options);
 export const getProjectsPage = (options) => getRequired(PROJECTS_QUERY, 'Projects page', options);
-export const getAppsPage = (options) => getRequired(APPS_QUERY, 'Apps page', options);
+export const getMyProductsPage = (options) => getRequired(MY_PRODUCTS_QUERY, 'My products page', options);
 export const getContactPage = (options) => getRequired(CONTACT_QUERY, 'Contact page', options);
+
+/** An app's privacy policy, or null when there is none with that slug. */
+export const getPrivacyPolicy = (slug, options) => sanityQuery(PRIVACY_POLICY_QUERY, { slug }, options);
 
 /** Returns { backLink, nextLabel, project } or null when the project has no case study. */
 export async function getProjectDetail(slug, options) {

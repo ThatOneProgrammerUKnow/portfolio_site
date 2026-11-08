@@ -134,10 +134,10 @@ const block = (key, ...spans) => ({
   markDefs: [{ _key: 'mail', _type: 'link', href: 'mailto:test@example.com' }],
 });
 
-export const apps = {
+export const myProducts = {
   pageTitle: 'My products',
   app: { slug: 'alpha', title: 'Alpha', downloadUrl: 'https://example.com/alpha.apk', to: '/projects/alpha' },
-  header: { badge: 'Apps · Beta', title: { before: 'Apps ', highlight: 'title.' }, lead: 'Apps lead.' },
+  header: { badge: 'My Products · Beta', title: { before: 'My products ', highlight: 'title.' }, lead: 'My products lead.' },
   card: { icon: placeholder('[icon]'), tagline: 'Alpha tagline.', downloadLabel: 'Download alpha.apk', note: 'Android only.' },
   install: {
     title: 'How to install it',
@@ -162,6 +162,18 @@ export const apps = {
     ],
   },
   more: { eyebrow: 'Behind the app', label: 'Read more about Alpha' },
+};
+
+export const privacyPolicy = {
+  eyebrow: 'Alpha',
+  title: 'Alpha Privacy Policy',
+  version: 'v1.0',
+  lastUpdated: '2026-11-06',
+  lastUpdatedLabel: 'Last updated',
+  sections: [
+    { _key: 'p1', heading: 'Your data', text: [block('pb1', ['Stays on your phone.'])] },
+    { _key: 'p2', heading: 'Your rights', text: [block('pb2', ['Email '], ['me', ['mail']], ['.'])] },
+  ],
 };
 
 export const projectDetail = { backLink: 'All projects', nextLabel: 'Next project', project: caseStudy };

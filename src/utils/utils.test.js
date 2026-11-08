@@ -1,8 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { getSiteLink, isDownload, isExternal, isSafeHref, joinMeta, resolveLink } from './links';
 import { imageUrl } from './images';
+import { formatDate } from './dates';
 import { orbCurveOffset } from './orbCurve';
 import { site } from '../test/fixtures';
+
+describe('dates', () => {
+  it('formats a Sanity date as "6 November 2026" whatever the time zone', () => {
+    expect(formatDate('2026-11-06')).toBe('6 November 2026');
+    expect(formatDate('2026-01-31')).toBe('31 January 2026');
+  });
+});
 
 describe('links', () => {
   it('detects external, download and mailto links', () => {

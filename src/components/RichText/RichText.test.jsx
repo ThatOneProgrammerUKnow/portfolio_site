@@ -18,6 +18,14 @@ describe('RichText', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
+  it('groups consecutive bullet blocks into one list', () => {
+    const bullet = (key, text) => ({ ...block([[text]]), _key: key, listItem: 'bullet' });
+    render(<RichText blocks={[{ ...block([['Intro']]), _key: 'p' }, bullet('a', 'One'), bullet('b', 'Two')]} />);
+    expect(screen.getAllByRole('list')).toHaveLength(1);
+    expect(screen.getAllByRole('listitem').map((li) => li.textContent)).toEqual(['One', 'Two']);
+    expect(screen.getByText('Intro').closest('p')).toBeInTheDocument();
+  });
+
   it('renders unsafe or unknown links as plain text', () => {
     const markDefs = [{ _key: 'x', _type: 'link', href: 'javascript:alert(1)' }];
     render(<RichText blocks={[block([['click', ['x']], [' here', ['missing']]], markDefs)]} />);

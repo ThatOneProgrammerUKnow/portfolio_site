@@ -64,9 +64,9 @@ Images are cropped to fill their slot (`object-fit: cover`), never stretched. If
 | Home | project rows | Home page → Selected work → Projects → (row) → Image | 150 × 112 (full width on phones) | 600 × 450 (4:3) | `.project-row__image` |
 | About | arch photo (hero) | About page → Hero → Photo | arch, 340 × 420 | **680 × 840** (portrait) | `.about-hero__photo` |
 | About | Beyond code tiles (6), *section hidden for now* | About page → Beyond code → Items → (item) → Image | 380 × 300 | 760 × 600 | `.beyond-code__image` |
-| Projects | featured phones (2) | Project "Funds View" → Card → Images (1–2) | phone, 160 × 340 | 320 × 680 (app screenshot) | `.featured-project__phone` |
+| Projects | featured phones (2) | Project "Funds Viewer" → Card → Images (1–2) | phone, 160 × 340 | 320 × 680 (app screenshot) | `.featured-project__phone` |
 | Projects | grid cards | Project → Card → Images (first one) | 546 × 230 | 1100 × 460 | `.project-card__image` |
-| Funds View | case-study screens (3) | Project "Funds View" → Case study → Screens | phone, 210 × 410 | 420 × 820 | `.project-screens__phone` |
+| Funds Viewer | case-study screens (3) | Project "Funds Viewer" → Case study → Screens | phone, 210 × 410 | 420 × 820 | `.project-screens__phone` |
 
 Home's project rows and the Projects page cards are **separate** image fields. Upload the same image to both if you like.
 
@@ -81,8 +81,8 @@ In the Studio: **Project → + (create)**.
 - **Title**, then **Slug → Generate**. The slug becomes the card's anchor (`/projects#my-new-app`) and, with a case study, its URL. It must be unique.
 - **Order**: lower numbers show first in the grid.
 - **Meta** (e.g. "Personal", "2026", "On GitHub"), **Summary**, **Stack**, **Images**.
-- To feature it in the big blue panel instead, switch on **Featured** and fill in **Featured label**, and switch Featured off on Funds View. Only one project should be featured.
-- **Download link** (Card tab): set it when people can download and use the app. Its Projects-page card/panel then gets a small "Download app" button that links to `/apps#<slug>`, and if it is the app picked on **Apps page → App**, the big Download button there uses this URL. Must be `https://`. (The Apps page shows one app; to show a different one, change **Apps page → App** and its copy.)
+- To feature it in the big blue panel instead, switch on **Featured** and fill in **Featured label**, and switch Featured off on Funds Viewer. Only one project should be featured.
+- **Download link** (Card tab): set it when people can download and use the app. Its Projects-page card/panel then gets a small "Download app" button that links to `/my-products#<slug>`, and if it is the app picked on **My products page → App**, the big Download button there uses this URL. Must be `https://`. (My products shows one app; to show a different one, change **My products page → App** and its copy.)
 - To show it on Home as well, add a row under **Home page → Selected work → Projects** and pick the project.
 
 ## Add a case-study page

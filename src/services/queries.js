@@ -96,12 +96,13 @@ export const PROJECTS_QUERY = `*[_id == "projectsPage"][0]{
 /** Rich text (Portable Text): only the parts RichText renders. */
 const richText = `[_type == "block"]{
   _key,
+  listItem,
   "children": coalesce(children[]{ _key, text, "marks": coalesce(marks, []) }, []),
   "markDefs": coalesce(markDefs[]{ _key, _type, href }, [])
 }`;
 
 /** The "My products" page: one app (a project), its install guide, beta notes and roadmap. */
-export const APPS_QUERY = `*[_id == "appsPage"][0]{
+export const MY_PRODUCTS_QUERY = `*[_id == "appsPage"][0]{
   pageTitle,
   "app": app->{ "slug": slug.current, title, downloadUrl, "to": ${projectHref} },
   header { badge, title, lead },
@@ -110,6 +111,12 @@ export const APPS_QUERY = `*[_id == "appsPage"][0]{
   beta { eyebrow, title, "cards": coalesce(cards[]{ _key, title, "text": text${richText} }, []) },
   roadmap { eyebrow, title, text, "items": coalesce(items[]{ _key, label, title, status }, []) },
   more { eyebrow, label }
+}`;
+
+/** One app's privacy policy, by its URL name (slug). */
+export const PRIVACY_POLICY_QUERY = `*[_type == "privacyPolicy" && slug.current == $slug][0]{
+  eyebrow, title, version, lastUpdated, lastUpdatedLabel,
+  "sections": coalesce(sections[]{ _key, heading, "text": text${richText} }, [])
 }`;
 
 /** Labels from the Projects page + the one project, only if it has a case study. */

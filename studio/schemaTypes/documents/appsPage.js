@@ -1,4 +1,5 @@
-// Singleton: the "My products" page (/apps). One app, its install guide, what beta means,
+// Singleton: the "My products" page (/my-products). The document keeps its original
+// type and ID `appsPage` (internal only, like project-budget-tracker); only the title changed. One app, its install guide, what beta means,
 // the roadmap and a link to the project. The download link, app name and project link
 // come from the chosen Project (Project → Card → Download link).
 import { defineArrayMember, defineField, defineType } from 'sanity';
@@ -15,7 +16,7 @@ const ROADMAP_STATUS = [
 
 export const appsPage = defineType({
   name: 'appsPage',
-  title: 'Apps page',
+  title: 'My products page',
   type: 'document',
   fields: [
     requiredString('pageTitle', 'Browser tab title', { description: 'e.g. "My products"' }),
@@ -28,7 +29,7 @@ export const appsPage = defineType({
       validation: (rule) => rule.required(),
     }),
     section('header', 'Header', [
-      requiredString('badge', 'Badge', { description: 'e.g. "Apps · Beta release"' }),
+      requiredString('badge', 'Badge', { description: 'e.g. "My Products · Beta release"' }),
       defineField({ name: 'title', title: 'Title', type: 'accentTitle', validation: (rule) => rule.required() }),
       requiredText('lead', 'Lead'),
     ]),
@@ -101,16 +102,6 @@ export const appsPage = defineType({
       requiredString('eyebrow', 'Eyebrow'),
       requiredString('label', 'Link text'),
     ]),
-
-    // Old Apps-list fields: still read by the live site until main-dev is merged.
-    // TODO: remove (and unset in the document) once the new page is live.
-    defineField({ name: 'hero', type: 'object', hidden: true, fields: [
-      defineField({ name: 'eyebrow', type: 'string' }),
-      defineField({ name: 'title', type: 'accentTitle' }),
-      defineField({ name: 'lead', type: 'text' }),
-    ] }),
-    defineField({ name: 'downloadLabel', type: 'string', hidden: true }),
-    defineField({ name: 'viewProjectLabel', type: 'string', hidden: true }),
   ],
-  preview: { prepare: () => ({ title: 'Apps page' }) },
+  preview: { prepare: () => ({ title: 'My products page' }) },
 });

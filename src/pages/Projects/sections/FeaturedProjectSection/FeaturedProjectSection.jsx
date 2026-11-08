@@ -2,7 +2,7 @@ import { ArrowRight, Download } from 'lucide-react';
 import ButtonLink from '../../../../components/ButtonLink/ButtonLink';
 import ImageSlot from '../../../../components/ImageSlot/ImageSlot';
 import Reveal from '../../../../components/Reveal/Reveal';
-import { appsHref, joinMeta } from '../../../../utils/links';
+import { myProductsHref, joinMeta } from '../../../../utils/links';
 import './FeaturedProjectSection.css';
 
 export default function FeaturedProjectSection({ project, ctaLabel, downloadLabel }) {
@@ -23,7 +23,7 @@ export default function FeaturedProjectSection({ project, ctaLabel, downloadLabe
                   </ButtonLink>
                 )}
                 {project.downloadUrl && (
-                  <ButtonLink variant="secondary" size="sm" to={appsHref(project.slug)} icon={Download} className="featured-project__download">
+                  <ButtonLink variant="secondary" size="sm" to={myProductsHref(project.slug)} icon={Download} className="featured-project__download">
                     {downloadLabel}
                   </ButtonLink>
                 )}
