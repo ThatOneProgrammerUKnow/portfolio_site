@@ -269,3 +269,12 @@ Decisions (and why):
 Files created / changed: design/design.md, docs/{content-and-images.md, pages.md, sanity.md, progress.md}
 Waiting for approval: run `tmp-apps-content.js` (My products page content; the live page still fails without it).
 Next: as before.
+
+## 2026-11-09: content (My products live)
+Done:
+- User ran `tmp-apps-content.js`: My products page content, App icon (SVG), "Funds Viewer" text, direct APK download link and removal of the old Apps-list fields are in Sanity. Checked by running `MY_PRODUCTS_QUERY` against the live API: no empty fields; privacy policy query returns 6 sections.
+- Sanity → Site settings → Menu → My products: `/apps` → `/my-products` (live now).
+- Removed the one-off script and `public/fundsviewer-icon-coin-lens-money.svg` (the icon now lives in Sanity). Backup moved out of the repo.
+Files created / changed: docs/progress.md (content changes only in Sanity)
+Waiting for approval: deploy the Studio (`cd studio && npm run deploy`; blocked for Claude by the permission check) so the hosted Studio shows the My products page and Privacy policy editors.
+Next: maybe link the privacy policy from the My products page.
